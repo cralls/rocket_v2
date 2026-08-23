@@ -1,0 +1,66 @@
+<?php
+/** @var \VNS\Events\Block\Adminhtml\Event\Edit $block */
+$event = $block->getCurrentEvent();
+?>
+<div class="admin__page-section-item">
+    <div class="admin__page-section-item-title">
+        <span class="title"><?= $block->escapeHtml(__('Event Information')) ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <form id="add_form" action="<?= $block->escapeUrl($block->getUrl('events/event/save', ['_current' => true])) ?>" method="post" enctype="multipart/form-data">
+            <?= $block->getBlockHtml('formkey') ?>
+
+            <fieldset class="admin__fieldset">
+                <legend class="admin__fieldset-legent"><span><?= $block->escapeHtml(__('Event Information')) ?></span></legend>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="name"><?= $block->escapeHtml(__('Event Name')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="text" id="name" name="name" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="image_url"><?= $block->escapeHtml(__('Image URL')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="text" id="image_url" name="image_url" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="from_date"><?= $block->escapeHtml(__('Event Start Date')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="date" id="from_date" name="from_date" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="to_date"><?= $block->escapeHtml(__('Event End Date')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="date" id="to_date" name="to_date" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="location"><?= $block->escapeHtml(__('Event Location')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="text" id="location" name="location" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="age_range"><?= $block->escapeHtml(__('Age Range')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="text" id="age_range" name="age_range" class="input-text" required>
+                    </div>
+                </div>
+                <div class="admin__field">
+                    <label class="admin__field-label" for="type"><?= $block->escapeHtml(__('Event Type')) ?></label>
+                    <div class="admin__field-control">
+                        <input type="text" id="type" name="type" class="input-text" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit" class="action-primary scalable primary" title="<?= $block->escapeHtml(__('Save Event')) ?>">
+                    <span><?= $block->escapeHtml(__('Save Event')) ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * @author Tuanlv
+ * @copyright 2014
+ */
+?>
+<div class="dashboard">
+    <p class="switcher a-right">
+        <label for="store_switcher"><?php echo __('Date Range:') ?></label>
+        <select name="aff_report_range" id="aff_report_range">
+            <option value="1"><?php echo __('Last 24h')?></option>
+            <option value="2"><?php echo __('Last Week')?></option>
+            <option value="3"><?php echo __('Last Month')?></option>
+            <option value="4" selected="selected"><?php echo __('Last 7 days')?></option>
+            <option value="5"><?php echo __('Last 30 days')?></option>
+            <option value="7"><?php echo __('Custom')?></option>
+        </select>
+        <span id="aff_custom_range" style="display: none">
+            <label for="aff_from_date"><?php echo __('From:') ?></label>
+            <input type="text" name="aff_report_from" id="aff_report_from" style="width: 80px;"/>
+            <label for="aff_to_date"><?php echo __('To:') ?></label>
+            <input type="text" name="aff_report_to" id="aff_report_to" style="width: 80px;"/>
+            <input type="button" id="aff_report_refresh" value="<?php echo __('Refresh') ?>" style="background: #E9E3E3;border: 1px solid #ccc;padding: 2px;">
+        </span>
+    </p>
+    <div id="aff-container" style="height: 300px"></div>
+    <p class="switcher a-right" id="aff_debug"></p>
+
+    <!--Invitation Information-->
+    <div class="box-left" style="width: 100%; margin-bottom: 10px;">
+        <!--Order Information-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo __('My Invitation')?></h4>
+            </div>
+            <table class="data-table" id="aff-report-invitation" >
+                <colgroup>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="text-align:center;"><?php echo __('Total Click') ?></th>
+                    <th style="text-align:center;"><?php echo __('Total Register') ?></th>
+                    <th style="text-align:center;"><?php echo __('Total Purchased') ?></th>
+                    <th style="text-align:center;"><?php echo __('Total Subscribe') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="text-align:left">
+                    <td id="aff_total_click" style="text-align:center;"></td>
+                    <td id="aff_total_register" style="text-align:center;"></td>
+                    <td id="aff_total_purchased" style="text-align:center;"></td>
+                    <td id="aff_total_subscribe" style="text-align:center;"></td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="switcher a-right" id="aff_debug"></p>
+
+    <div class="box-left" style="width: 48%;">
+        <!--Order Information-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo __('My Commission Sources')?></h4>
+            </div>
+
+            <div id="aff-container-commission-bymembers" style="min-height: 300px"></div>
+
+        </div>
+    </div>
+    <div class="box-right" style="width: 48%;margin: 0 0 0 25px;">
+        <!--Order Information-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo __('My Commission by programs')?></h4>
+            </div>
+
+            <div id="aff-container-commission-byprograms" style="min-height: 300px"></div>
+
+        </div>
+    </div>
+
+    <div class="box-left" style="width: 48%;padding-top:10px;">
+        <!--My Purchases Information-->
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo __('Statistics')?></h4>
+            </div>
+            <table class="data-table" id="aff-report-statistics" >
+                <colgroup>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="text-align:center;"><?php echo __('My Total Purchases') ?></th>
+                    <th style="text-align:center;"><?php echo __('My Total Orders') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="text-align:left">
+                    <td id="aff_total_sales" style="text-align:center;width:15px;"></td>
+                    <td id="aff_total_order" style="text-align:center;width:100px"></td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-right" style="width: 48%;margin: 0 0 0 25px; padding-top:10px;">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4><?php echo __('Statistics')?></h4>
+            </div>
+            <table class="data-table">
+                <colgroup>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th style="text-align:center;"><?php echo __('My Total Commission') ?></th>
+                    <th style="text-align:center;"><?php echo __('My Total Affiliate Network') ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="text-align:left">
+                    <td id="aff_total_commission" style="text-align:center"></td>
+                    <td id="aff_total_child" style="text-align:center">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php
+// echo $block->getUrl('affiliate/report/dashboard');
+?>
+<script>
+    require([
+        'prototype',
+        'mwHeadMainAff'
+    ], function($) {
+        document.observe("dom:loaded", function() {
+            window.mwReport = new MW.Affiliate.Report.Dashboard({
+                url: '<?php echo $block->getUrl('affiliate/report/dashboard')?>'
+            });
+        });
+    });
+</script>

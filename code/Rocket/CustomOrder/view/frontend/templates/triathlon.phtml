@@ -1,0 +1,239 @@
+<div class="container">
+    <div class="main">
+        <div class="col-main">
+            <div class="padding-s">
+
+                <div id="email" style="text-align:right; display:none">
+
+
+
+                    <div id="popup-heading">
+                        <h2>5% Off On Your Order!</h2>
+                    </div>
+                    <div id="popup-form-content">
+                        <div id="popup-text">
+                            <p>Would you like to receive exclusive information about the latest RocketScienceSports.com offers and events? Then subscribe to our newsletter now and get 5% off your next purchase.
+                            </p>
+                        </div>
+
+                        <p><span id="email_error_msg" class="email_error" style="display:none">&nbsp;</span></p>
+
+                        <div id="popup-form-data">
+                            <p>
+                                <span class="required"></span>
+                                <span class="email_label">Email:</span>
+                                <span class="email_input"><input type="text"></span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    if (navigator.cookieEnabled) {
+                        document.observe('keydown', function (evt) {
+                            if (evt.keyCode == 13) {
+                                win.okCallback();
+                            }
+                        });
+                        var cookieStored = emailCookieExists();
+                        if (!cookieStored && $('popupDialog') == undefined) {
+                            var popupWidth = 60 * window.innerWidth / 100;
+                            var popupHeight = 40 * window.innerHeight / 100;
+                            var win = Dialog.confirm($('email').innerHTML, {
+                                className: "popup",
+                                id: "popupDialog",
+                                width: popupWidth,
+
+                                zIndex: 2001,
+                                okLabel: 'Confirm',
+                                cancelLabel: 'Close',
+                                onCancel: function (win) {
+                                    createCookie('email', 'none', "1");
+                                },
+                                onOk: function (win) {
+                                    var inputFieldEmail = $$('.email_input input[type=text]').first();
+                                    var inputFieldFName = $$('.fname_input input[type=text]').first();
+                                    var inputFieldLName = $$('.lname_input input[type=text]').first();
+                                    var email = inputFieldEmail.value;
+                                    var fname = '';
+                                    var lname = '';
+                                    if (inputFieldFName) {
+                                        fname = inputFieldFName.value;
+                                    }
+                                    if (inputFieldLName) {
+                                        lname = inputFieldLName.value;
+                                    }
+                                    if (validateEmail(email)) {
+                                        createCookie('email', email + '/' + fname + '/' + lname, 365);
+                                        createCookie('subscribe', 'true', 365);
+                                        location.reload();
+                                    } else {
+                                        $('email_error_msg').innerHTML = 'Not a valid e-mail address';
+                                        $('email_error_msg').setStyle({color: '#F00'});
+                                        $('email_error_msg').show();
+                                        Windows.focusedWindow.updateHeight();
+                                        new Effect.Shake(Windows.focusedWindow.getId());
+                                    }
+                                }
+                            });
+                            Event.observe(window, 'load', function () {
+                                $('overlay_modal').observe('click', function () {
+                                    win.close();
+                                    win.cancelCallback();
+                                });
+                            });
+                        }
+                    }
+                    function validateEmail(email) {
+                        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        return re.test(email);
+                    }
+                    function emailCookieExists() {
+                        if (Mage.Cookies.get('email')) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                    function createCookie(name, value, expirationInDays) {
+                        var now = new Date();
+                        var expire = new Date(now.getTime() + (expirationInDays * 24 * 60) * 60000);//[(1 * 365 * 24 * 60) * 60000] == 1 year  -- (Years * Days * Hours * Minutes) * 60000
+                        //document.cookie = cookie + '; expires=' + expire + '; path=/';
+                        Mage.Cookies.expires = expire;
+                        Mage.Cookies.set(name, value);
+                    }
+                </script>
+
+                <div id="email" style="text-align:right; display:none">
+
+
+
+                    <div id="popup-heading">
+                        <h2>5% Off On Your Order!</h2>
+                    </div>
+                    <div id="popup-form-content">
+                        <div id="popup-text">
+                            <p>Would you like to receive exclusive information about the latest RocketScienceSports.com offers and events? Then subscribe to our newsletter now and get 5% off your next purchase.
+                            </p>
+                        </div>
+
+                        <p><span id="email_error_msg" class="email_error" style="display:none">&nbsp;</span></p>
+
+                        <div id="popup-form-data">
+                            <p>
+                                <span class="required"></span>
+                                <span class="email_label">Email:</span>
+                                <span class="email_input"><input type="text"></span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    if (navigator.cookieEnabled) {
+                        document.observe('keydown', function (evt) {
+                            if (evt.keyCode == 13) {
+                                win.okCallback();
+                            }
+                        });
+                        var cookieStored = emailCookieExists();
+                        if (!cookieStored && $('popupDialog') == undefined) {
+                            var popupWidth = 60 * window.innerWidth / 100;
+                            var popupHeight = 40 * window.innerHeight / 100;
+                            var win = Dialog.confirm($('email').innerHTML, {
+                                className: "popup",
+                                id: "popupDialog",
+                                width: popupWidth,
+
+                                zIndex: 2001,
+                                okLabel: 'Confirm',
+                                cancelLabel: 'Close',
+                                onCancel: function (win) {
+                                    createCookie('email', 'none', "1");
+                                },
+                                onOk: function (win) {
+                                    var inputFieldEmail = $$('.email_input input[type=text]').first();
+                                    var inputFieldFName = $$('.fname_input input[type=text]').first();
+                                    var inputFieldLName = $$('.lname_input input[type=text]').first();
+                                    var email = inputFieldEmail.value;
+                                    var fname = '';
+                                    var lname = '';
+                                    if (inputFieldFName) {
+                                        fname = inputFieldFName.value;
+                                    }
+                                    if (inputFieldLName) {
+                                        lname = inputFieldLName.value;
+                                    }
+                                    if (validateEmail(email)) {
+                                        createCookie('email', email + '/' + fname + '/' + lname, 365);
+                                        createCookie('subscribe', 'true', 365);
+                                        location.reload();
+                                    } else {
+                                        $('email_error_msg').innerHTML = 'Not a valid e-mail address';
+                                        $('email_error_msg').setStyle({color: '#F00'});
+                                        $('email_error_msg').show();
+                                        Windows.focusedWindow.updateHeight();
+                                        new Effect.Shake(Windows.focusedWindow.getId());
+                                    }
+                                }
+                            });
+                            Event.observe(window, 'load', function () {
+                                $('overlay_modal').observe('click', function () {
+                                    win.close();
+                                    win.cancelCallback();
+                                });
+                            });
+                        }
+                    }
+                    function validateEmail(email) {
+                        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        return re.test(email);
+                    }
+                    function emailCookieExists() {
+                        if (Mage.Cookies.get('email')) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                    function createCookie(name, value, expirationInDays) {
+                        var now = new Date();
+                        var expire = new Date(now.getTime() + (expirationInDays * 24 * 60) * 60000);//[(1 * 365 * 24 * 60) * 60000] == 1 year  -- (Years * Days * Hours * Minutes) * 60000
+                        //document.cookie = cookie + '; expires=' + expire + '; path=/';
+                        Mage.Cookies.expires = expire;
+                        Mage.Cookies.set(name, value);
+                    }
+                </script>
+                <div class="std"><style type="text/css">
+                        img:hover {
+                            -webkit-filter: grayscale(100%);
+                            filter: grayscale(100%);
+                        }
+                    </style>
+                    <div style="background-color: #e92d46; width: 100%; padding: 8px 20px 1px;">
+                        <p style="text-align: center; margin-bottom: 10px;"><strong><span style="font-size: xx-large; color: #ffffff;"><img src="https://www.rocketsciencesports.com/media/wysiwyg/custom-rss.png" alt="" class="custom-rss-img">SELECT YOUR LEVEL</span></strong></p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: top;">
+                            <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">ROCKET</p>
+                            <div style="margin: 10px;"><a href="/custom.php?s=level&amp;l=rocket"><img src="https://www.rocketsciencesports.com/media/wysiwyg/rocket-level-runner.png" alt=""></a></div>
+                            <p style="font-size: 22px; text-align: left; padding: 10px;">Top Level racer with no compromises</p>
+                        </div>
+                        <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: top;">
+                            <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">ELITE</p>
+                            <div style="margin: 10px;"><a href="/custom.php?s=level&amp;l=elite"><img src="https://www.rocketsciencesports.com/media/wysiwyg/elite-level-runner.png" alt=""></a></div>
+                            <p style="font-size: 22px; text-align: left; padding: 10px;">Mid Level tri suit with balance between budget and performance</p>
+                        </div>
+                        <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: top;">
+                            <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">RJ</p>
+                            <div style="margin: 10px;"><a href="/custom.php?s=level&amp;l=rj"><img src="https://www.rocketsciencesports.com/media/wysiwyg/rj-level-runner.png" alt=""></a></div>
+                            <p style="font-size: 22px; text-align: left; padding: 10px;">Entry level tri suit made for all athletes with comfort in mind</p>
+                        </div>
+                    </div>
+                </div>                        
+            </div>
+        </div>
+    </div>
+</div>

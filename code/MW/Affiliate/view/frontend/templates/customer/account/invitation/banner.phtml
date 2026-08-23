@@ -1,0 +1,75 @@
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Affiliate Banners') ?></span>
+    </legend>
+
+    <?php
+        $invitationBanners = $block->getInvitationBanners();
+    if (sizeof($invitationBanners) > 0):
+        $_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+        $mediaUrl = $block->getMediaUrl();
+        $bannerImage = '';
+        $bannerWidth = 0;
+        $bannerHeight = 0;
+        ?>
+        <div class="field">
+        <?php
+        foreach ($invitationBanners as $banner):
+            $bannerImage = $banner->getImageName();
+            $bannerWidth = $banner->getWidth() ;
+            $bannerHeight = $banner->getHeight() ;
+            $bannerExtension = substr($bannerImage, strrpos($bannerImage, '.') + 1);
+            $url = $_dataHelper->getLinkBanner($block->getCustomer(), $banner->getLinkBanner());
+
+            if ($bannerExtension == 'swf') {
+                $result = '<div onmousedown="window.location.href=&#39;'.$url.'&#39;"><object type="application/x-shockwave-flash" data="'
+                    . $mediaUrl . $bannerImage . '" width="' . $bannerWidth . '" height="' . $bannerHeight
+                    . '"><param name="wmode" value="transparent" /><param name="movie" value="'
+                    . $mediaUrl . $bannerImage . '" /></object></div>';
+            } else {
+                $result = '<a href="' . $url . '" title="banner invitation"><img src="'
+                    . $mediaUrl . $bannerImage . '" width="' . $bannerWidth . 'px" height="' . $bannerHeight . 'px" /></a>';
+            }
+            ?>
+                    <h2><?php echo __($banner->getTitleBanner());?></h2>
+
+                    <div id="mw_img">
+                <?php if ($bannerExtension == 'swf'): ?>
+                            <div onmousedown="window.location.href='<?php echo $url;?>'">
+                                <object type="application/x-shockwave-flash" data="<?php echo $mediaUrl . $bannerImage;?>" width="<?php echo $bannerWidth?>" height="<?php echo $bannerHeight?>">
+                                    <param name="wmode" value="transparent" />
+                                    <param name='movie' value='<?php echo $mediaUrl . $bannerImage;?>' />
+                                </object>
+                            </div>
+                        <?php else: ?>
+                            <a href="<?php echo $url ?>" title="banner invitation">
+                                <img class="banner-img-<?php echo $banner->getId() ?>" src="<?php echo $mediaUrl . $bannerImage;?>" width= <?php echo $bannerWidth."px";?> height=<?php echo $bannerHeight."px";?> />
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <label><?php echo __('Copy + paste this code into your website, blog, forum.') ?></label>
+                    </div>
+
+                    <div class="input-box" style="padding-top:5px;">
+                        <input type="text" style ="width: 580px;" name="mw_code" id="mw_code" value='<?php echo $result;?>' onclick="this.select()">
+                    </div>
+
+                    <style type="text/css">
+                        @media screen and (max-width: <?php echo $bannerWidth ?>px) {
+                            .banner-img-<?php echo $banner->getId() ?> {
+                                width: 100%;
+                                height: auto;
+                            }
+                            #mw_code {
+                                width: 100% !important;
+                            }
+                        }
+                    </style>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p><?php echo __('You have no banner!') ?></p>
+    <?php endif; ?>
+</fieldset>

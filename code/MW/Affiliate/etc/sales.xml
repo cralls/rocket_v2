@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="affiliate_discount" instance="MW\Affiliate\Model\Quote\Address\Total\Discount" sort_order="600"/>
+            <!-- merge credit module into Affiliate module -->
+            <item name="after_affiliate_discount" instance="MW\Affiliate\Model\Quote\Address\Total\Credit\Discount" sort_order="700"/>
+        </group>
+    </section>
+</config>
+
+

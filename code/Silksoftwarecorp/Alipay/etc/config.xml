@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <alipay>
+                <model>Silksoftwarecorp\Alipay\Model\Method\Alipay</model>
+                <title>Alipay</title>
+                <order_status>pending</order_status>
+                <sign_type>RSA2</sign_type>
+                <sandbox>0</sandbox>
+            </alipay>
+        </payment>
+    </default>
+</config>

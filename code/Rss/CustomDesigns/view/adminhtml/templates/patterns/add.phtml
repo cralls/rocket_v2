@@ -1,0 +1,50 @@
+<form action="<?= $block->getUrl('customdesigns/patterns/save') ?>" method="post" class="admin__scope-old">
+    <input name="form_key" type="hidden" value="<?= $block->getFormKey() ?>" />
+
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend"><span>Add Pattern</span></legend>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="pattern_number"><span>Pattern (SR) #</span></label>
+            <div class="admin__field-control">
+                <input type="text" name="pattern_number" id="pattern_number" class="admin__control-text" required />
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="version"><span>Revision</span></label>
+            <div class="admin__field-control">
+                <input type="text" name="version" id="version" class="admin__control-text" />
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="description"><span>Description</span></label>
+            <div class="admin__field-control">
+                <textarea name="description" id="description" class="admin__control-textarea" rows="5"></textarea>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="art_templates_url"><span>Art Templates URL</span></label>
+            <div class="admin__field-control">
+                <input type="text" name="art_templates_url" id="art_templates_url" class="admin__control-text" />
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label" for="http_address"><span>Pattern Files URL</span></label>
+            <div class="admin__field-control">
+                <input type="text" name="http_address" id="http_address" class="admin__control-text" />
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="page-actions">
+        <div class="page-actions-buttons">
+            <button type="submit" class="action-primary">
+                <span>Save Pattern</span>
+            </button>
+        </div>
+    </div>
+</form>

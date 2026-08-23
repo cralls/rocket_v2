@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <head>
+        <css src="MW_Affiliate::css/customer.css" />
+    </head>
+    <body>
+        <attribute name="class" value="affiliate-account"/>
+
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Html\Links" name="affiliate_account_navigation" before="-" template="MW_Affiliate::customer/account/navigation.phtml" cacheable="false">
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_referral">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">SIGNUP REFERRAL</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/createaccount</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+
+        <move element="page.main.title" destination="content.top" before="-"/>
+    </body>
+</page>

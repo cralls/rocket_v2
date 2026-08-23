@@ -1,0 +1,32 @@
+<!-- custom fields -->
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$helper = $objectManager->create(\Webkul\Rmasystem\Helper\Data::class);
+$customFieldsCollection = $helper->getFields();
+if (count($customFieldsCollection)) {
+    foreach ($customFieldsCollection as $field) {
+        switch ($field->getInputType()) {
+            case 'text':
+             /* @noEscape */   echo $helper->getText($field);
+                break;
+            case 'textarea':
+                echo $helper->getTextarea($field);
+                break;
+            case 'select':
+                echo $helper->getSelect($field);
+                break;
+            case 'multiselect':
+                echo $helper->getMultiselect($field);
+                break;
+            case 'radio':
+                echo $helper->getRadio($field);
+                break;
+            case 'checkbox':
+                echo $helper->getCheckbox($field);
+                break;
+        }
+    }
+}
+?>

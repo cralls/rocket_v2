@@ -1,0 +1,101 @@
+<?php
+$result = $block->getInvitationReport();
+$collection = $block->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Invitation History') ?></span>
+    </legend>
+
+    <div class="invitation_transaction">
+        <h4><?php echo __('Invitation Report') ?></h4>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="click"><?php echo __('Total Clicks:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $result['click'];?>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="register"><?php echo __('Total Sign-Ups:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $result['register'];?>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="subscribe"><?php echo __('Total Subscribes:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $result['subscribe'];?>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="purchase"><?php echo __('Total Purchases:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $result['purchase'];?>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <?php if ($collection->getSize() > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                    <tr>
+                        <th class="col"><?php echo __('Date') ?></th>
+                        <th class="col"><?php echo __('IP Address') ?></th>
+                        <th class="col"><?php echo __('Email') ?></th>
+                        <th class="col"><?php echo __('Status') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $invitation): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Date') ?>">
+                                <?php echo $this->formatDate($invitation->getInvitationTime())." ".$this->formatTime($invitation->getInvitationTime());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('IP Address') ?>">
+                                <?php echo $invitation->getIp();?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Email') ?>">
+                                <?php
+                                if ($invitation->getEmail()) {
+                                    $emailComponents     = explode('@', $invitation->getEmail());
+                                    $emailUsername         = $emailComponents[0];
+                                    $emailExtension     = $emailComponents[1];
+                                    $emailSecure        = substr($emailUsername, 0, 4) . '...' . '@' . $emailExtension;
+    
+                                    echo '<b>', $emailSecure, '</b>';
+                                }
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Status') ?>">
+                                <?php echo $block->getStatusText($invitation->getStatus());?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Invitation Transaction History') ?></div>
+    <?php endif; ?>
+</fieldset>

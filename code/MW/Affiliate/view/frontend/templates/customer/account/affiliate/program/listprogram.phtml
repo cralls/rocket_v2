@@ -1,0 +1,82 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection  = $this->getCollection();
+$groupName   = $block->getGroupName();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('List programs in (Group: %1)', $groupName) ?></span>
+    </legend>
+
+    <?php if (sizeof($collection) > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                        <tr>
+                            <th class="col"><?php echo __('Program Name') ?></th>
+                            <th class="col"><?php echo __('Commission Earned *') ?></th>
+                            <th class="col"><?php echo __('Customer Discount *') ?></th>
+                            <th class="col"><?php echo __('Start Date') ?></th>
+                            <th class="col"><?php echo __('End Date') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $program): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Program Name') ?>">
+                                <a href='<?php echo $this->getUrl('affiliate/index/viewprogram', ['id' => $program->getProgramId()]); ?>'><?php echo $program->getProgramName();?></a>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Commission Earned *') ?>">
+                                <?php
+                                if (substr_count($program->getCommission(), ',') >= 1) {
+                                    echo $program->getCommission();
+                                } else {
+                                    if (substr_count($program->getCommission(), '%') == 0) {
+                                        echo $_dataHelper->formatMoney($program->getCommission());
+                                    } elseif (substr_count($program->getCommission(), '%') == 1) {
+                                        echo $program->getCommission();
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Customer Discount *') ?>">
+                                <?php
+                                if (substr_count($program->getDiscount(), ',') >= 1) {
+                                    echo $program->getDiscount();
+                                } else {
+                                    if (substr_count($program->getDiscount(), '%') == 0) {
+                                        echo $_dataHelper->formatMoney($program->getDiscount());
+                                    } elseif (substr_count($program->getDiscount(), '%') == 1) {
+                                        echo $program->getDiscount();
+                                    }
+                                }
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Start Date') ?>">
+                                <?php echo $program->getStartDate();?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('End Date') ?>">
+                                <?php echo $program->getEndDate();?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+
+            <p><?php echo __('* per qualified transaction.') ?></p>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('There is not any programs, designed for this group.') ?></div>
+    <?php endif; ?>
+</fieldset>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ NOTICE OF LICENSE
+  ~ The contents of this file are subject to the Lifetime Media Group, Inc. Public License Version 1.1 (the "License");
+  ~  you may not use this file except in compliance with the License. You may obtain a copy and view the license at
+  ~  https://www.lifetimemediagroup.com/license-agreement
+  ~
+  ~  DISCLAIMER
+  ~  Redistribution of this code is strictly prohibited and trackable. Each user must obtain legal license to use this software.
+  ~  Please also note: Do not edit or add to this file if you wish to upgrade in the future.
+  ~
+  ~  @category    Lifetime Media Group POS
+  ~  @package     lifetime_pos
+  ~  @copyright   Copyright (c) 2018 Lifetime Media Group, Inc. (https://www.lifetimemediagroup.com)
+  ~  @license     https://www.lifetimemediagroup.com/license-agreement
+  -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <!-- Account affiliate -->
+    <route url="/V1/affiliate/account/addandupdate" method="POST">
+        <service class="MW\Affiliate\Api\Account\AccountRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+    <route url="/V1/affiliate/account/delete" method="POST">
+        <service class="MW\Affiliate\Api\Account\AccountRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+
+    <!-- Commission -->
+    <route url="/V1/affiliate/commission/addandupdate" method="POST">
+        <service class="MW\Affiliate\Api\Commission\CommissionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+    <route url="/V1/affiliate/commission/delete" method="POST">
+        <service class="MW\Affiliate\Api\Commission\CommissionRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+
+    <!-- Transaction -->
+    <route url="/V1/affiliate/transaction/addandupdate" method="POST">
+        <service class="MW\Affiliate\Api\Transaction\TransactionRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+    <route url="/V1/affiliate/transaction/delete" method="POST">
+        <service class="MW\Affiliate\Api\Transaction\TransactionRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+
+
+    <!-- Program -->
+    <route url="/V1/affiliate/program/addandupdate" method="POST">
+        <service class="MW\Affiliate\Api\Program\ProgramRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+    <route url="/V1/affiliate/program/delete" method="POST">
+        <service class="MW\Affiliate\Api\Program\ProgramRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+
+    <!-- Banner -->
+    <route url="/V1/affiliate/banner/addandupdate" method="POST">
+        <service class="MW\Affiliate\Api\Banner\BannerRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+    <route url="/V1/affiliate/banner/delete" method="POST">
+        <service class="MW\Affiliate\Api\Banner\BannerRepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="MW_Affiliate::affiliate" />
+        </resources>
+    </route>
+
+</routes>

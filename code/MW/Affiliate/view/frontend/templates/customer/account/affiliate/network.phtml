@@ -1,0 +1,55 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection = $this->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('My Affiliate Network') ?></span>
+    </legend>
+
+    <?php if ($collection->getSize() > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                    <tr>
+                        <th class="col"><?php echo __('Level') ?></th>
+                        <th class="col"><?php echo __('Name') ?></th>
+                        <th class="col"><?php echo __('Email') ?></th>
+                        <th class="col"><?php echo __('Joined Date') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $affiliate): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Level') ?>">
+                                <?php echo $affiliate->getLevel();?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Name') ?>">
+                                <?php echo $block->showNumberArrows((int)$affiliate->getLevel()); ?>
+                                <?php echo $affiliate->getName();?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Email') ?>">
+                                <?php echo $affiliate->getEmail()?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Joined Date') ?>">
+                                <?php echo $block->formatDate($affiliate->getJoinedDate());?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Affiliate Network Found') ?></div>
+    <?php endif; ?>
+</fieldset>

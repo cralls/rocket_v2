@@ -1,0 +1,57 @@
+<?php
+/**
+ * @var $block \Magenest\Xero\Block\Adminhtml\CustomerEdit\Tab\View\XeroCustomerInfo
+ */
+$syncHistory = $block->getSyncLog();
+?>
+
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= $block->escapeHtml(__('Information')) ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?= $block->getChildHtml(); ?>
+        <tr>
+            <th><?= $block->escapeHtml(__('Xero ID:')) ?></th>
+            <td><a target="_blank" href="<?= $block->escapeUrl($block->getXeroUrl())?>">
+                    <?= $block->escapeHtml($block->getXeroId()) ?></a></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Last Updated At:')) ?></th>
+            <td><?= $block->escapeHtml($block->getLastUpdatedAt()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Created At:')) ?></th>
+            <td><?= $block->escapeHtml($block->getCreatedAt()) ?></td>
+        </tr>
+        <tr>
+            <td><button onclick="location.href='<?= $block->escapeUrl($block->getSyncButtonUrl()) ?>'">
+                    Sync Now</button></td>
+            <td><button onclick="location.href='<?= $block->escapeUrl($block->getAddToQueueButtonUrl()) ?>'">
+                    Add To Queue</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/><br/><br/>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= $block->escapeHtml(__('Sync History')) ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <tbody>
+        <?= $block->getChildHtml(); ?>
+        <?php if ($syncHistory): ?>
+            <?php $count = 1 ?>
+            <?php foreach ($syncHistory as $v): ?>
+                <tr>
+                    <th><?= $block->escapeHtml($count.'.') ?></th>
+                    <td><span style="font-size:12pt"><?= $block->escapeHtml($v->getData('dequeue_time')) ?></span></td>
+                    <td><?= $block->escapeHtml($v->getData('status') == 1 ? __('Ok'): __('Failed')); ?></td>
+                    <?php $count++ ?>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="auto_withdrawn" instance="MW\Affiliate\Observer\Cronjob\Schedule" method="runCron">
+            <schedule>5 0 * * *</schedule>
+        </job>
+
+        <job name="member_program" instance="MW\Affiliate\Observer\Cronjob\Schedule" method="runCronMemberProgram">
+            <schedule>*/60 * * * *</schedule>
+        </job>
+
+        <job name="commission_holding" instance="MW\Affiliate\Observer\Cronjob\Schedule" method="runCronHoldingCommission">
+            <schedule>1 0 * * *</schedule>
+        </job>
+    </group>
+</config>

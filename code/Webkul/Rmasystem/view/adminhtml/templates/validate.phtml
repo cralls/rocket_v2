@@ -1,0 +1,46 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Rmasystem
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+?>
+<script>
+require([
+        "jquery",
+        'mage/validation'
+    ], function($) {
+    var dataForm = $('#edit_form');
+    dataForm.mage('validation', {});
+
+    var customfieldInputType = $('#customfield_input_type').val()
+    checkInputValidation(customfieldInputType);
+    $('#customfield_input_type').on('change',function(){
+        checkInputValidation($(this).val());
+    });
+    
+    function checkInputValidation(customfieldInputType){
+        console.log(customfieldInputType);
+        if(customfieldInputType == "text"){
+            $("#customfield_frontend_class").prop("disabled", false);
+        }else{
+            $("#customfield_frontend_class").prop("disabled", true);
+        }
+    }
+
+    $('#save').on('click', function() {
+        if (dataForm.valid()!=false) {
+            $(this).attr('disabled','disabled');
+        }
+    });
+    $('#saveandcontinue').on('click', function() {
+        if (dataForm.valid()!=false) {
+            $(this).attr('disabled','disabled');
+        }
+    });
+});
+</script>

@@ -1,0 +1,93 @@
+<style type="text/css">
+.registration-form {
+    margin-top: 0px !important;
+}
+</style>
+<div class="registration-form" style="margin-top: 0px !important;">
+    <div class="event-registration-title">
+        <h2><?= __('Event Registration') ?></h2>
+    </div>
+    <form id="registration-form" action="<?= $block->getFormAction() ?>" method="post">
+
+        <div class="field">
+            <label for="name" class="label"><?= __('Contact Person Name') ?></label>
+            <div class="control">
+                <input type="text" name="name" id="name" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="email" class="label"><?= __('Contact Email') ?></label>
+            <div class="control">
+                <input type="text" name="email" id="email" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="phone" class="label"><?= __('Contact Phone Number') ?></label>
+            <div class="control">
+                <input type="text" name="phone" id="phone" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="team_name" class="label"><?= __('Team Name') ?></label>
+            <div class="control">
+                <input type="text" name="team_name" id="team_name" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="num_of_registrants" class="label"><?= __('Size of Team') ?></label>
+            <div class="control">
+                <input type="number" name="num_of_registrants" id="num_of_registrants" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="event" class="label"><?= __('Name of Event') ?></label>
+            <div class="control">
+                <input type="text" name="event" id="event" class="input-text" required>
+            </div>
+        </div>
+        <div class="field">
+            <label for="comments" class="label"><?= __('Comments') ?></label>
+            <div class="control">
+                <textarea name="comments" id="comments" class="input-text"></textarea>
+            </div>
+        </div>
+        <!-- div class="field">
+            <label for="room_type" class="label"><?= __('Room Type') ?></label>
+            <div class="control">
+                <select name="room_type" id="room_type" class="select">
+                    <option value="single"><?= __('Single Room') ?></option>
+                    <option value="double"><?= __('Double Room') ?></option>
+                </select>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input type="checkbox" name="vegetarian_meal" id="vegetarian_meal" value="1">
+                <label for="vegetarian_meal"><?= __('Vegetarian Meal') ?></label>
+            </div>
+        </div-->
+        <div class="field">
+            <div class="g-recaptcha" id="event-registration-recaptcha" data-sitekey="6LdFPNscAAAAAFcXY9yA2ik0hLGtJRba4TWCyS8C"></div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary">
+                    <span><?= __('Submit Registration') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        // Center the form on the page
+        var formContainer = $('.registration-form');
+        var windowHeight = $(window).height();
+        var formHeight = formContainer.height();
+        var marginTop = (windowHeight - formHeight) / 2;
+        formContainer.css('margin-top', marginTop);
+    });
+</script>

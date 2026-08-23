@@ -1,0 +1,72 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$customer = $block->getCustomer();
+$customerId = $customer->getId();
+if ($customerId) {
+    $referralCode = $block->getReferralCodeByCustomerId($customerId);
+    if ($referralCode == '') {
+        $_dataHelper->setReferralCode($customerId);
+    }
+} else {
+    $referralCode = '';
+}
+
+$urlNew = $block->getRequest()->getParam('mw_link');
+$urlProtocol = $block->getRequest()->getParam('mw_pro');
+if ($urlNew && $urlProtocol) {
+    $urlNew = $urlProtocol . '//' . $urlNew;
+    $url = $_dataHelper->getLinkBanner($customer, $urlNew);
+} else {
+    $url = $_dataHelper->getLink($customer);
+}
+?>
+
+<!-- start form in this file, end form in connect-share.phtml -->
+
+<form id="form-validate" method="post" action="<?php echo $this->getUrl('affiliate/invitation/invite')?>">
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Your referral code (manual): <b>%1</b>', $referralCode);?></span>
+    </legend>
+
+    <div class="field aff_referral_link">
+        <div class="mw-legend"><?php echo __('Referral Link:');?></div>
+        <div class="div_share">
+            <input id="referral_link_input" type="text" name="url_link" value="<?php echo $url ?>" style="width:85%;" readonly="readonly" onclick="this.select()">
+            <a id="referral_link_edit" href="#"><?php echo __('Edit') ?></a>
+            <div id="referral_link_edit_block">
+                <p><?php echo __('Your custom link: ') ?></p>
+                <input id="referral_link_custom" type="text" name="url_link_edit" value="" style="width:85%;">
+                <a id="referral_link_update" href="#"><?php echo __('Update') ?></a>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<script>
+    require([
+        'jquery'
+    ], function($) {
+        $(document).ready(function() {
+            $('#referral_link_edit_block').hide();
+        });
+
+        $('#referral_link_edit').on('click', function() {
+            $(this).hide();
+            $('#referral_link_edit_block').show();
+
+            return false;
+        });
+
+        $('#referral_link_update').on('click', function() {
+            $('#referral_link_edit').show();
+            $('#referral_link_edit_block').hide();
+
+            linkComponent = ($('#referral_link_input').val()).split('?');
+            verifiedKey = linkComponent[1];
+            $('#referral_link_input').val($('#referral_link_custom').val() + '/?' + verifiedKey);
+
+            return false;
+        });
+    });
+</script>

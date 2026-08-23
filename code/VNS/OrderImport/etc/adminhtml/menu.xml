@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/menu.xsd">
+    <menu>
+        <add id="VNS_OrderImport::upload" title="Upload Orders" module="VNS_OrderImport" sortOrder="100" parent="Magento_Sales::sales_order" action="orderimport/upload" resource="VNS_OrderImport::upload"/>
+    </menu>
+</config>
+
+

@@ -1,0 +1,34 @@
+table.order-attachment-table {
+    border-collapse: collapse;
+	    margin-bottom: 30px;
+}
+table.order-attachment-table th{
+    background: #eaeaea;
+}
+table.order-attachment-table td, table.order-attachment-table th, table.order-attachment-table tr {
+    border: 1px solid #eaeaea;
+    text-align: center;
+    vertical-align: middle;
+}
+table.order-attachment-table td textarea{
+    height: 70px;
+}
+span.magearray-file-upload {
+    float: left;
+    margin-top: 6px;
+}
+span.magearray-file-upload + .actions-toolbar { 
+    margin-top: 15px;
+}  
+.admin__table-primary th.cell-updated, .admin__table-primary td.cell-updated {
+    padding-left: 1.5rem;
+}
+
+.fileupload-loader{
+	display:none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+}
+.file-note {margin-bottom: 10px;}
+.error-msg {color: #e53f30;}

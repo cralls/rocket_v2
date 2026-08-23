@@ -1,0 +1,46 @@
+<?php
+$rma = $block->getRmaDetail();
+$helper = $block->getHelper();
+$id = $rma->getRmaId();
+$fieldData = $helper->getFieldData($id);
+foreach ($fieldData as $field) { ?>
+    <tr>
+        <th><?=  /* @noEscape */ $field->getLabel(); ?></th>
+        <?php if (($field->getInputType()=='checkbox') || ($field->getInputType()=='multiselect')) { ?>
+            <td>
+            <?php
+            $check = false;
+            $vl = explode(",", $field->getValue());
+            $op = $field->getSelectOption();
+            $op = explode(",", $op);
+            foreach ($op as $key) {
+                $val = explode('=>', $key);
+                if (in_array($val[0], $vl)) {
+                    if (!$check) {
+                      /* @noEscape */   echo $val[1];
+                    } else {
+                       /* @noEscape */ echo ', '.$val[1];
+                    }
+                    $check = true;
+                }
+            }
+            ?> </td> <?php
+        } elseif (($field->getInputType()=='radio') || ($field->getInputType()=='select')) { ?>
+            <td>
+            <?php
+            $vl = $field->getValue();
+            $op = $field->getSelectOption();
+            $op = explode(",", $op);
+            foreach ($op as $key) {
+                $val = explode('=>', $key);
+                if ($val[0]==$vl) {
+                  /* @noEscape */   echo $val[1];
+                }
+            }
+            ?> </td> <?php
+        } else { ?>
+            <td><?=  /* @noEscape */ $block->escapeHtml($field->getValue()); ?></td>
+        <?php } ?>
+    </tr>
+<?php }
+?>

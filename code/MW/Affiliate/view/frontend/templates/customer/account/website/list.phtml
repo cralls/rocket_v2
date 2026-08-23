@@ -1,0 +1,83 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection = $this->getCollection();
+?>
+<fieldset class="fieldset" style="clear: both; margin-top: 20px">
+    <legend class="legend">
+        <span><?php echo __('My Affiliate Website') ?></span>
+    </legend>
+
+    <?php if ($collection->getSize() > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                    <tr>
+                        <th class="col"><?php echo __('ID') ?></th>
+                        <th class="col"><?php echo __('Domain name') ?></th>
+                        <th class="col"><?php echo __('Verification Key') ?></th>
+                        <th class="col"><?php echo __('Verification File') ?></th>
+                        <th class="col"><?php echo __('Status') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $website): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('ID') ?>">
+                                <?php echo $website->getAffiliateWebsiteId() ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Domain name') ?>">
+                                <?php echo $website->getDomainName()?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Verification Key') ?>">
+                                <textarea readonly onclick="this.select();" rows="3" cols="30"><?php echo htmlspecialchars($website->getVerifiedKey())?></textarea>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Verification File') ?>">
+                                <?php
+                                if ($website->getStatus() < 1) {
+                                    echo '<a href="' . $this->getUrl('affiliate/website/download', ['id' => $website->getAffiliateWebsiteId()]) . '">'.__('Download').'</a>';
+                                }
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Status') ?>">
+                                <?php
+                                    $color = '';
+                                if ($website->getStatus() == 1) {
+                                    $color = 'green';
+                                } else {
+                                    $color = 'red';
+                                }
+
+                                    echo '<span style="color: '.$color.';font-weight: bold;">'.\MW\Affiliate\Model\Statuswebsite::getLabel($website->getStatus()).'</span>';
+                                if ($website->getStatus() < 1) {
+                                    echo '<a href="' . $this->getUrl('affiliate/website/verify', ['id' => $website->getAffiliateWebsiteId()]) . '" style="display:block">'.__('Verify now').'</a>';
+                                }
+
+                                    echo '<a href="' . $this->getUrl('affiliate/website/remove', ['id' => $website->getAffiliateWebsiteId()]) . '" style="display:block">'.__('Remove').'</a>';
+                                ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml() ?>
+            </div>
+
+            <div style="margin-top:20px">
+                <label for="note_affiliate">
+                    <i><strong><?php echo __('* Note: ')?></strong><?php echo __('In order to verify your website, please copy the verification key and insert to your website header OR download the verification file and upload to your host. Then click to "Verfiy now" to verify.') ?></i>
+                </label>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Website Found') ?></div>
+    <?php endif; ?>
+</fieldset>

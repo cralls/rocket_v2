@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$title = $block->escapeHtml($block->getMethod()->getTitle());
+?>
+
+<div class="order-payment-method-title"><?= /* @noEscape */
+    $title ?>
+    <?php if ($block->getInfo()->getAdditionalInformation()) : ?>
+        <table class="data-table admin__table-secondary">
+            <?php foreach ($block->getInfo()->getAdditionalInformation() as $label => $value) : ?>
+                <?php if ($label != 'html' && $label != 'secret_key' && $label != 'method_title') : ?>
+                    <tr>
+                        <th scope="row"><?= $block->getLabel($label) ?></th>
+                        <td>
+                            <?= /* @noEscape */
+                            nl2br($block->escapeHtml(implode("\n", $block->getValueAsArray($value, true)))) ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>
+
+

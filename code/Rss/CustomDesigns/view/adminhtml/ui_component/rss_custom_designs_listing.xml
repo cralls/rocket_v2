@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">rss_custom_designs_listing.rss_custom_designs_listing_data_source</item>
+            <item name="deps" xsi:type="string">rss_custom_designs_listing.rss_custom_designs_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">rss_custom_designs_columns</item>
+        <item name="buttons" xsi:type="array">
+    	<item name="add" xsi:type="array">
+        	<item name="name" xsi:type="string">add</item>
+        	<item name="label" xsi:type="string" translate="true">Add New Request</item>
+        	<item name="class" xsi:type="string">primary</item>
+        	<!-- go to your admin form/new action -->
+        	<item name="url" xsi:type="string">customdesigns/request/new</item>
+        	<!-- optional ordering; lower shows farther left -->
+        	<item name="sortOrder" xsi:type="number">10</item>
+    	</item>
+		</item>
+    </argument>
+
+    <dataSource name="rss_custom_designs_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">rss_custom_designs_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="rss_custom_designs_columns">
+
+        <column name="entity_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="request_type">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Request Type</label>
+            </settings>
+        </column>
+
+        <column name="sales_person_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sales Person</label>
+            </settings>
+        </column>
+
+        <column name="sales_person_email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sales Email</label>
+            </settings>
+        </column>
+
+        <column name="customer_name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Name</label>
+            </settings>
+        </column>
+
+        <column name="priority">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Priority</label>
+            </settings>
+        </column>
+
+        <column name="date_needed">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Date Needed</label>
+            </settings>
+        </column>
+
+        <column name="sportswear_type">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sportswear Type</label>
+            </settings>
+        </column>
+
+        <column name="product_other">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Other Product</label>
+            </settings>
+        </column>
+
+        <column name="level">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Level</label>
+            </settings>
+        </column>
+
+        <column name="logos_url">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Logo URL</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="design_style">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Design Style</label>
+            </settings>
+        </column>
+
+        <column name="comments">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Comments</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="created_at">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Rss\CustomDesigns\Ui\Component\Listing\Column\Actions">
+    		<settings>
+        		<label translate="true">Actions</label>
+        		<bodyTmpl>ui/grid/cells/html</bodyTmpl>
+    		</settings>
+		</actionsColumn>
+
+
+
+    </columns>
+
+</listing>

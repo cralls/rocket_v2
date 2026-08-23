@@ -1,0 +1,33 @@
+<div id="rss-pattern-bom-slideout" style="display:none;">
+    <div class="rss-bom-modal-wrap">
+        <div class="admin__field">
+            <label class="admin__field-label" for="rss-bom-search"><span><?= $block->escapeHtml(__('Search Materials')) ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" id="rss-bom-search" class="admin__control-text" placeholder="<?= $block->escapeHtmlAttr(__('Type to filter BOM materials')) ?>" />
+            </div>
+        </div>
+
+        <div id="rss-bom-pattern-label" style="margin:0 0 12px 0;font-weight:600;"></div>
+        <div id="rss-bom-status" style="margin:0 0 12px 0;color:#666;"></div>
+
+        <div id="rss-bom-materials" style="max-height:520px;overflow:auto;border:1px solid #c2c2c2;padding:12px;background:#fff;"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Rss_CustomDesigns/js/pattern-bom-modal": {
+            "modalSelector": "#rss-pattern-bom-slideout",
+            "searchSelector": "#rss-bom-search",
+            "materialsSelector": "#rss-bom-materials",
+            "statusSelector": "#rss-bom-status",
+            "patternLabelSelector": "#rss-bom-pattern-label",
+            "triggerSelector": ".rss-edit-boms",
+            "loadUrl": "<?= $block->escapeJs($block->getLoadUrl()) ?>",
+            "saveUrl": "<?= $block->escapeJs($block->getSaveUrl()) ?>",
+            "formKey": "<?= $block->escapeJs($block->getFormKeyValue()) ?>"
+        }
+    }
+}
+</script>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+            	<resource id="Rss_CustomDesigns::custom_designs" title="Custom Designs">
+	                	<resource id="Rss_CustomDesigns::design_requests" title="Design Requests" />
+	                	<resource id="Rss_CustomDesigns::production_requests" title="Production Requests" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

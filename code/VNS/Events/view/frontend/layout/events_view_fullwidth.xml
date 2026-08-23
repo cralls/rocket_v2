@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <container name="fullwidth.container" htmlTag="div" htmlClass="fullwidth-container" before="-">
+                <container name="event.view.container" htmlTag="div" htmlClass="event-view-container" />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

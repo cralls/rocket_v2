@@ -1,0 +1,175 @@
+<?php
+$_dataHelper        = $this->helper('MW\Affiliate\Helper\Data');
+$rate               = $block->getCurrency(1, false);
+$customer           = $block->getCurrentCustomer();
+$customerWithdrawn  = $block->getAffiliateMember($customer->getId());
+$creditCustomer     = $block->getCreditCustomer($customer->getId());
+$yourBalance        = doubleval($creditCustomer->getCredit());
+$accountEmail       = $customerWithdrawn ->getPaymentEmail();
+
+// Convert to base price
+$withdrawAmount = doubleval($this->getRequest()->getPost("withdraw_amount"));
+$withdrawAmount = $withdrawAmount / $rate;
+$currency       = $block->getCurrentCurrencyCode();
+$reserveLevel   = $customerWithdrawn->getReserveLevel();
+
+$paymentGateway  = $_dataHelper->getLabelPaymentGateway($customerWithdrawn->getPaymentGateway());
+$_paymentGateway = $customerWithdrawn->getPaymentGateway();
+$withdrawnPeriod = $_dataHelper->getWithdrawnPeriod();
+
+// Calculate fee if fee_config is percentage of withdraw amount
+$fee = $_dataHelper->getFeePaymentGateway($customerWithdrawn->getPaymentGateway());
+if (strpos($fee, '%') === true) {
+    $percent = doubleval(substr($fee, 0, strpos($fee, '%')));
+    $fee = ($percent * $withdrawAmount) / 100;
+} else {
+    $fee = doubleval($fee);
+}
+
+$withdrawReceive = $withdrawAmount - $fee;
+$bankName        = $customerWithdrawn->getBankName();
+$nameAccount     = $customerWithdrawn->getNameAccount();
+$bankCountry     = $customerWithdrawn->getBankCountry();
+$swiftBic        = $customerWithdrawn->getSwiftBic();
+$accountNumber   = $customerWithdrawn->getAccountNumber();
+$bankCountry     = $block->getBankCountryName($bankCountry);
+?>
+<div class="control">
+    <form action="<?php echo $this->getUrl('affiliate/index/withdrawnsubmit') ?>" method="post" id="mw_withdraw_next">
+        <ul>
+            <li>
+                <div class="field">
+                    <label for="your_balance"><?php echo __('Your Balance:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($yourBalance);?>
+                    <input type="hidden" name="your_balance" value="<?php echo $yourBalance;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="payment_gateway"><?php echo __('Payment Method:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $paymentGateway;?>
+                    <input type="hidden" name="payment_gateway" id="payment_gateway" value="<?php echo $paymentGateway;?>" />
+                </div>
+            </li>
+            <?php if ($_paymentGateway != 'banktransfer' && $_paymentGateway != 'check'): ?>
+                <li>
+                    <div class="field">
+                        <label for="account_email"><?php echo __('Payment Email:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $accountEmail;?>
+                        <input type="hidden" name="account_email" value="<?php echo $accountEmail;?>" />
+                    </div>
+                </li>
+            <?php elseif ($_paymentGateway == 'banktransfer'): ?>
+                <li>
+                    <div class="field">
+                        <label for="bank_name"><?php echo __('Bank Name:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $bankName;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="name_account"><?php echo __('Name on account:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $nameAccount;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="bank_country"><?php echo __('Bank Country:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $bankCountry;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="swift_bic"><?php echo __('SWIFT code:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $swiftBic;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="account_number"><?php echo __('Account Number:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $accountNumber;?>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <li>
+                <div class="field">
+                    <label for="fee"><?php echo __('Payment Processing Fee:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($fee);?>
+                    <input type="hidden" name="fee" value="<?php echo $fee;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="reserve_level"><?php echo __('Reserve Level:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($reserveLevel);?>
+                    <input type="hidden" name="currency" value="<?php echo $reserveLevel;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="withdraw_amount"><?php echo __('Withdrawal Amount:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($withdrawAmount);?>
+                    <input type="hidden" name="withdraw_amount" value="<?php echo $withdrawAmount;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="withdraw_receive"><?php echo __('Net Amount:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($withdrawReceive);?>
+                    <input type="hidden" name="withdraw_receive" value="<?php echo $withdrawReceive;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="withdrawn_period"><?php echo __('Withdrawal Period:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $withdrawnPeriod;?>
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="currency"><?php echo __('Currency:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $currency;?>
+                    <input type="hidden" name="currency" value="<?php echo $currency;?>" />
+                </div>
+            </li>
+        </ul>
+
+        <div class="action-toolbar">
+            <div class="primary">
+                <button type="submit" title="<?php echo __('Submit') ?>" class="action save primary">
+                    <span><?php echo __('Submit') ?></span>
+                </button>
+                <p class="back-link"><a href="<?php echo $this->getUrl('affiliate/index/withdrawn') ?>" class="back-link"><small>&laquo; </small><?php echo __('Back') ?></a></p>
+            </div>
+        </div>
+    </form>
+</div>

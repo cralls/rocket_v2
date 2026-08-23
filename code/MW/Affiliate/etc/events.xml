@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="controller_action_predispatch_customer_account_createpost">
+        <observer name="mw_affiliate_controller_action_predispatch_customer_account_createpost" instance="MW\Affiliate\Observer\SetCustomerAccountBefore" />
+    </event>
+
+    <event name="customer_register_success">
+        <observer name="mw_affiliate_customer_register_success" instance="MW\Affiliate\Observer\SetCustomerAccountAfter" />
+    </event>
+
+    <!-- use this event to notify message -->
+    <event name="controller_action_predispatch">
+        <observer name="mw_affiliate_controller_action_predispatch" instance="MW\Affiliate\Observer\NotifyMessage" />
+    </event>
+
+    <!-- use this event instead controller_action_predispatch - becasue cache Full Page issue -->
+    <event name="controller_front_send_response_before">
+        <observer name="mw_affiliate_controller_action_predispatch" instance="MW\Affiliate\Observer\DispatchClickLink" />
+    </event>
+
+    <event name="affiliate_referral_link_click">
+        <observer name="mw_affiliate_affiliate_referral_link_click" instance="MW\Affiliate\Observer\ClickReferralLink" />
+    </event>
+
+    <event name="sales_order_place_after">
+        <observer name="mw_affiliate_affiliate_sales_order_after" instance="MW\Affiliate\Observer\SalesOrderAfter" />
+    </event>
+
+    <event name="sales_order_save_after">
+        <observer name="mw_affiliate_affiliate_sales_order_after" instance="MW\Affiliate\Observer\OrderSaveAfter" />
+    </event>
+
+    <event name="checkout_submit_all_after">
+        <observer name="mw_affiliate_checkout_submit_all_after" instance="MW\Affiliate\Observer\OrderSaveAfter" />
+    </event>
+
+    <!--    Move from Credit to Affiliate  -->
+
+    <event name="customer_save_after">
+        <observer name="mw_credit_customer_save_after" instance="MW\Affiliate\Observer\InitializeCredit" />
+    </event>
+
+    <event name="mw_affiliate_save_credit_history">
+        <observer name="mw_affiliate_save_credit_history" instance="MW\Affiliate\Observer\SaveAffiliateCreditHistory" />
+    </event>
+
+    <event name="mw_affiliate_refund_order">
+        <observer name="mw_affiliate_refund_order" instance="MW\Affiliate\Observer\SaveAffiliateRefundOrder" />
+    </event>
+
+    <!--<event name="sales_order_place_after">-->
+        <!--<observer name="mw_credit_sales_order_place_after" instance="MW\Affiliate\Observer\CreditSaveOrderAfter" />-->
+    <!--</event>-->
+
+    <!--<event name="sales_order_save_after">-->
+        <!--<observer name="mw_credit_sales_order_save_after" instance="MW\Affiliate\Observer\UpdateStatusOrder" />-->
+    <!--</event>-->
+
+    <!--<event name="checkout_submit_all_after">-->
+        <!--<observer name="mw_credit_checkout_submit_all_after" instance="MW\Affiliate\Observer\UpdateStatusOrder" />-->
+    <!--</event>-->
+
+    <event name="sales_quote_collect_totals_before">
+        <observer name="mw_credit_sales_quote_collect_totals_before" instance="MW\Affiliate\Observer\CollectTotalBefore" />
+    </event>
+
+</config>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="ave" translate="label" sortOrder="10">
+            <label>Averun</label>
+        </tab>
+        <section id="ave_sizechart" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Size Chart</label>
+            <tab>ave</tab>
+            <resource>Averun_SizeChart::config_sizechart</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General settings</label>
+                <field id="unit_of_length" translate="label comment" type="select" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default dimension</label>
+                    <source_model>Averun\SizeChart\Model\Attribute\Source\UnitOfLength</source_model>
+                    <comment>All sizes on user end will be showed in selected dimension</comment>
+                </field>
+                <field id="icon" translate="label comment" type="image" sortOrder="0"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Icon on user end (button image)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media">averun/sizechart/icon</upload_dir>
+                    <base_url type="media" scope_info="1">averun/sizechart/icon</base_url>
+                    <comment>Allowed file types: PNG, GIF, JPG, JPEG. Max recommended size: 300x50</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,169 @@
+<?php
+/** @var \Rss\CustomDesigns\Block\Adminhtml\Production\Edit $block */
+$model = $block->getModel();
+$data  = $model ? $model->getData() : [];
+$selectedPatterns = $block->getSelectedPatterns();
+$selectedPatternIdsCsv = $block->getSelectedPatternIdsCsv();
+
+function e($v) {
+    return htmlspecialchars((string)$v, ENT_QUOTES);
+}
+function checked($key, $val, $data) {
+    return ((string)($data[$key] ?? '') === (string)$val) ? 'checked' : '';
+}
+?>
+
+<form action="<?= $block->getUrl('customdesigns/production/save') ?>"
+      method="post"
+      class="admin__scope-old">
+
+    <input type="hidden" name="form_key" value="<?= e($block->getFormKeyValue()) ?>" />
+
+    <?php if (!empty($data['entity_id'])): ?>
+        <input type="hidden" name="entity_id" value="<?= (int)$data['entity_id'] ?>" />
+    <?php endif; ?>
+
+    <input type="hidden" name="selected_pattern_ids" id="selected_pattern_ids" value="<?= e($selectedPatternIdsCsv) ?>" />
+
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend">
+            <span><?= __('Production Request') ?></span>
+        </legend>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Customer Name') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="customer_name" class="admin__control-text"
+                       value="<?= e($data['customer_name'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Sales') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="sales_name" class="admin__control-text"
+                       value="<?= e($data['sales_name'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Sales Email') ?></label>
+            <div class="admin__field-control">
+                <input type="email" name="sales_email" class="admin__control-text"
+                       value="<?= e($data['sales_email'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Pattern (SR) #') ?></label>
+            <div class="admin__field-control">
+                <div id="rss-selected-patterns-summary" style="margin-bottom:10px;">
+                    <?php if ($selectedPatterns): ?>
+                        <?php foreach ($selectedPatterns as $pattern): ?>
+                            <div class="rss-selected-pattern-row" data-pattern-id="<?= (int)$pattern['pattern_id'] ?>" style="margin:0 0 6px 0;">
+                                <strong><?= e($pattern['pattern_number'] ?? '') ?></strong>
+                                <?php if (!empty($pattern['description'])): ?>
+                                    <span style="color:#666;"> - <?= e($pattern['description']) ?></span>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="rss-no-patterns" style="color:#999;"><?= __('No patterns selected.') ?></div>
+                    <?php endif; ?>
+                </div>
+
+                <button type="button"
+                        id="rss-edit-production-patterns"
+                        class="action-default scalable"
+                        data-load-url="<?= e($block->getLoadPatternsUrl()) ?>">
+                    <span><?= __('Edit Pattern (SR) #s') ?></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('VIP Customer') ?></label>
+            <div class="admin__field-control">
+                <label><input type="radio" name="is_vip" value="1" <?= checked('is_vip', 1, $data) ?>> <?= __('Yes') ?></label><br>
+                <label><input type="radio" name="is_vip" value="0" <?= checked('is_vip', 0, $data) ?>> <?= __('No') ?></label>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Delivery Request Date') ?></label>
+            <div class="admin__field-control">
+                <input type="date" name="delivery_request_date" class="admin__control-text"
+                       value="<?= e($data['delivery_request_date'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Fit and Sizing') ?></label>
+            <div class="admin__field-control">
+                <?php foreach (['Slim Fit','Regular Fit','Relax Fit','Size Up','Size Down','No Special Request'] as $opt): ?>
+                    <label><input type="radio" name="fit_and_sizing" value="<?= e($opt) ?>" <?= checked('fit_and_sizing', $opt, $data) ?>> <?= e($opt) ?></label><br>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Shipping Method') ?></label>
+            <div class="admin__field-control">
+                <label><input type="radio" name="shipping_method" value="Economy" <?= checked('shipping_method', 'Economy', $data) ?>> <?= __('Economy') ?></label><br>
+                <label><input type="radio" name="shipping_method" value="Priority" <?= checked('shipping_method', 'Priority', $data) ?>> <?= __('Priority') ?></label>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Shipment Type') ?></label>
+            <div class="admin__field-control">
+                <?php foreach (['Bulk Shipment to One Address','Team Portal USA','Individual Shipment to team portal customer','Other'] as $opt): ?>
+                    <label><input type="radio" name="shipment_type" value="<?= e($opt) ?>" <?= checked('shipment_type', $opt, $data) ?>> <?= e($opt) ?></label><br>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Special Instructions') ?></label>
+            <div class="admin__field-control">
+                <textarea name="special_instructions" class="admin__control-textarea"><?= e($data['special_instructions'] ?? '') ?></textarea>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="page-actions">
+        <button type="submit" class="action-primary"><span><?= __('Save Production Request') ?></span></button>
+    </div>
+</form>
+
+<div id="rss-production-pattern-slideout" style="display:none;">
+    <div class="rss-production-pattern-modal-wrap">
+        <div class="admin__field">
+            <label class="admin__field-label" for="rss-production-pattern-search"><span><?= __('Search Pattern (SR) #') ?></span></label>
+            <div class="admin__field-control">
+                <input type="text" id="rss-production-pattern-search" class="admin__control-text" placeholder="<?= e(__('Type pattern number or description')) ?>" />
+            </div>
+        </div>
+
+        <div id="rss-production-pattern-status" style="margin:0 0 12px 0;color:#666;"></div>
+        <div id="rss-production-pattern-results" style="max-height:520px;overflow:auto;border:1px solid #c2c2c2;padding:12px;background:#fff;"></div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Rss_CustomDesigns/js/production-pattern-selector": {
+            "modalSelector": "#rss-production-pattern-slideout",
+            "openButtonSelector": "#rss-edit-production-patterns",
+            "searchSelector": "#rss-production-pattern-search",
+            "resultsSelector": "#rss-production-pattern-results",
+            "statusSelector": "#rss-production-pattern-status",
+            "hiddenInputSelector": "#selected_pattern_ids",
+            "summarySelector": "#rss-selected-patterns-summary",
+            "loadUrl": "<?= $block->escapeJs($block->getLoadPatternsUrl()) ?>",
+            "formKey": "<?= $block->escapeJs($block->getFormKeyValue()) ?>"
+        }
+    }
+}
+</script>

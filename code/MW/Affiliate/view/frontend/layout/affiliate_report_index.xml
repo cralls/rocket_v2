@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="affiliate_account" />
+    <head>
+        <css src="MW_Affiliate::css/report.css"/>
+        <link src="MW_Affiliate::js/lib/prototype-adapter.js"/>
+        <link src="MW_Affiliate::js/lib/highcharts.js"/>
+        <link src="MW_Affiliate::js/lib/exporting.js"/>
+    </head>
+
+    <body>
+        <referenceContainer name="content">
+            <block class="MW\Affiliate\Block\Customer\Account\Affiliate\Report" name="affilate_report" as="affilate_report" template="MW_Affiliate::customer/account/affiliate/report.phtml" cacheable="false" />
+        </referenceContainer>
+    </body>
+
+</page>
+

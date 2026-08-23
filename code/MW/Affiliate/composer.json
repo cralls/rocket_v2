@@ -1,0 +1,18 @@
+{
+  "name": "mw/module-affiliate",
+  "description": "Mage World - Affiliate Pro extension",
+  "require": {
+    "php": "~5.5.0|~5.6.0|~7.0.0",
+    "magento/framework": "100.0.*"
+  },
+  "type": "magento2-module",
+  "version": "1.4.2",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "MW\\Affiliate\\": ""
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection = $this->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Withdrawal History') ?></span>
+    </legend>
+
+    <?php if (sizeof($collection) > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                        <tr>
+                            <th class="col"><?php echo __('Date') ?></th>
+                            <th class="col"><?php echo __('Withdrawal Amount') ?></th>
+                            <th class="col"><?php echo __('Payment Processing Fee') ?></th>
+                            <th class="col"><?php echo __('Net Amount') ?></th>
+                            <th class="col"><?php echo __('Currency') ?></th>
+                            <th class="col"><?php echo __('Status') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $affiliate): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Date') ?>">
+                                <?php echo $block->formatDate($affiliate->getWithdrawnTime())." ".$block->formatTime($affiliate->getWithdrawnTime());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Withdrawal Amount') ?>">
+                                <?php echo $_dataHelper->formatMoney($affiliate->getWithdrawnAmount());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Payment Processing Fee') ?>">
+                                <?php echo $_dataHelper->formatMoney($affiliate->getFee()); ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Net Amount') ?>">
+                                <?php echo $_dataHelper->formatMoney($affiliate->getAmountReceive()); ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Currency') ?>">
+                                <?php echo $block->getCurrentCurrencyCode() ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Status') ?>">
+                                <?php echo $block->getStatusText($affiliate->getStatus());?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Withdrawal History Found') ?></div>
+    <?php endif; ?>
+</fieldset>

@@ -1,0 +1,12 @@
+table.ave-sizechart-table tr.match-size td, table.ave-sizechart-table tr:hover td {
+    background-color: rgba(0, 147, 228, 0.22) !important;
+}
+table.ave-sizechart-table tr td.match-size {
+    background-color: rgba(0, 147, 228, 0.61) !important;
+}
+table.ave-sizechart-table tr td.main-match-size {
+    background-color: #0093e4 !important;
+}
+div#ave-sizechart-current-size {
+    color: #006bb4;
+}

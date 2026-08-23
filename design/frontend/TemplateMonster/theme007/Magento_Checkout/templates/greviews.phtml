@@ -1,0 +1,20 @@
+<script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+
+<script>
+  window.renderOptIn = function() {
+    window.gapi.load('surveyoptin', function() {
+      window.gapi.surveyoptin.render(
+        {
+          // REQUIRED FIELDS
+          "merchant_id": 6856752,
+          "order_id": "<?php echo $block->getOrderId(); ?>",
+          "email": "<?php echo $block->getCustomerEmail(); ?>",
+          "delivery_country": "<?php echo $block->getOrderCountryCode(); ?>",
+          "estimated_delivery_date": "<?php echo date("Y-m-d", strtotime("+65 days")); ?>",
+
+          // OPTIONAL FIELDS
+          "products": [<?php echo $block->getProducts(); ?>]
+        });
+    });
+  }
+</script>

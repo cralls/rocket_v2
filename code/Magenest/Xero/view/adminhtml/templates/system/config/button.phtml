@@ -1,0 +1,62 @@
+<?php
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ *
+ * Magenest_Xero extension
+ * NOTICE OF LICENSE
+ *
+ * @category  Magenest
+ * @package   Magenest_Salesforce
+ * @author ThaoPV
+ */
+?>
+<?php
+    /** @var $block \Magenest\Xero\Block\System\Config\Form\Button */
+?>
+<div class="actions button-container">
+        <button  class="button action-configure"
+                 type="button"
+                 data-role="<?= /* @escapeNotVerified */ $block->getHtmlId() ?>"
+                 id="<?= /* @escapeNotVerified */ $block->getHtmlId() ?>">
+            <span><?= /* @escapeNotVerified */ $block->escapeHtml($block->getButtonLabel()) ?></span>
+        </button>
+</div>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/alert'
+    ], function($, modalAlert){
+        'use strict';
+        var buttonDataRole = $('#<?= /* @escapeNotVerified */ $block->getHtmlId() ?>');
+        buttonDataRole.click(function(){
+            $.ajax({
+                type: "GET",
+                url: '<?= /* @escapeNotVerified */ $block->escapeUrl($block->getButtonUrl()) ?>',
+                data: [],
+                showLoader: true,
+                success: function (response) {
+                    modalAlert({
+                        content: response.message,
+                        title: '<?= /* @escapeNotVerified */ $block->escapeHtml($block->getButtonLabel()) ?>'
+                    });
+                },
+                error: function (request, textstatus, message) {
+                    if (request.status === 504) {
+                        modalAlert({
+                            content: 'Gateway Time Out but getting Xero Contacts in process. Please wait a minute...',
+                            title: '<?= /* @escapeNotVerified */ $block->escapeHtml($block->getButtonLabel()) ?>'
+                        });
+                    } else {
+                        modalAlert({
+                            content: 'Something went wrong with Ajax request, please refresh your browser',
+                            title: '<?= /* @escapeNotVerified */ $block->escapeHtml($block->getButtonLabel()) ?>'
+                        });
+                    }
+                }
+            });
+
+        });
+    });
+</script>

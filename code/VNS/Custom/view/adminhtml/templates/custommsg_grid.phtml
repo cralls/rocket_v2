@@ -1,0 +1,26 @@
+<div>
+    <table class="data-grid" id="custommsg_grid_table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Custom Rand ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($block->getItems() as $item): ?>
+            <tr>
+                <td><?= $block->escapeHtml($item->getData('msg_id')) ?></td>
+                <td><?= $block->escapeHtml($item->getData('custom_rand_id')) ?></td>
+                <td><?= $block->escapeHtml($item->getData('email')) ?></td>
+                <td><?= $block->escapeHtml($item->getData('name')) ?></td>
+                <td>
+                    <a href="<?= $block->getUrl('vns_custom/msg/view', ['msg_id' => $item->getData('msg_id')]) ?>">View</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

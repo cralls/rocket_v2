@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+	<head>
+        <css src="MageArray_OrderAttachments::css/order-attachments.css"/>
+    </head>
+	<update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="MageArray\OrderAttachments\Block\MyAttachments" name="attachmentlist" template="MageArray_OrderAttachments::attachmentlist.phtml" ifconfig="orderattachments/general/enabled" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

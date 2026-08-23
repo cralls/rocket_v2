@@ -1,0 +1,32 @@
+There is something error.,出现错误。
+The order action is not available.,订单操作不可用。
+Invalid amount for capture.,无效的结算金额
+The payment is not completed?,没有完成支付？
+Click to Repay,重新支付
+OR,或者
+The payment is completed.,支付已完成
+Your order has been received. Order No.: %1,你的订单已经被接受。订单号: %1
+Grand Total:,总价:
+Please use wechat to scan the QR Code to complete the payment.,请使用微信扫描二维码完成支付。
+Your order has been received.,你的订单已经被接受。
+Click to Pay,点击付款
+"There is something wrong, please contact the website owner",这里出现了一些问题， 请联系网站管理者。
+Your order number is: %1.,你的订单号是: %1.
+Your order # is: <span>%1</span>.,你的订单号是: <span>%1</span>.
+We'll email you an order confirmation with details and tracking info.,我们将向你发送带有订单详情和物流信息的订单确认邮件
+Continue Shopping,继续购物
+Place Order,下单
+Wechat Pay,微信支付
+Enabled,开启
+Title,标题
+APP ID,APP ID
+Merchant ID,Merchant ID
+Private Key,Private Key
+APP SECRET,APP SECRET
+Sign Type,Sign Type
+Apiclient Cert Path,API证书路径
+Apiclient Key Path,API键路径
+Instructions,说明
+Sort Order,排序顺序
+Logo,图标
+Your payment has been received.,你已成功支付

@@ -1,0 +1,9 @@
+identifier,name,position,is_active
+top,Top,10,1
+bottom,Bottom,15,1
+dress,Dress,20,1
+swim,Swim,25,1
+suit,Suit,30,1
+outerwear,Outerwear,35,1
+shoes,Shoes,40,1
+accessory,Accessory,45,1

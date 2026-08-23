@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="wechat_pay" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Wechat Pay</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="app_id" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>APP ID</label>
+                </field>
+                <field id="merchant_id" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Merchant ID</label>
+                </field>
+                <field id="key" translate="label" type="password" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Private Key</label>
+                </field>
+                <field id="app_secret" translate="label" type="password" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>APP SECRET</label>
+                    <comment>For JSAPI payment gateway</comment>
+                </field>
+                <field id="sign_type" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sign Type</label>
+                    <source_model>Silksoftwarecorp\WechatPay\Model\Config\Source\SignType</source_model>
+                </field>
+                <field id="apiclient_cert_path" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Apiclient Cert Path</label>
+                    <comment>Used for direct refund</comment>
+                </field>
+                <field id="apiclient_key_path" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Apiclient Key Path</label>
+                    <comment>Used for direct refund</comment>
+                </field>
+                <field id="instructions" translate="label" type="textarea" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Instructions</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                </field>
+                <field id="logo" translate="label" type="image" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Logo</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">alipay/logo</upload_dir>
+                    <base_url type="media" scope_info="1">wechatpay/logo</base_url>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

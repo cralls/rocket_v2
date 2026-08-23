@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Silksoftwarecorp\Alipay\Model\Logger\Handler\Debug">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Silksoftwarecorp\Alipay\Model\Logger\Handler\Error">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Silksoftwarecorp\Alipay\Model\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">alipayLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="debug" xsi:type="object">Silksoftwarecorp\Alipay\Model\Logger\Handler\Debug</item>
+                <item name="error" xsi:type="object">Silksoftwarecorp\Alipay\Model\Logger\Handler\Error</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

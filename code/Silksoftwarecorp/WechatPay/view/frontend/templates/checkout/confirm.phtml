@@ -1,0 +1,13 @@
+<?php
+$orderId = $block->getRequest()->getParam('id');
+?>
+<div class="wechatpay-confirm">
+    <div class="repay">
+        <p><?php echo __("The payment is not completed?") ?></p>
+        <a class="action primary" href="<?php echo $block->getUrl('wechatpay/checkout/pay'); ?>"><?php echo __('Click to Repay'); ?></a>
+    </div>
+    <span><?php echo __("OR");?></span>
+    <div class="confirm">
+        <a class="action primary" href="<?php echo $block->getUrl('wechatpay/checkout/confirm',array('id'=>$orderId)); ?>"><?php echo __('The payment is completed.'); ?></a>
+    </div>
+</div>

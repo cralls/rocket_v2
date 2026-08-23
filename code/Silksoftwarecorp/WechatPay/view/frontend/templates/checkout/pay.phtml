@@ -1,0 +1,120 @@
+<?php
+/**
+ * @author Silksoftware Team
+ * @package Silksoftwarecorp_Alipay
+ * @copyright Copyright (c) 2018 Silk Software Corp. (https://www.silksoftware.com)
+ * @license  https://www.silksoftware.com/licenses/magento_extensions_license_1.0.txt | SILK Software Corp. | Extension License 1.0
+ */
+
+$paymentInfo = $block->getPaymentInfo();
+$order = $block->getOrder();
+$helper = $this->helper("Silksoftwarecorp\WechatPay\Helper\Data");
+?>
+<div class="wechatpay-pay">
+<?php if($paymentInfo['trade_type'] == 'NATIVE'): ?>
+    <p><?php echo __("Your order has been received. Order No.: %1", $order->getIncrementId()); ?></p>
+    <p><?php echo __('Grand Total:') ?> <?php echo $helper->formatPrice($order->getBaseGrandTotal(), $order->getBaseCurrencyCode()); ?><?php if($order->getBaseCurrencyCode() != $order->getOrderCurrencyCode()){echo "(".$helper->formatPrice($order->getGrandTotal(), $order->getOrderCurrencyCode()).")";} ?></p>
+    <p><?php echo __("Please use wechat to scan the QR Code to complete the payment.") ?></p>
+    <p><img alt="QR Checkout" src="<?php echo $block->getUrl('wechatpay/checkout/qrcode', array('data' => urlencode($paymentInfo['code_url']))); ?>" style="width:150px;height:150px;"/></p>
+
+<script type="text/javascript">
+require([
+    'jquery'
+], function($){
+
+        function checkStatus(){
+            $.get(
+                "<?php echo $block->getUrl('wechatpay/checkout/status') ?>",
+                {id : "<?php echo $order->getId(); ?>"},
+                function(response){
+                    if(response == 'success'){
+                        window.location.href = '<?php echo $block->getUrl('wechatpay/checkout/success'); ?>'
+                    }
+                }
+            );
+        }
+
+
+    var checkPay = setInterval(checkStatus,3000);
+});
+</script>
+<?php elseif($paymentInfo['trade_type'] == 'MWEB'): ?>
+<?php $h5RedirectUrl = $paymentInfo['mweb_url']; ?>
+<script type="text/javascript">
+window.location.replace('<?php echo $h5RedirectUrl; ?>');
+</script>
+<?php elseif($paymentInfo['trade_type'] == 'JSAPI'): ?>
+<?php
+$jsApiParameters = $paymentInfo['js_api_parameters'];
+$editAddress = $paymentInfo['edit_address'];
+?>
+<script type="text/javascript">
+	//调用微信JS api 支付
+	function jsApiCall()
+	{
+		WeixinJSBridge.invoke(
+			'getBrandWCPayRequest',
+			<?php echo $jsApiParameters; ?>,
+			function(res){
+				/*WeixinJSBridge.log(res.err_msg);
+				alert(res.err_code+res.err_desc+res.err_msg);*/
+                if(res.err_msg == "get_brand_wcpay_request:ok" ){
+                    window.location.href="<?php echo $block->getUrl('wechatpay/checkout/success') ?>";
+                }
+			}
+		);
+	}
+
+	function callpay()
+	{
+		if (typeof WeixinJSBridge == "undefined"){
+		    if( document.addEventListener ){
+		        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+		    }else if (document.attachEvent){
+		        document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+		        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+		    }
+		}else{
+		    jsApiCall();
+		}
+	}
+</script>
+<!--<script type="text/javascript">
+	//获取共享地址
+	function editAddress()
+	{
+		WeixinJSBridge.invoke(
+			'editAddress',
+			<?php echo $editAddress; ?>,
+			function(res){
+				var value1 = res.proviceFirstStageName;
+				var value2 = res.addressCitySecondStageName;
+				var value3 = res.addressCountiesThirdStageName;
+				var value4 = res.addressDetailInfo;
+				var tel = res.telNumber;
+
+				alert(value1 + value2 + value3 + value4 + ":" + tel);
+			}
+		);
+	}
+
+	window.onload = function(){
+		if (typeof WeixinJSBridge == "undefined"){
+		    if( document.addEventListener ){
+		        document.addEventListener('WeixinJSBridgeReady', editAddress, false);
+		    }else if (document.attachEvent){
+		        document.attachEvent('WeixinJSBridgeReady', editAddress);
+		        document.attachEvent('onWeixinJSBridgeReady', editAddress);
+		    }
+		}else{
+			editAddress();
+		}
+	};
+
+</script>-->
+<p><?php echo __("Your order has been received."); ?></p>
+<p><button class="action primary" type="button" onclick="callpay()" ><span><?php echo __('Click to Pay'); ?></span></button></p>
+<?php else: ?>
+<p><?php echo __('There is something wrong, please contact the website owner'); ?></p>
+<?php endif; ?>
+</div>

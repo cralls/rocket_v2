@@ -1,0 +1,210 @@
+<?php
+/** @var \Rss\CustomDesigns\Block\Adminhtml\Request\Edit\Form $block */
+
+$model = $block->getModel();
+$data  = $model ? $model->getData() : [];
+
+function e($value) {
+    return htmlspecialchars((string)$value, ENT_QUOTES);
+}
+
+function checked($name, $value, $data) {
+    return (($data[$name] ?? '') === $value) ? 'checked' : '';
+}
+
+function selected($name, $value, $data) {
+    return (($data[$name] ?? '') === $value) ? 'selected' : '';
+}
+?>
+
+<form action="<?= $block->getUrl('customdesigns/request/save') ?>"
+      method="post"
+      enctype="multipart/form-data"
+      class="admin__scope-old">
+
+    <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+
+    <?php if (!empty($data['entity_id'])): ?>
+        <input type="hidden" name="entity_id" value="<?= (int)$data['entity_id'] ?>" />
+    <?php endif; ?>
+
+    <fieldset class="admin__fieldset">
+        <legend class="admin__legend">
+            <span><?= __('Custom Design Request') ?></span>
+        </legend>
+
+        <!-- Request Type -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Is this a new request?') ?></label>
+            <div class="admin__field-control">
+                <label>
+                    <input type="radio" name="request_type" value="New"
+                        <?= checked('request_type', 'New', $data) ?> required> <?= __('New') ?>
+                </label><br>
+                <label>
+                    <input type="radio" name="request_type" value="Updated"
+                        <?= checked('request_type', 'Updated', $data) ?>> <?= __('Updated') ?>
+                </label>
+            </div>
+        </div>
+
+        <!-- Sales Person Name -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Sales Person Name') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="sales_person_name"
+                       class="admin__control-text"
+                       value="<?= e($data['sales_person_name'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <!-- Sales Person Email -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Sales Person Email') ?></label>
+            <div class="admin__field-control">
+                <input type="email" name="sales_person_email"
+                       class="admin__control-text"
+                       value="<?= e($data['sales_person_email'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <!-- Customer Name -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Customer Name') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="customer_name"
+                       class="admin__control-text"
+                       value="<?= e($data['customer_name'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <!-- Priority -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Priority') ?></label>
+            <div class="admin__field-control">
+                <label>
+                    <input type="radio" name="priority" value="Urgent"
+                        <?= checked('priority', 'Urgent', $data) ?> required> <?= __('Urgent') ?>
+                </label><br>
+                <label>
+                    <input type="radio" name="priority" value="Regular"
+                        <?= checked('priority', 'Regular', $data) ?>> <?= __('Regular') ?>
+                </label>
+            </div>
+        </div>
+
+        <!-- Date Needed -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Date Art is Needed') ?></label>
+            <div class="admin__field-control">
+                <input type="date" name="date_needed"
+                       class="admin__control-text"
+                       value="<?= e($data['date_needed'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <!-- Sportswear Type -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Type of Sportswear') ?></label>
+            <div class="admin__field-control">
+                <select name="sportswear_type" class="admin__control-select">
+                    <option value="">-- Select --</option>
+                    <?php foreach (['Triathlon','Running','Cycling','Swimming','Soccer','Basketball'] as $opt): ?>
+                        <option value="<?= $opt ?>" <?= selected('sportswear_type', $opt, $data) ?>>
+                            <?= $opt ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Other Product -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('If other, requested product') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="product_other"
+                       class="admin__control-text"
+                       value="<?= e($data['product_other'] ?? '') ?>">
+            </div>
+        </div>
+
+        <!-- Level -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Level') ?></label>
+            <div class="admin__field-control">
+                <select name="level" class="admin__control-select">
+                    <option value="">-- Select --</option>
+                    <?php foreach (['RJ','Elite','Rocket'] as $opt): ?>
+                        <option value="<?= $opt ?>" <?= selected('level', $opt, $data) ?>>
+                            <?= $opt ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <!-- Level Other -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Level (Other)') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="level_other"
+                       class="admin__control-text"
+                       value="<?= e($data['level_other'] ?? '') ?>">
+            </div>
+        </div>
+
+        <!-- Logos URL -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Link to Logos') ?></label>
+            <div class="admin__field-control">
+                <input type="url" name="logos_url"
+                       class="admin__control-text"
+                       value="<?= e($data['logos_url'] ?? '') ?>" required>
+            </div>
+        </div>
+
+        <!-- Pantone Preference -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Pantone Colors Preference') ?></label>
+            <div class="admin__field-control">
+                <input type="text" name="pantone_pref"
+                       class="admin__control-text"
+                       value="<?= e($data['pantone_pref'] ?? '') ?>">
+            </div>
+        </div>
+
+        <!-- Design Style -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Design Instructions') ?></label>
+            <div class="admin__field-control">
+                <?php foreach (['WILD','MODERATE','CONSERVATIVE'] as $opt): ?>
+                    <label>
+                        <input type="radio" name="design_style" value="<?= $opt ?>"
+                            <?= checked('design_style', $opt, $data) ?> required>
+                        <?= ucfirst(strtolower($opt)) ?>
+                    </label><br>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="admin__field">
+            <label class="admin__field-label"><?= __('Additional Comments') ?></label>
+            <div class="admin__field-control">
+                <textarea name="comments" rows="4"
+                          class="admin__control-textarea"><?= e($data['comments'] ?? '') ?></textarea>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <div class="page-actions">
+        <button type="submit" class="action-primary">
+            <span><?= __('Save Request') ?></span>
+        </button>
+
+        <a href="<?= $block->getUrl('customdesigns/index/index') ?>" class="action-default">
+            <?= __('Back') ?>
+        </a>
+    </div>
+</form>

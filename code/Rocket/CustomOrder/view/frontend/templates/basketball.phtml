@@ -1,0 +1,84 @@
+<div class="std">
+    <style type="text/css">
+        img:hover {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
+        .custom-continue {
+            text-align: right;
+            margin: 40px;
+        }
+        .custom-continue a {
+            color: #e92d46;
+            font-size: 32px;
+            text-decoration: none;
+        }
+        .custom-continue a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <div style="background-color: #e92d46; width: 100%; padding: 8px 20px 1px;">
+        <p style="text-align: center; margin-bottom: 10px;"><strong><span style="font-size: xx-large; color: #ffffff;"><img src="https://www.rocketsciencesports.com/media/wysiwyg/custom-rss.png" alt="" class="custom-rss-img">SELECT YOUR BASKETBALL PRODUCTS</span></strong></p>
+    </div>
+    <div style="text-align: center;">
+        <form action="/custom.php?s=product" method="POST" id="form">
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Basketball Jersey</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture44.jpg" alt="" onclick="productSelect(this, 'Basketball Jersey');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Basketball Shorts</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture45.jpg" alt="" onclick="productSelect(this, 'Basketball Shorts');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Hoodie</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture46.jpg" alt="" onclick="productSelect(this, 'Hoodie');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Jacket</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture47.jpg" alt="" onclick="productSelect(this, 'Jacket');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Warm Up Pants</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture48.jpg" alt="" onclick="productSelect(this, 'Pants');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <div style="margin: 20px; display: inline-block; max-width: 221px; vertical-align: bottom;">
+                <p style="margin: 10px; font-size: 28px; color: #777; text-align: center;">Coaches Polo</p>
+                <div style="margin: 10px;"><a href="javascript:void(0);"><img src="https://www.rocketsciencesports.com/media/wysiwyg/Picture49.jpg" alt="" onclick="productSelect(this, 'Coach Polo');"></a></div>
+                <p style="font-size: 22px; text-align: left; padding: 10px;"></p>
+            </div>
+            <input type="hidden" name="products" id="products">
+            <div class="custom-continue">
+                <a href="javascript:void(0)" onclick="document.getElementById('form').submit()">CONTINUE</a>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        var products = document.getElementById('products');
+        function productSelect(el, product) {
+            remove = false;
+            if (el.style.border == '') {
+                el.style.border = "8px solid #e92d46";
+                el.style.padding = "3px";
+            } else {
+                el.style.border = "";
+                el.style.padding = "0px";
+                remove = true;
+            }
+            if (products.value == '') {
+                products.value = product;
+            } else {
+                if (remove) {
+                    products.value = products.value.replace(product, "");
+                } else {
+                    products.value = products.value + " | " + product;
+                }
+            }
+        }
+    </script>
+</div>

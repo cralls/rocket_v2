@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ *
+ * Magenest_Xero extension
+ * NOTICE OF LICENSE
+ *
+ * @category  Magenest
+ * @package   Magenest_Xero
+ * @author ThaoPV
+ */
+?>
+<?php
+    /** @var $block \Magenest\Xero\Block\System\Config\Form\Button\Connection */
+?>
+<div class="actions button-container">
+    <button  class="button"
+             type="button"
+             data-role="<?= /* @escapeNotVerified */ $block->getHtmlId() ?>"
+             id="<?= /* @escapeNotVerified */ $block->getHtmlId() ?>"
+                <?= $block->isConsumerKeyExist() ? '' : 'disabled' ?>>
+        <span><?= /* @escapeNotVerified */ $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+    <div id="result" data-role="result-check" class="message-validation hide"></div>
+</div>
+<script>
+    require(['jquery'], function($){
+        'use strict';
+        var buttonDataRole = $('[data-role="<?= /* @escapeNotVerified */ $block->getHtmlId()?>"]');
+        buttonDataRole.click(function(){
+            var consumerKey = $('[data-role="consumer-key"]').val();
+            var consumerSecret = $('[data-role="consumer-secret"]').val();
+            var result_check = $('[data-role="result-check"]');
+            var data = {
+                consumer_key: consumerKey,
+                consumer_secret: consumerSecret,
+                form_key: FORM_KEY
+            };
+            $.ajax({
+                type: "POST",
+                url: '<?= /* @escapeNotVerified */ $block->escapeUrl($block->getConnectUrl()) ?>',
+                data: data,
+                showLoader: true,
+                success: function (response) {
+                    if (response.error == false) {
+                        location.reload();
+                    } else {
+                        result_check.removeClass('hide').addClass('error');
+                        result_check.html('<span><strong style="color:red">' +
+                            'Error: </strong>' + response.description + '</span>');
+                    }
+                },
+                error: function (response) {
+                    result_check.removeClass('hide').addClass('error');
+                    result_check.html('<span><strong style="color:red">' +
+                        'Error: </strong>Please check configuration again</span>');
+                }
+            });
+        });
+    });
+</script>

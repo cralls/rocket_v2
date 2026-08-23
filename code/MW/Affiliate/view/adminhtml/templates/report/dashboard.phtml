@@ -1,0 +1,144 @@
+<p class="switcher a-right">
+    <label for="store_switcher"><?php echo __('Date Range:') ?></label>
+    <select name="aff_report_range" id="aff_report_range" class="admin__control-select">
+        <option value="1"><?php echo __('Last 24h')?></option>
+        <option value="2"><?php echo __('Last Week')?></option>
+        <option value="3"><?php echo __('Last Month')?></option>
+        <option value="4" selected="selected"><?php echo __('Last 7 days')?></option>
+        <option value="5"><?php echo __('Last 30 days')?></option>
+        <option value="7"><?php echo __('Custom')?></option>
+    </select>
+    <span id="aff_custom_range" style="display: none">
+        <label for="aff_from_date"><?php echo __('From:') ?></label>
+        <input type="text" name="aff_report_from" id="aff_report_from" class="input-text admin__control-text" />
+        <label for="aff_to_date"><?php echo __('To:') ?></label>
+        <input type="text" name="aff_report_to" id="aff_report_to" class="input-text admin__control-text" />
+        <input type="button" id="aff_report_refresh" value="<?php echo __('Refresh') ?>" class="action-default button">
+    </span>
+</p>
+<div id="aff-container" style="height: 300px"></div>
+<p class="switcher a-right" id="aff_debug">
+
+</p>
+<div class="box-left" style="width: 60%; float: left;">
+    <!--Order Information-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo __('Sales by programs')?></h4>
+        </div>
+        <div class="fieldset">
+            <div id="aff-container-sales" style="height: 330px"></div>
+        </div>
+    </div>
+</div>
+<div class="box-left entry-edit" style="width: 27.2%; float: right;">
+    <div class="entry-edit-head"><h4><?php echo __('Statistics')?></h4></div>
+    <div class="grid np">
+        <table cellspacing="0" style="border:0;" id="statisticsGrid_table">
+            <colgroup>
+                <col width="200">
+                <col width="125">
+            </colgroup>
+            <tbody>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Total Sales')?></td>
+                <td class="a-right a-right last" id="aff_total_sales">...</td>
+            </tr>
+            <tr class="odd pointer">
+                <td class=""><?php echo __('Total Orders')?></td>
+                <td class="a-right a-right last" id="aff_total_order">...</td>
+            </tr>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Total Commission')?></td>
+                <td class="a-right a-right last" id="aff_total_commission">...</td>
+            </tr>
+            <tr class="odd pointer">
+                <td class=""><?php echo __('Total Withdrawals')?></td>
+                <td class="a-right a-right last" id="aff_total_withdrawal">...</td>
+            </tr>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Total Withdrawal Fees')?></td>
+                <td class="a-right a-right last" id="aff_total_fee">...</td>
+            </tr>
+            <tr class="odd pointer">
+                <td class=""><?php echo __('Total Transactions')?></td>
+                <td class="a-right a-right last" id="aff_total_transactions">...</td>
+            </tr>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Average Commission per Order')?></td>
+                <td class="a-right a-right last" id="aff_avr_commission_per_order">...</td>
+            </tr>
+            <tr class="odd pointer">
+                <td class=""><?php echo __('Average Commission per Affiliate')?></td>
+                <td class="a-right a-right last" id="aff_avr_commission_per_aff">...</td>
+            </tr>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Average Order Value')?></td>
+                <td class="a-right a-right last" id="aff_avr_sales_per_order">...</td>
+            </tr>
+            <tr class="odd pointer">
+                <td class=""><?php echo __('Average Sales per Affiliate')?></td>
+                <td class="a-right a-right last" id="aff_avr_sales_per_aff">...</td>
+            </tr>
+            <tr class="even pointer">
+                <td class=""><?php echo __('Total Affiliates')?></td>
+                <td class="a-right a-right last" id="aff_total_aff">...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="box-left" style="width: 60%; float: left;">
+    <!--Order Information-->
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo __('Commission by programs')?></h4>
+        </div>
+        <div class="fieldset">
+            <div id="aff-container-commission" style="height: 330px"></div>
+        </div>
+    </div>
+</div>
+<div class="box-left entry-edit" style="width: 30%; float: right;">
+    <div class="entry-edit-head"><h4><?php echo __('Top Affiliate By Sales')?></h4></div>
+    <div class="grid np">
+        <table cellspacing="0" style="border:0;" id="lastOrdersGrid_table" class="rwp_most-user-point">
+            <colgroup>
+                <col width="25">
+                <col width="200">
+                <col width="100">
+                <col width="100">
+            </colgroup>
+            <thead>
+            <tr class="headings">
+                <th class="no-link a-center"><span class="nobr">#</span></th>
+                <th class="no-link label"><span class="nobr"><?php echo __('Email affiliate')?></span></th>
+                <th class="no-link a-right"><span class="nobr"><?php echo __('Total Sales')?></span></th>
+                <th class="no-link a-right last"><span class="nobr"><?php echo __('Total Commission')?></span></th>
+            </tr>
+            </thead>
+            <tbody id="aff-top">
+            <tr>
+                <td colspan="4">....</td>
+            </tr>
+            <tr>
+                <td colspan="2"><?php echo __(' All Affiliate')?></td>
+                <td class="a-right" id="total_affiliate_sales"><?php echo $block->getPricingHelper()->currency(0)?></td>
+                <td class="a-right" id="total_affiliate_commission"><?php echo $block->getPricingHelper()->currency(0)?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+require([
+    'prototype',
+    'mwHeadMainAff'
+], function($) {
+    document.observe("dom:loaded", function() {
+        window.mwReport = new MW.Affiliate.Report.Dashboard({
+            url: '<?php echo $block->getUrl('affiliate/affiliatereport/overview')?>'
+        });
+    });
+});
+</script>

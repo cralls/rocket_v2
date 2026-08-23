@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <outofstocknotification>
+            <general>
+               <order_attachments_email><![CDATA[orderattachment@yoursite.com]]></order_attachments_email>
+				<order_attachments_name><![CDATA[OrderAttachments Admin]]></order_attachments_name>
+                <custom_email_template_admin>orderattachments_general_custom_email_template</custom_email_template_admin>
+                <custom_email_template_customer>orderattachments_general_custom_email_template</custom_email_template_customer>
+				<admin_name>Test Admin</admin_name>
+				<admin_email>test@example.com</admin_email>
+            </general>
+        </outofstocknotification>
+    </default>
+</config>

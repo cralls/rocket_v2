@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="xero_cron">
+        <job name="magenest_xero_sync" instance="Magenest\Xero\Model\Cron" method="syncData">
+            <schedule>* * * * *</schedule>
+        </job>
+    </group>
+    <group id="get_xero_contacts_cron">
+        <job name="magenest_get_xero_contacts_cron" instance="Magenest\Xero\Model\XeroContactCron" method="writeContacts">
+            <schedule>*/20 * * * *</schedule>
+        </job>
+    </group>
+</config>

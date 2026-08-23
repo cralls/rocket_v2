@@ -1,0 +1,21 @@
+{
+  "name": "magenest/module-xero",
+  "description": "Xero Integration with Magento 2",
+  "require": {
+    "magenest/core": "*"
+  },
+  "type": "magento2-module",
+  "version": "3.4.2",
+  "license": [
+    "proprietary",
+    "OSL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Magenest\\Xero\\": ""
+    }
+  }
+}

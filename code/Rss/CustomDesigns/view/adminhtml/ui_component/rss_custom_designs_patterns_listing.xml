@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">rss_custom_designs_patterns_listing.rss_custom_designs_patterns_listing_data_source</item>
+            <item name="deps" xsi:type="string">rss_custom_designs_patterns_listing.rss_custom_designs_patterns_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">patterns_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add Pattern</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">customdesigns/patterns/add</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </item>
+    </argument>
+
+    <dataSource name="rss_custom_designs_patterns_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">rss_custom_designs_patterns_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">pattern_id</argument>
+            <argument name="requestFieldName" xsi:type="string">pattern_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">pattern_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="patterns_columns">
+        <settings>
+            <editorConfig>
+                <param name="templates" xsi:type="array">
+                    <item name="record" xsi:type="array">
+                        <item name="templates" xsi:type="array">
+                            <item name="fields" xsi:type="array">
+                                <item name="textarea" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </param>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="customdesigns/patterns/save"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">pattern_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">rss_custom_designs_patterns_listing.rss_custom_designs_patterns_listing.patterns_columns.ids</param>
+            </editorConfig>
+
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">rss_custom_designs_patterns_listing.rss_custom_designs_patterns_listing.patterns_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">pattern_id</item>
+                    <item name="preserveSelectionsOnFilter" xsi:type="string">true</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+        <column name="pattern_id">
+            <settings>
+                <filter>text</filter>
+                <label>ID</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="pattern_number">
+            <settings>
+                <filter>text</filter>
+                <label>Pattern (SR) #</label>
+                <editor><editorType>text</editorType></editor>
+            </settings>
+        </column>
+
+        <column name="version">
+            <settings>
+                <filter>text</filter>
+                <label>Revision</label>
+                <editor><editorType>text</editorType></editor>
+            </settings>
+        </column>
+
+        <column name="description">
+            <settings>
+                <filter>text</filter>
+                <label>Description</label>
+                <editor><editorType>textarea</editorType></editor>
+            </settings>
+        </column>
+
+        <column name="bom_summary" class="Rss\CustomDesigns\Ui\Component\Listing\Column\BomSummary">
+            <settings>
+                <filter>false</filter>
+                <label>BOMs</label>
+                <sortable>false</sortable>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="edit_boms" class="Rss\CustomDesigns\Ui\Component\Listing\Column\EditBoms">
+            <settings>
+                <filter>false</filter>
+                <label>Edit BOMs</label>
+                <sortable>false</sortable>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="art_templates_url">
+            <settings>
+                <filter>text</filter>
+                <label>Art Templates URL</label>
+                <editor><editorType>text</editorType></editor>
+            </settings>
+        </column>
+
+        <column name="art_templates_link" class="Rss\CustomDesigns\Ui\Component\Listing\Column\ArtTemplatesUrlRenderer">
+            <settings>
+                <filter>false</filter>
+                <label>Link</label>
+                <sortable>false</sortable>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="http_address">
+            <settings>
+                <filter>text</filter>
+                <label>Pattern Files URL</label>
+                <editor><editorType>text</editorType></editor>
+            </settings>
+        </column>
+
+        <column name="http_address_display" class="Rss\CustomDesigns\Ui\Component\Listing\Column\UrlRenderer">
+            <settings>
+                <filter>text</filter>
+                <label>Link</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="updated_at">
+            <settings>
+                <filter>dateRange</filter>
+                <label>Updated</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

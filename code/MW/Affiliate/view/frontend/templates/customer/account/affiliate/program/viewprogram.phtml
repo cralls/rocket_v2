@@ -1,0 +1,50 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection  = $this->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Program name: %1', $block->getProgramName()) ?></span>
+    </legend>
+
+    <?php if (sizeof($collection) > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                    <tr>
+                        <th class="col"><?php echo __('Program Name') ?></th>
+                        <th class="col"><?php echo __('Description') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $program): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Program Name') ?>">
+                                <?php echo $program->getProgramName();?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Description') ?>">
+                                <?php echo $program->getDescription();?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No program description') ?></div>
+    <?php endif; ?>
+
+    <div style=" border-top: 1px solid #E4E4E4;clear: both;margin: 2em 0 0;padding: 8px 0 0;text-align: left;">
+        <p class="back-link">
+            <a href="<?php echo $this->getUrl('affiliate/index/listprogram') ?>" class="back-link"><small>&laquo; </small><?php echo __('Back') ?></a>
+        </p>
+    </div>
+</fieldset>

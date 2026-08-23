@@ -1,0 +1,36 @@
+<?php
+/** @var \VNS\Events\Block\EventList $block */
+$events = $block->getEvents();
+?>
+<div class="event-list">
+    <?php foreach ($events as $event): ?>
+        <div class="event-row">
+            <div class="event-image">
+                <div class="event-date">
+                    <div class="date-month"><?= $block->escapeHtml(date('M', strtotime($event->getFromDate()))) ?></div>
+                    <div class="date-day"><?= $block->escapeHtml(date('d', strtotime($event->getFromDate()))) ?></div>
+                    <div class="date-year"><?= $block->escapeHtml(date('Y', strtotime($event->getFromDate()))) ?></div>
+                 </div>
+                <img src="<?= $block->escapeUrl("/media/".$event->getImageUrl()) ?>" alt="<?= $block->escapeHtml($event->getName()) ?>">
+            </div>
+            <div class="event-details">
+                <h3 class="event-name"><?= $block->escapeHtml($event->getName()) ?></h3>
+                <div class="event-location"><?= $block->escapeHtml($event->getLocation()) ?></div>
+                <div class="event-info">
+                    <div class="event-info-box">
+                        <div class="info-title">Age Range</div>
+                        <div class="info-content"><?= $block->escapeHtml($event->getAgeRange()) ?></div>
+                    </div>
+                    <div class="event-info-box">
+                        <div class="info-title">Event Type</div>
+                        <div class="info-content"><?= $block->escapeHtml($event->getType()) ?></div>
+                    </div>
+                </div>
+            </div>
+            <div class="event-button">
+                <a href="<?= $block->getUrl('events/index/view', ['id' => $event->getId()]) ?>" class="button"><?= $block->escapeHtml(__('View Details')) ?></a>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+

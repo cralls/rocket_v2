@@ -1,0 +1,203 @@
+<?php
+/**
+ * @var \Averun\SizeChart\Block\Frontend\Product\View $block
+ */
+?>
+
+<?php
+
+$chart = $block->getChart();
+$defaultUnitOfLength = $block->getDefaultUnitOfLength();
+$unitOfLengthList = $block->getUnitOfLengthList();
+
+$undefinedLabel = __('You size is undefined');
+$yourSizeLabel = __('Your size is');
+$yourSizeOutOfRangeLabel = __('Your size is out of range!');
+$sizeChartButtonLabel = __('Smart Size Chart');
+
+?>
+<?php if (!empty($chart)) { ?>
+    <a href="javascript:void(0);" class="ave-sizechart-show-link action primary hidden" style="padding: 10px;margin-bottom: 20px;display: block;width: 153px;"><span><span class="ave-sizechart-button-label">
+    <?php if (($icon = $block->getButtonIcon())) {
+        $icon = $block->getMediaAlias('icon') . $icon;
+        echo '<img src="' . $icon . '" class="ave-sizechart-icon" alt="' . $sizeChartButtonLabel . '" />';
+    } else {
+        echo $sizeChartButtonLabel;
+    }
+    ?></span></span></a>
+
+    <div class="ave hidden">
+        <div id="ave-sizechart-holder">
+            <h3><?php echo $chart['name']; ?></h3>
+
+            <div class="ave-sizechart-info">
+                <?php if (array_key_exists('image', $chart) && ($image = $chart['image'])) { ?>
+                    <img class="ave-sizechart-image"
+                         src="<?php echo $block->getImageAlias() . $image; ?>" alt="<?php echo $chart['name']; ?>"/>
+                <?php } ?>
+                    <?php $members = $block->getMembers();           //start member layout ?>
+                    <?php if (!empty($members) && count($members) > 0) { ?>
+                    <div class="ave-sizechart-members">
+                        <select id="active_member" class="full-width">
+                            <option value=""><?php echo __('Please select member'); ?></option>
+                        <?php
+                        foreach ($members as $member) {
+                            $active = $member->getActive() ? ' selected="selected"' : '';
+                            echo '<option value="' . $member->getId() . '"' . $active . '>' . $block->escapeHtml($member->getName()) . '</option>';
+                        }
+                        ?>
+                        </select>
+
+                    </div>
+                    <?php }              //end member layout ?>
+                <div class="ave-sizechart-dimensions">
+                    <form action="" id="ave_dimension_group_form">
+                        <?php echo __('Your dimensions:') ?><br>
+                        <table>
+                            <?php foreach ($chart['dimensions'] as $dimension) {
+                                if (Averun\SizeChart\Model\Entity\DimensionTypeInterface::TYPE_DIMENSION == $dimension['type']) {
+                                    echo '<tr>';
+                                    $dimensionInputFeet = '';
+                                    $classTd = '';
+                                    $dimensionInput = '<input id="ave_sizechart_dimension_' . $dimension['id']
+                                        . '" name="ave_sizechart_dimension_' . $dimension['id']
+                                        . '" type="number" step="1" min="0" class="ave-sizechart-input-dimension" />';
+                                    if ($dimension['lengthType'] == Averun\SizeChart\Model\Attribute\Source\LengthTypes::TYPE_HEIGHT) {
+                                        $classTd = ' class="feet-row"';
+                                        $dimensionInputFeet = '<input id="ave_sizechart_dimension_' . $dimension['id'] . '-feet'
+                                          . '" name="ave_sizechart_dimension_' . $dimension['id'] . '-feet'
+                                          . '" type="number" step="1" min="0" class="ave-sizechart-input-dimension feet" style="float: left;" />';
+                                    }
+                                    echo '<td>' . $dimension['name'] . '</td><td' . $classTd . '>' . $dimensionInputFeet . $dimensionInput . '</td>';
+                                    echo '</tr>';
+                                }
+                            } ?>
+                        </table>
+                        <?php
+                        $unitOfLengthButtons = '<div class="measurement_toggle">';
+                        foreach ($unitOfLengthList as $key => $label) {
+                            $selection = ($key == $defaultUnitOfLength) ? ' active' : '';
+                            if($label == 'cm') $label = "Metric";
+                            if($label == 'inch') $label = "Imperial";
+                            $unitOfLengthButtons
+                                .= '<div class="unit_of_length_btn' . $selection . '" data-code="' . $key
+                                . '" data-name="ave_sizechart_unit_of_length_select">' . __($label) . '</div>';
+                        }
+                        $unitOfLengthButtons .= '</div>';
+                        echo $unitOfLengthButtons;
+                        ?>
+                    </form>
+                </div>
+                <div class="ave-sizechart-note">
+                    <?php if (array_key_exists('note', $chart)) {
+                        echo $chart['note'];
+                    } ?>
+                </div>
+            </div>
+            <div class="ave-sizechart-table-holder">
+                <table class="ave-sizechart-table">
+                    <thead>
+                    <tr><?php
+                        foreach ($chart['dimensions'] as $dimension) {
+                            echo '<th id="dimension_' . $dimension['identifier'] . '">' . $dimension['name'] . '</th>';
+                        }
+                        ?>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $sizesToJs = array();
+                    for ($i = 0; $i <= $chart['maxSizeAmount']; $i++) {
+                        $class = $i % 2 ? ' class="odd"' : '';
+                        $mainSelected = 0;
+                        echo '<tr' . $class . '>';
+                        foreach ($chart['sizes'] as $dimensionId => $sizes) {
+                            if (!empty($sizes['sizes'][$i]) && array_key_exists('name', $sizes['sizes'][$i])
+                                && !empty($sizes['sizes'][$i]['name'])
+                            ) {
+                                $sizeName = $sizes['sizes'][$i]['name'];
+                                $dashPosition = (int) strpos($sizeName, '-');
+                                if ($chart['dimensions']['dimension_' . $dimensionId]['type'] != Averun\SizeChart\Model\Entity\DimensionTypeInterface::TYPE_REGION
+                                    && $dashPosition > 0) {
+                                    $sizeName = explode('-', $sizeName);
+                                    for ($j = 0; $j < count($sizeName); $j++) {
+                                        $sizeName[$j] = floatval($sizeName[$j]);
+                                    }
+                                    $sizeName = implode('-', $sizeName);
+                                }
+                                $sizeId = 'size_' . $sizes['sizes'][$i]['id'];
+                                $sizesToJs[$dimensionId][$sizeId] = $sizeName;
+                                $mainClass = '';
+                                if (!$mainSelected
+                                    && array_key_exists('main', $chart['dimensions']['dimension_' . $dimensionId])
+                                    && $chart['dimensions']['dimension_' . $dimensionId]['main'] == 1
+                                ) {
+                                    $mainClass = ' class="ave-main"';
+                                    $mainSelected = 1;
+                                }
+                                echo '<td id="' . $sizeId . '"' . $mainClass . ' data-label="' . $sizeName . '">';
+                                echo $sizeName;
+                                echo '</td>';
+                            } else if (!empty($sizes['sizes'][$i]) && array_key_exists('name', $sizes['sizes'][$i])
+                                                                && ($sizes['sizes'][$i]['name'] === '0')) {
+                                echo '<td>0</td>';
+                            } else {
+                                echo '<td></td>';
+                            }
+                        }
+                        echo '</tr>';
+                    }
+                    ?>
+                    </tbody>
+                </table>
+
+                <div id="ave-sizechart-current-size" class="ave"><?php echo $undefinedLabel; ?></div>
+                <div class="ave-sizechart-description">
+                    <?php if (!empty($chart['description'])) { ?>
+                        <?php echo $chart['description']; ?>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+        $membersMeasurements = $block->getMembersMeasurements();
+        $setActiveUrl = $block->getUrl('sizechart/setter/active');
+        $setDimensionUrl = $block->getUrl('sizechart/setter/save');
+    ?>
+    <script language="JavaScript">
+        var ave_sizechart; //need for global access
+    </script>
+
+
+    <script type="text/x-magento-init">
+        {
+            "#ave-sizechart-holder": {
+                "Averun_SizeChart/js/sizechart": {
+                 "sizes": <?php echo json_encode($sizesToJs); ?>,
+                 "dimensions": <?php echo json_encode($chart['dimensions']); ?>,
+                 "setActiveUrl": "<?php echo $setActiveUrl; ?>",
+                 "setDimensionUrl": "<?php echo $setDimensionUrl; ?>",
+                 "currentDimension": <?php echo json_encode($defaultUnitOfLength); ?>,
+                 "yourSizeLabel": "<?php echo $yourSizeLabel; ?>",
+                 "yourSizeUndefinedLabel": "<?php echo $undefinedLabel; ?>",
+                 "yourSizeOutOfRangeLabel": "<?php echo $yourSizeOutOfRangeLabel; ?>",
+                 "membersMeasurements": <?php echo json_encode($membersMeasurements); ?>,
+                 "isImageAvailable": <?php echo empty($icon) ? 'null' : '1'; ?>,
+                 "isLoggedIn": "<?php echo $block->isLoggedIn(); ?>"
+                 }
+            }
+        }
+    </script>
+<?php
+} ?>
+
+<?php if ($this->getChartId()) {    //get id from static block
+    /** @var Magento\Framework\View\Asset\Repository $assetRepository */
+    $assetRepository = $block->getAssetRepository();
+    $cssAssetMain = $assetRepository->createAsset('Averun_SizeChart/css/main.css');
+    $cssAssetOverride = $assetRepository->createAsset('Averun_SizeChart/css/overrides.css');
+?>
+    <link href="<?php /* @escapeNotVerified */ echo $cssAssetMain->getUrl(); ?>" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?php /* @escapeNotVerified */ echo $cssAssetOverride->getUrl(); ?>" rel="stylesheet" type="text/css" media="all" />
+<?php }?>

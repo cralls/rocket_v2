@@ -1,0 +1,15 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Vectornetworksolutionsllc_Commercebug::js/w2ui-1.4.3/w2ui-1.4.3.min.css" />        
+        <css src="Vectornetworksolutionsllc_Commercebug::css/jquery.dataTables.min.css" />                        
+        <css src="Vectornetworksolutionsllc_Commercebug::css/commercebug.css" />                
+        <css src="Vectornetworksolutionsllc_Commercebug::js/themes/default/style.css" />                
+        
+        <script src="Vectornetworksolutionsllc_Commercebug::js/jquery-1.11.3.min.js" />    
+        <script src="Vectornetworksolutionsllc_Commercebug::js/w2ui-1.4.3/w2ui-1.4.3.js" />        
+        <script src="Vectornetworksolutionsllc_Commercebug::js/jquery.dataTables.min.js"/>
+        <script src="Vectornetworksolutionsllc_Commercebug::js/jstree.js"/>
+        <script src="Vectornetworksolutionsllc_Commercebug::js/commercebug.js" />                        
+    </head>
+
+</page>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <head>
+        <css src="MW_Affiliate::css/customer.css" />
+    </head>
+    <body>
+        <attribute name="class" value="affiliate-account"/>
+
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Framework\View\Element\Html\Links" name="affiliate_account_navigation" before="-" template="MW_Affiliate::customer/account/navigation.phtml" cacheable="false">
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_referral">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Account Info</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/referralaccount</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_credit">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Transaction History</argument>
+                        <argument name="path" xsi:type="string">affiliate/credit/index</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_transaction">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Commission History</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/transaction</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_withdrawal" ifconfig="affiliate/money/enable_withdrawal">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Withdrawal Request</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/withdrawn</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_invitation">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Invitations</argument>
+                        <argument name="path" xsi:type="string">affiliate/invitation</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_invitation_banner">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Affiliate Banners</argument>
+                        <argument name="path" xsi:type="string">affiliate/banner</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_program">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Affiliate Programs</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/listprogram</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_network">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Affiliate Network</argument>
+                        <argument name="path" xsi:type="string">affiliate/index/network</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_website">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Affiliate Websites</argument>
+                        <argument name="path" xsi:type="string">affiliate/website</argument>
+                    </arguments>
+                </block>
+
+                <!--<block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_likebox">-->
+                    <!--<arguments>-->
+                        <!--<argument name="label" xsi:type="string" translate="true">My Affiliate Widget</argument>-->
+                        <!--<argument name="path" xsi:type="string">affiliate/likebox</argument>-->
+                    <!--</arguments>-->
+                <!--</block>-->
+                <block class="Magento\Framework\View\Element\Html\Link\Current" name="affiliate_report">
+                    <arguments>
+                        <argument name="label" xsi:type="string" translate="true">My Affiliate Report</argument>
+                        <argument name="path" xsi:type="string">affiliate/report</argument>
+                    </arguments>
+                </block>
+
+            </block>
+        </referenceContainer>
+
+        <move element="page.main.title" destination="content.top" before="-"/>
+    </body>
+</page>

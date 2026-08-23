@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content"/>
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+        <referenceContainer name="page.wrapper">
+            <container name="page.top.after" as="page_top_after" htmlTag="div" htmlClass="container-fluid cds-container" after="page.top">
+                <block class="Magento\Cms\Block\Block" name="custom.design.studio">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">custom_design</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Cms\Block\Block" name="custom.design.studio.banner">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">cds-banners</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
+    </referenceContainer>
+</page>

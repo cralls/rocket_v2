@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="xero_oauth_20" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+        <label>OAuth 2.0</label>
+        <comment><![CDATA[<a href="https://developer.xero.com/documentation/getting-started/getting-started-guide" target="_blank">Learn More</a>]]>
+        </comment>
+        <field id="is_connected" translate="label" type="hidden" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Connection Status</label>
+            <config_path>magenest_xero_config/xero_oauth_20/is_connected</config_path>
+            <frontend_model>Magenest\Xero\Block\System\Config\Form\Connection</frontend_model>
+        </field>
+        <field id="client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Client Id</label>
+            <config_path>magenest_xero_config/xero_oauth_20/client_id</config_path>
+            <attribute type="data-role">client-id</attribute>
+            <validate>required-entry</validate>
+            <depends>
+                <field id="is_connected">0</field>
+            </depends>
+        </field>
+        <field id="client_secret" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Client Secret</label>
+            <config_path>magenest_xero_config/xero_oauth_20/client_secret</config_path>
+            <attribute type="data-role">client-secret</attribute>
+            <validate>required-entry</validate>
+            <depends>
+                <field id="is_connected">0</field>
+            </depends>
+        </field>
+        <field id="oauth_callback_uri" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Callback Uri</label>
+            <frontend_model>Magenest\Xero\Model\Config\Source\OauthCallback</frontend_model>
+            <config_path>magenest_xero_config/xero_oauth_20/oauth_callback_uri</config_path>
+            <depends>
+                <field id="is_connected">0</field>
+            </depends>
+        </field>
+        <field id="connection_button" translate="button_label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+            <button_label>Connect Xero App Now</button_label>
+            <frontend_model>Magenest\Xero\Block\System\Config\Form\Button\Connection</frontend_model>
+            <comment><![CDATA[Please save configuration before Connect]]></comment>
+            <depends>
+                <field id="is_connected">0</field>
+            </depends>
+        </field>
+
+        <field id="user_information" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Account Information</label>
+            <frontend_model>Magenest\Xero\Block\System\Config\Form\Information</frontend_model>
+            <depends>
+                <field id="is_connected">1</field>
+            </depends>
+        </field>
+        <field id="xero_app_disconnect" translate="button_label" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+            <button_label>Disconnect</button_label>
+            <frontend_model>Magenest\Xero\Block\System\Config\Form\Button\Disconnect</frontend_model>
+            <depends>
+                <field id="is_connected">1</field>
+            </depends>
+        </field>
+    </group>
+</include>

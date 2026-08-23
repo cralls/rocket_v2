@@ -1,0 +1,8 @@
+<form action="<?php echo $this->getUrl('orderimport/upload/save'); ?>" method="post" enctype="multipart/form-data">
+	<input name="form_key" type="hidden" value="<?php echo $this->getFormKey(); ?>" />
+    <input type="file" name="csv_file" id="csv_file">
+    <button type="submit" class="action-default scalable save primary">
+        <span>Upload</span>
+    </button>
+</form>
+

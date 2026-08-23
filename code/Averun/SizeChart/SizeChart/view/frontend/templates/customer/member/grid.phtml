@@ -1,0 +1,54 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block Averun\SizeChart\Block\Customer\Member */
+?>
+<?php $members = $block->getMembersCollection(); ?>
+<div class="block">
+    <div class="block-title"><strong><?php /* @escapeNotVerified */ echo __('Size Chart Members List') ?></strong></div>
+    <div class="block-content">
+        <div class="box">
+            <button type="button" title="<?php echo __('Add New Member') ?>" class="button"
+                    onclick="window.location='<?php echo $block->getNewUrl() ?>';"><span><span><?php echo __(
+                            'Add New Member'
+                        ) ?></span></span></button><br><br>
+        </div>
+    </div>
+    <div class="block-content">
+        <?php if($members->getSize()): ?>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th width="70%"><?php echo __('Name') ?></th>
+                    <th width="10%"><span class="nobr"><?php echo __('Status') ?></span></th>
+                    <th width="20%">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $_odd = ''; ?>
+                <?php foreach ($members as $member): ?>
+                <tr>
+                    <td><?php echo $block->escapeHtml($member->getName()) ?></td>
+                    <td><?php if($member->getActive()) {echo '<em>' . __('Default') . '</em>';} else {echo ' ';} ?></td>
+                    <td class="a-center">
+                        <span class="nobr"><a href="<?php echo $block->getEditUrl($member) ?>"><?php echo __(
+                                    'Edit') ?></a> |
+                            <a href="<?php echo $block->getDeleteUrl($member) ?>" class="link-remove" onclick="return confirmDelete();"><?php echo __(
+                                    'Remove') ?></a>
+                        </span>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            function confirmDelete ()
+            {
+                return confirm("<?php echo __('Are you sure you want to do this?'); ?>");
+            }
+        </script>
+        <?php endif ?>
+    </div>
+    <?php if(!$members->getSize()) { ?>
+        <div class="message info empty"><span><?php /* @escapeNotVerified */ echo __('You don\'t have any members.'); ?></span></div>
+    <?php } ?>
+</div>

@@ -1,0 +1,49 @@
+<button type="button" id="website-new-add-btn" class="action save primary" style="margin-bottom:5px">
+    <span><?php echo __('Add New') ?></span>
+</button>
+
+<form action="<?php echo $this->getUrl('affiliate/website/save') ?>" method="post" name="website-new-form" class="form-edit-account" id="form-validate">
+    <fieldset class="fieldset" id="new-website-block" style="display: none; margin-bottom: 30px">
+        <legend class="legend">
+            <span><?php echo __('New website')?></span>
+        </legend>
+
+        <div class="field required">
+            <label class="label" for="website-domain"><?php echo __('Your domain:')?></label>
+            <div class="control">
+                <input id="website-domain" type="text" name="website_domain" title="<?php echo __('Website Domain')?>" class="input-text required-entry" />
+            </div>
+            <div class="action-toolbar" style="margin-top: 20px">
+                <div class="primary">
+                    <button type="submit" title="<?php echo __('Save') ?>" id="website-new-save-btn" class="action save primary">
+                        <span><?php echo __('Save') ?></span>
+                    </button>
+                    <button type="button" title="<?php echo __('Remove') ?>" id="website-new-remove-btn">
+                        <span><?php echo __('Remove') ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<script>
+require([
+    'jquery',
+    'mage/mage'
+], function($) {
+    var dataForm = $('#form-validate');
+    dataForm.mage('validation');
+
+    $('#website-new-add-btn').on('click', function() {
+        $('#new-website-block').show();
+        $('#website-new-add-btn').hide();
+    });
+
+    $('#website-new-remove-btn').on('click', function() {
+        $('#website-domain').html('');
+        $('#new-website-block').hide();
+        $('#website-new-add-btn').show();
+    });
+});
+</script>

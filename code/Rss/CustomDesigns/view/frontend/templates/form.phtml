@@ -1,0 +1,17 @@
+<form class="custom-design-form" action="<?= $block->getUrl('rsscustomdesigns/index/submit') ?>" method="post">
+<div>
+<label for="customer_name">Your Name</label>
+<input type="text" name="customer_name" id="customer_name" required />
+</div>
+<div>
+<label for="email">Email</label>
+<input type="email" name="email" id="email" required />
+</div>
+<div>
+<label for="design_description">Design Description</label>
+<textarea name="design_description" id="design_description" rows="5" required></textarea>
+</div>
+<div>
+<button type="submit" class="action submit primary">Submit</button>
+</div>
+</form>

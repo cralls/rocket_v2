@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="affiliate_account" />
+    <head>
+        <css src="MW_Affiliate::css/invitation.css" />
+        <!--<script src="MW_Affiliate::js/noConflict.js"/>-->
+    </head>
+    <body>
+        <referenceBlock name="affiliate_invitation">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Invitations</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="MW\Affiliate\Block\Customer\Account\Invitation\Referral" name="customer_affiliate_invitation_referral" as="invitation_referral" template="MW_Affiliate::customer/account/invitation/referral.phtml" cacheable="false" />
+            <block class="MW\Affiliate\Block\Customer\Account\Invitation\ConnectShare" name="customer_affiliate_invitation_connect_share" as="invitation_connect_share" template="MW_Affiliate::customer/account/invitation/connect_share.phtml" cacheable="false"/>
+            <block class="MW\Affiliate\Block\Customer\Account\Invitation\History" name="customer_affiliate_invitation_history" as="invitation_history" template="MW_Affiliate::customer/account/invitation/history.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

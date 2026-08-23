@@ -1,0 +1,26 @@
+identifier,name,description,type,main,position,is_active,length_type
+neck,Neck,Neck Description,dimension,,10,1,is_length
+torso,Torso,Torso Description,dimension,,15,1,is_length
+arm_length,Arm length,Arm length Description,dimension,,20,1,is_length
+chest,Chest,Chest Description,dimension,,25,1,is_length
+bust,Bust,Bust Description,dimension,,30,1,is_length
+natural_waist,Natural waist,Natural waist Description,dimension,,35,1,is_length
+waist,Waist,Waist Description,dimension,,40,1,is_length
+seat,Seat,Seat Description,dimension,,45,1,is_length
+hips,Hips,Hips Description,dimension,,50,1,is_length
+inseam,Inseam,Inseam Description,dimension,,55,1,is_length
+foot,Foot,Foot Description,dimension,,60,1,is_length
+height,Height,Height Description,dimension,,65,1,is_height
+weight,"Weight",Weight Description,dimension,,70,1,is_weight
+age,Age,Age Description,dimension,,75,1,
+us,US,US Description,region,1,80,1,
+us_numeric,US (numeric size),US Description,region,,85,1,
+canada,Canada,Canada Description,region,,90,1,
+uk,UK,UK Description,region,,95,1,
+germany,Germany,Germany Description,region,,100,1,
+france,France,France Description,region,,105,1,
+italy,Italy,Italy Description,region,,110,1,
+spain,Spain,Spain Description,region,,115,1,
+europe,Europe,Europe Description,region,,120,1,
+japan,Japan,Japan Description,region,,125,1,
+australia,Australia,Australia Description,region,,130,1,

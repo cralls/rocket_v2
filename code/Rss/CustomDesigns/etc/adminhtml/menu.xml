@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+
+    <menu>
+
+        <!-- Parent -->
+        <add id="Rss_CustomDesigns::custom_designs"
+             title="Custom Designs"
+             module="Rss_CustomDesigns"
+             sortOrder="20"
+             resource="Rss_CustomDesigns::custom_designs"/>
+
+        <!-- Custom Design Requests -->
+        <add id="Rss_CustomDesigns::design_requests"
+             title="Design Requests"
+             module="Rss_CustomDesigns"
+             parent="Rss_CustomDesigns::custom_designs"
+             sortOrder="10"
+             action="customdesigns/index/index"
+             resource="Rss_CustomDesigns::custom_designs"/>
+
+        <!-- Production Requests -->
+        <add id="Rss_CustomDesigns::production_requests"
+             title="Production Requests"
+             module="Rss_CustomDesigns"
+             parent="Rss_CustomDesigns::custom_designs"
+             sortOrder="20"
+             action="customdesigns/production/listing"
+             resource="Rss_CustomDesigns::production_requests"/>
+
+		<add id="Rss_CustomDesigns::patterns"
+             title="Patterns"
+             module="Rss_CustomDesigns"
+             sortOrder="20"
+             parent="Rss_CustomDesigns::custom_designs"
+             resource="Rss_CustomDesigns::custom_designs"
+             action="customdesigns/patterns/index"/>
+             
+         <add id="Rss_CustomDesigns::bom"
+		     title="BOM Materials"
+		     module="Rss_CustomDesigns"
+		     sortOrder="30"
+		     parent="Rss_CustomDesigns::custom_designs"
+		     action="customdesigns/bom/index"
+		     resource="Rss_CustomDesigns::custom_designs"/>
+
+    </menu>
+</config>

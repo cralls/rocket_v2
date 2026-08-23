@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="affiliate_account" />
+    <body>
+        <referenceBlock name="affiliate_website">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Affiliate Website</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_affiliate_website" as="affiliate_website" template="MW_Affiliate::customer/account/website/add.phtml" cacheable="false"/>
+            <block class="MW\Affiliate\Block\Customer\Account\Website" name="customer_affiliate_website_list" as="affiliate_website_list" template="MW_Affiliate::customer/account/website/list.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

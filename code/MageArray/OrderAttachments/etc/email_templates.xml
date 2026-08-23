@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="orderattachments_general_custom_email_template_admin" label="Order Attachments For Admin" area="frontend" file="order_attachments.html" type="html" module="MageArray_OrderAttachments"/>
+	<template id="orderattachments_general_custom_email_template_customer" label="Order Attachments For Customer" area="frontend" file="order_attachments.html" type="html" module="MageArray_OrderAttachments"/>
+</config>

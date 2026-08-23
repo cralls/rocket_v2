@@ -1,0 +1,46 @@
+<?php
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+$orderData = $objectManager->create('Magento\Sales\Model\Order')->load($block->getRealOrderId());
+$customerData = $block->getCustomerData();
+/*
+        'send_to': '1056668335/Yqz2CNvm1AEQr_Xt9wM',
+*/
+?>
+<script>
+window.dataLayer = window.dataLayer || [];
+dataLayer.push({
+    "event": "purchase",
+    "conversion": {
+    	'send_to': '1056668335/tLadCNbyycEZEK_17fcD',
+        'merchant_id' : '6856752',
+        'language' : 'en',
+        'value': '<?php echo number_format($block->getGrandTotal(), 2)?>',
+        'discount': '<?php echo number_format($block->getDiscountAmount(), 2)?>',
+        'currency': 'USD',
+        'transaction_id': '<?php echo $block->getOrderIncrementId() ?>',
+        'email': '<?php echo $customerData['email'] ?? '' ?>',
+        'phone': '<?php echo $customerData['phone'] ?? '' ?>',
+        'first_name': '<?php echo $customerData['first_name'] ?? '' ?>',
+        'last_name': '<?php echo $customerData['last_name'] ?? '' ?>',
+        'street_address': '<?php echo $customerData['street_address'] ?? '' ?>',
+        'city': '<?php echo $customerData['city'] ?? '' ?>',
+        'region': '<?php echo $customerData['region'] ?? '' ?>',
+        'postal_code': '<?php echo $customerData['postal_code'] ?? '' ?>',
+        'country': '<?php echo $customerData['country'] ?? '' ?>',
+        'products': [
+            <?php
+            $items = $block->getAllItems();
+            foreach($items as $key => $item) {
+                if($block->isConfigurable($item->getSku()) == true) continue;
+                echo "{";
+                echo "'id': '".$item->getSku()."',";
+                echo "'price': '".number_format($item->getPrice(), 2)."',";
+                echo "'quantity': '".number_format($item->getQtyOrdered())."'";
+                echo "}";
+                if(isset($items[$key+1])) echo ",";
+            }
+            ?>
+            ]
+    }
+});
+</script>

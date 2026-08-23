@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="affiliate_account" />
+    <body>
+        <referenceBlock name="affiliate_program">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Programs</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="MW\Affiliate\Block\Customer\Account\Affiliate\Program\Listprogram" name="list_member_program" as="list_member_program" template="MW_Affiliate::customer/account/affiliate/program/listprogram.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

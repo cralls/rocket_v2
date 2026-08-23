@@ -1,0 +1,25 @@
+"Payment Error","Payment Error"
+"Wrong private key format","Wrong private key format"
+"Wrong Alipay Public Key","Wrong Alipay Public Key"
+"Invalid amount for capture.","Invalid amount for capture."
+"Alipay require CNY currency rate. Please Select Chinese Yuan in Currency Setup > Allowed Currencies and set the currency rate.","Alipay require CNY currency rate. Please Select Chinese Yuan in Currency Setup > Allowed Currencies and set the currency rate."
+"Your order has been received. You will be redirected to Alipay to complete the payment.","Your order has been received. You will be redirected to Alipay to complete the payment."
+"Continue to Pay","Continue to Pay"
+"There is something wrong with this payment, please contact the store owner.","There is something wrong with this payment, please contact the store owner."
+"Your order number is: %1.","Your order number is: %1."
+"Your order # is: <span>%1</span>.","Your order # is: <span>%1</span>."
+"We'll email you an order confirmation with details and tracking info.","We'll email you an order confirmation with details and tracking info."
+"Continue Shopping","Continue Shopping"
+"Place Order","Place Order"
+Alipay,Alipay
+Enabled,Enabled
+Title,Title
+"APP ID","APP ID"
+"APP PRIVATE KEY","APP PRIVATE KEY"
+"ALIPAY PUBLIC KEY","ALIPAY PUBLIC KEY"
+"Sign Type","Sign Type"
+"Sandbox Mode","Sandbox Mode"
+Instructions,Instructions
+"Sort Order","Sort Order"
+Logo,Logo
+"Your payment has been received.","Your payment has been received."

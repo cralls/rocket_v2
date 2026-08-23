@@ -1,0 +1,69 @@
+<?php /** @var $block \Magenest\Xero\Block\Adminhtml\InvoiceEdit\View */
+$syncHistory = $block->getSyncLog();
+?>
+
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Xero Integration')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Information')) ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tbody>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Xero ID:')) ?></th>
+                        <td><a target="_blank" href="<?= $block->escapeUrl($block->getXeroUrl())?>">
+                                <?= $block->escapeHtml($block->getXeroId()) ?></a></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Last Updated At:')) ?></th>
+                        <td><?= $block->escapeHtml($block->getLastUpdatedAt()) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Created At:')) ?></th>
+                        <td><?= $block->escapeHtml($block->getCreatedAt()) ?></td>
+                    </tr>
+                    <tr>
+                        <td><button class="sync_item_button"
+                                onclick="location.href='<?= $block->escapeUrl($block->getSyncButtonUrl()) ?>'">
+                                Sync Now</button></td>
+                        <td><button class="add_item_to_queue_button"
+                                onclick="location.href='<?= $block->escapeUrl($block->getAddToQueueButtonUrl()) ?>'">
+                                Add To Queue</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="admin__page-section-item order-account-information">
+            <?php /* Account Information */?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Sync History')) ?></span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-account-information-table">
+                    <?php if ($syncHistory): ?>
+                        <?php $count = 1 ?>
+                        <?php foreach ($syncHistory as $v): ?>
+                            <tr>
+                                <th><?= $block->escapeHtml($count.'.') ?></th>
+                                <td>
+                                    <span style="font-size:12pt">
+                                        <?= $block->escapeHtml($v->getData('dequeue_time')) ?>
+                                    </span>
+                                </td>
+                                <td><?= $block->escapeHtml($v->getData('status') == 1 ? __('Ok'): __('Failed')); ?></td>
+                                <?php $count++ ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

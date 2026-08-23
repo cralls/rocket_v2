@@ -1,0 +1,57 @@
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Rocket\Catalog\Block\Category\View
+ */
+
+$order = $this->getData('order');
+if(!is_null($order) && $order->getTeamPortal() > 0) {
+    //error_log("About to call getShoppingEndDates with order ID ".$order->getId()."\r\n", 3, '/home/rocketsc/public_html/error_log_portal');
+    $shoppingEndDates = $block->getShoppingEndDates($order);
+} else {
+    $shoppingEndDates = $block->getShoppingEndDates();
+}
+if(!is_array($shoppingEndDates)) $shoppingEndDates = [];
+?>
+<?php if (count($shoppingEndDates) > 1) { ?>
+    <?php
+    $storeClosesDay = date('d', strtotime($shoppingEndDates['storeCloses']));
+    $storeClosesMonth = date('F', strtotime($shoppingEndDates['storeCloses']));
+    $estShippingDay = date('d', strtotime($shoppingEndDates['estShipping']));
+    $estShippingMonth = date('F', strtotime($shoppingEndDates['estShipping']));
+    ?>
+
+    <div class="pull-lg-right" style="display: inline-block; margin-left: 10px;">
+        <div style="width: 96px;text-align: center;font-size: 10px;">Est. Shipping</div>
+        <div style="width: 96px;text-align: center;font-size: 18px;background-color: #e9e9e9;">
+            <?= $estShippingMonth ?>
+        </div>
+        <div style="width: 96px;height:75px;background-color: #303030;font-size: 50px;color: white; padding-top: 30px;text-align: center;">
+            <?= $estShippingDay ?>
+        </div>
+    </div>
+    <div class="pull-lg-right"style="display: inline-block; margin-left: 10px;">
+        <div style="width: 96px; clear: both;text-align: center;font-size: 10px;">Store Closes</div>
+        <div style="width: 96px; clear: both;text-align: center;font-size: 18px;background-color: #e9e9e9;">
+            <?= $storeClosesMonth ?>
+        </div>
+        <div style="width: 96px;height:75px;background-color: #e92c46;font-size: 50px;color: white; padding-top: 30px;text-align: center;">
+            <?= $storeClosesDay ?>
+        </div>
+    </div>
+<?php
+} elseif($this->getCategoryParentId($order) == '108') { 
+    $estShippingDay = date('d', strtotime('+5 weeks'));
+    $estShippingMonth = date('F', strtotime('+5 weeks'));
+?>
+    <div class="pull-lg-right" style="display: inline-block; margin-left: 10px;">
+    <div style="width: 96px;text-align: center;font-size: 10px;">Est. Shipping</div>
+    <div style="width: 96px;text-align: center;font-size: 18px;background-color: #e9e9e9;">
+    <?= $estShippingMonth ?>
+        </div>
+        <div style="width: 96px;height:75px;background-color: #303030;font-size: 50px;color: white; padding-top: 30px;text-align: center;">
+            <?= $estShippingDay ?>
+        </div>
+    </div>
+<?php } ?>

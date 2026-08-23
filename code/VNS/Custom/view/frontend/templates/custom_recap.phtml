@@ -1,0 +1,123 @@
+<main id="maincontent" class="page-main fix-indent-2">
+        <a id="contentarea" tabindex="-1"></a>
+        <style type="text/css">
+            input {
+                width: 400px;
+                height: 40px;
+            }
+
+            label {
+                margin-right: 10px;                display: block;                margin-top: 20px;
+            }
+            #custom-recap-form input {                display: inline-block;                width: 400px;                clear: none;                float: left;            }
+            .custom-continue {
+                text-align: right;
+                margin: 40px;
+            }
+
+            .custom-continue a {
+                color: #e92d46;
+                font-size: 32px;
+                text-decoration: none;
+            }
+
+            .custom-continue a:hover {
+                text-decoration: underline;
+            }
+
+            .design-instructions-textarea {
+                width: 400px;
+                height: 150px;
+            }
+
+            .edit-link {
+                width: 60px;
+                font-size: 22px;
+                background-color: #e92d46;
+                color: white;
+                padding: 7px;
+                position: relative;                                width: 68px;                font-size: 22px;                background-color: #e92d46;                color: white;                padding: 14px;                position: relative;                display: inline-block;                float: right;                height: 50px;
+            }                        .page-main.fix-indent-2 {                padding-top: 0px;            }
+        </style>
+        <div style="background-color: #e92d46; width: 100%; padding: 8px 20px 1px;">
+            <p style="text-align: center; margin-bottom: 10px;">
+                <strong>
+                    <span style="font-size: xx-large; color: #ffffff;"><img
+                                src="https://www.rocketsciencesports.com/media/wysiwyg/custom-rss.png"
+                                alt="" class="custom-rss-img"
+                                style="vertical-align: middle"/> RECAP</span>
+                </strong>
+            </p>
+        </div>
+        <div style="text-align: center; max-width: 1120px; margin: 0 auto;">
+            <form id="custom-recap-form" action="/custom.php?s=recap" method="post">
+                <p style="font-size: 22px; text-align: center; margin-top: 20px; color: black;">
+                    Here is a summary of what you requested. Any mistakes? Update it now!
+                </p>
+                <div style="margin: 20px; display: inline-block; max-width:600px; vertical-align: bottom; font-size: 22px; text-align: right;">
+                    <label>PROJECT NAME </label><input type='text' name="project-name"
+                                                       disabled="disabled"
+                                                       value="<?= $_SESSION['custom']['design-project'] ?>"><a
+                            href="https://www.rocketsciencesports.com/custom-design-instructions"
+                            class="edit-link">EDIT</a><br><br>
+                    <label>TEAM SIZE </label><input type='text' name="team-size"
+                                                    disabled="disabled"
+                                                    value="<?= $_SESSION['custom']['team-size'] ?>"><a
+                            href="https://www.rocketsciencesports.com/custom-team-size"
+                            class="edit-link">EDIT</a><br><br>
+                    <label>DESIRED DELIVERY </label><input type='text' name="desired-delivery"
+                                                           disabled="disabled"
+                                                           value="<?= $_SESSION['custom']['delivery'] ?>"><a
+                            href="https://www.rocketsciencesports.com/custom-team-size"
+                            class="edit-link">EDIT</a><br><br>
+                    <label>STYLE </label><input type='text' name="style" disabled="disabled"
+                                                value="<?= $_SESSION['custom']['taste'] ?>"><a
+                            href="https://www.rocketsciencesports.com/custom-taste"
+                            class="edit-link">EDIT</a><br><br>
+                    <label>COLORS </label>
+                    <?php
+                    if (strpos($_SESSION['custom']['mainColor'], "sciencesports")) {
+                        echo "<img src='" . $_SESSION['custom']['mainColor'] . "' style='display: inline-block;'> ";
+                        $additionalImages = explode(",", $_SESSION['custom']['additionalColors']);
+                        foreach ($additionalImages as $image) {
+                            echo "<img src='" . $image . "' style='display: inline-block;'> ";
+                        }
+                    } else {
+                        echo "<input type='text' name='colors' disabled='disabled' value='" . $_SESSION['custom']['mainColor'] . " - " . $_SESSION['custom']['additionalColors'] . "'>";
+                    }
+                    ?>
+                    <a href="https://www.rocketsciencesports.com/custom-select-your-colors"
+                       class="edit-link">EDIT</a><br><br>
+                    <?php $i = 0; ?>
+                    <?php if (!empty($_SESSION['custom']['filename'])) {
+                        $i++;
+                    } ?>
+                    <?php if (!empty($_SESSION['custom']['filename2'])) {
+                        $i++;
+                    } ?>
+                    <?php if (!empty($_SESSION['custom']['filename3'])) {
+                        $i++;
+                    } ?>
+                    <?php if (!empty($_SESSION['custom']['filename4'])) {
+                        $i++;
+                    } ?>
+                    <?php if (!empty($_SESSION['custom']['filename5'])) {
+                        $i++;
+                    } ?>
+                    <label><?php echo "<span style='color: #e92d46;font-weight: bold;'>" . $i . "</span>"; ?>
+                        UPLOADED FILES </label>
+                    <a href="https://www.rocketsciencesports.com/custom-file-upload"
+                       class="edit-link">EDIT</a><br><br>
+                    <label>DESIGN INSTRUCTIONS </label><input type='text' name="notes"
+                                                              disabled="disabled"
+                                                              value="<?= $_SESSION['custom']['design-instructions'] ?>"><a
+                            href="https://www.rocketsciencesports.com/custom-design-instructions"
+                            class="edit-link">EDIT</a><br><br>
+                </div>
+                <div class="custom-continue">
+                    <a href="custom.php?s=recap"
+                       onclick="document.getElementById('custom-recap-form').submit">SUBMIT</a>
+                </div>
+            </form>
+        </div>
+    </main>

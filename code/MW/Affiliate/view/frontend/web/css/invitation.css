@@ -1,0 +1,59 @@
+.aff_referral_link .mw-legend {
+    float: left;
+    width: 15%;
+    border-bottom: none;
+}
+.aff_referral_link .div_share {
+    float: right;
+    width: 85%;
+}
+.aff_referral_link {
+    height: auto;
+    clear: both;
+    position: relative;
+    overflow: hidden;
+}
+.affiliate-invitation-index .box-account {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+.invitation_transaction .form-list {
+    width: 300px;
+    list-style: none;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+.invitation_transaction .fieldset {
+    padding: 22px 25px 12px 33px;
+}
+.invitation_transaction .form-list .field {
+    float: left;
+    width: 210px;
+}
+.invitation_transaction .ui-widget-content {
+    padding-bottom: 40px;
+}
+.invitation_transaction #my-credits-table3, .invitation_transaction #toggleSection {
+    clear: both;
+}
+.invitation_transaction .fieldset div.value {
+    float: left;
+    position: relative;
+}
+#my-credits-table1 td.last {
+    text-align: center !important;
+}
+#mw_withdraw_next ul li.fields {
+    clear: both;
+}
+#mw_withdraw_next ul li div.field {
+    float: left;
+    width: 25%;
+}
+#withdraw_amount {
+    width: 240px;
+}
+#referral_link_edit_block {
+    margin-top: 10px;
+}

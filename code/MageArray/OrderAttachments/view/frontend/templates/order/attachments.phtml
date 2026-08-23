@@ -1,0 +1,187 @@
+
+<?php $helper = $this->helper(\MageArray\OrderAttachments\Helper\Data::Class);?>
+<?php $order = $helper->getOrder();?>
+<?php $status = $order->getStatus();?>
+<?php $files = $helper->getAttachedFiles(); ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <span class="title"><?= /* @noEscape */
+             __('Order Attachments') ?></span>
+    </div>
+    <div class="block-content">
+        <img src="<?= /* @noEscape */ $block->getViewFileUrl('images/loader-1.gif'); ?>"
+                 alt="<?= /* @noEscape */ __('Loading...'); ?>"
+             class="fileupload-loader"/>
+
+        <form method="POST" enctype='multipart/form-data'
+              action="<?= /* @noEscape */ $block->getUrl('orderattachments/index/post');?>"
+              data-hasrequired="<?= /* @noEscape */ __('* Required Fields') ?>"
+              data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="order_id"
+                   value="<?= /* @noEscape */ $order->getId(); ?>"/>
+            <input type="hidden" name="order_status"
+                   value="<?= /* @noEscape */ $status; ?>"/>
+            <input type="hidden" name="customer_id"
+                   value="<?= /* @noEscape */ $order->getCustomerId(); ?>"/>
+            <input type="hidden" name="form_key"
+                   value="<?= /* @noEscape */ $block->getFormKey(); ?>"/>
+            <table class="data-table admin__table-primary edit-order-table order-attachment-table">
+                <thead>
+                <tr class="headings">
+                    <th class="cell-updated"><?= /* @noEscape */__('Created On'); ?></th>
+                    <th class="cell-updated"><?= /* @noEscape */__('Updated On'); ?></th>
+                    <th class="cell-file"><?= /* @noEscape */__('File'); ?></th>
+                    <th class="cell-comment"><?= /* @noEscape */__('Comment'); ?></th>
+                    <?php if ($helper->canDelete() && !$block->inStatuses($status)): ?>
+                        <th width="100" class="cell-remove last"><?= /* @noEscape */ __('Remove'); ?></th>
+                    <?php endif; ?>
+                </tr>
+                </thead>
+                <tbody id="magearray-attachments-added">
+                <?php if (count($files) > 0): ?>
+                    <?php foreach ($files as $file): ?>
+                        <?php if ($file['visible_customer_account']): ?>
+                            <tr>
+                                <td><?= /* @noEscape */ $helper->getDateFormat($file['created_at']); ?></td>
+                                <td><?= /* @noEscape */ $helper->getDateFormat($file['updated_at']); ?></td>
+                                <td>
+                                    <span><a target="_blank"
+                                             href="<?= /* @noEscape */ $helper->getMediaPath().$file['file_path']; ?>"><?= /* @noEscape */ $file['file_name']; ?></a></span>
+                                    <input type="hidden"
+                                           name="attachment[<?= /* @noEscape */ $file['id']; ?>][file_exist]"
+                                           value="<?= /* @noEscape */ $file['id']; ?>"/>
+                                    <input type="hidden"
+                                           name="attachment[<?= /* @noEscape */ $file['id']; ?>][file_name]"
+                                           value="<?= /* @noEscape */ $file['file_name'];  ?>"/>
+                                    <input type="hidden"
+                                           name="attachment[<?= /* @noEscape */ $file['id']; ?>][file_path]"
+                                           value="<?= /* @noEscape */ $file['file_path']; ?>"/>
+                                </td>
+
+                                <td>
+                                <?php if ($block->inStatuses($status)):?>
+                                    <?= /* @noEscape */ $file['comment']; ?>
+                                <?php else:?>
+                                    <textarea rows="6" cols="25"
+                                              name="attachment[<?= /* @noEscape */ $file['id']; ?>][comment]"
+                                              title="<?= /* @noEscape */ __('Comment')?>"><?= /* @noEscape */ $file['comment']; ?></textarea>
+                                <?php endif;?>
+                                </td>
+                                <?php if ($helper->canDelete() && !$block->inStatuses($status)): ?>
+                                    <td>
+                                        <div class="admin__actions-switch"
+                                             data-role="switcher">
+                                            <input type="checkbox"
+                                                   class="admin__actions-switch-checkbox"
+                                                   id="removeItem<?= /* @noEscape */ $file['id']; ?>"
+                                                   name="attachment[<?= /* @noEscape */ $file['id']; ?>][remove]"
+                                                   value="1">
+                                            <label class="admin__actions-switch-label"
+                                                   for="removeItem<?= /* @noEscape */ $file['id']; ?>">
+                                                <span class="admin__actions-switch-text"
+                                                      data-text-on="Yes"
+                                                      data-text-off="No"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <script id="magearray-attachments-added-template"
+                        type="text/x-magento-template">
+                    <tr>
+                        <td><%- currentDate %></td>
+                        <td><%- currentDate %></td>
+                        <td>
+                            <span><%- fileName %> (<%- fileSize %>)</span>
+                            <input type="hidden"
+                                   name="attachment[<%- index %>][new_file]"
+                                   value="1"/>
+                            <input type="hidden"
+                                   name="attachment[<%- index %>][file_name]"
+                                   value="<%- fileName %>"/>
+                            <input type="hidden"
+                                   name="attachment[<%- index %>][file_path]"
+                                   value="<%- file %>"/>
+                        </td>
+                        <td><textarea rows="6" cols="30"
+                                      name="attachment[<%- index %>][comment]"
+                                      title="<?= /* @noEscape */ __('Comment')?>"></textarea></td>
+                        <?php if ($helper->canDelete()): ?>
+                            <td>
+                                <div class="admin__actions-switch"
+                                     data-role="switcher">
+                                    <input type="checkbox"
+                                           class="admin__actions-switch-checkbox"
+                                           id="removeItem<%- index %>" name="attachment[<%- index %>][remove]"
+                                           value="1">
+                                    <label class="admin__actions-switch-label"
+                                           for="removeItem<%- index %>">
+                                        <span class="admin__actions-switch-text"
+                                              data-text-on="Yes"
+                                              data-text-off="No"></span>
+                                    </label>
+                                </div>
+                            </td>
+                        <?php endif; ?>
+                    </tr>
+                </script>
+                </tbody>
+            </table>
+            <?php if (!$block->inStatuses($status)):
+                ?>
+                <div class="error-msg"></div>
+                <span class="magearray-file-upload">
+
+                    <span id="magearray-attachments-add-link"
+                              class="magearray-file-upload__link"
+                              data-switch-title="<?= /* @noEscape */ __('Add another file') ?>"><?= /* @noEscape */ __('Add file') ?></span>
+                    <input type="file" id="magearray-attachments"
+                               name="file[]"
+                               data-url="<?= /* @noEscape */ $block->getFileUploadUrl(); ?>"
+                           multiple/>
+                </span>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit"
+                                title="<?= /* @noEscape */ __('Submit') ?>"
+                                class="action submit primary">
+                            <span><?= /* @noEscape */ __('Submit') ?></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="file-note">
+                    <?php if ($helper->displayFileTypes()):?>
+                        <div class="allowed-file-type"></div>
+                    <?php endif;?>
+                    <?php if ($helper->displayMaxFileSize()):?>
+                        <div class="allowed-file-size"></div>
+                    <?php endif;?>
+                </div>
+                <div id="magearray-attachments-allowedfiletype"
+                     style="display: none;"><?= /* @noEscape */ $helper->allowedFiles(); ?></div>
+                <div id="magearray-attachments-maxFileSize"
+                     style="display: none;"><?= /* @noEscape */ $helper->maxFileSize(); ?></div>
+                <div id="magearray-attachments-error" style="display: none;"></div>
+            <?php endif;?>
+            <script type="text/x-magento-init">
+                {
+                    "#magearray-attachments": {
+                        "magearrayFileUpload": {
+                            "addLink": "#magearray-attachments-add-link",
+                            "itemTemplate": "#magearray-attachments-added-template",
+                            "itemsContainer": "#magearray-attachments-added",
+                            "removeLinks": ".action-item-remove",
+                            "errorContainer": "#magearray-attachments-error",
+                            "allowedFile": "#magearray-attachments-allowedfiletype",
+                            "maxFileSize": "#magearray-attachments-maxFileSize"
+                        }
+                    }
+                }
+
+            </script>
+        </form>
+    </div>
+</div>

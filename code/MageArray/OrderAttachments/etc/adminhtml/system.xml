@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		 <tab id="magearray" translate="label" sortOrder="300" class="magearray" >
+			<label>MageArray Extensions</label>
+		</tab> 
+		<section id="orderattachments" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+			<label>Order Attachments</label>
+			<tab>magearray</tab>
+			<resource>MageArray_OrderAttachments::orderattachments</resource>
+			<group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>General Settings</label>
+				<field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="attachment_dir" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Attachment Directory</label>
+					<comment><![CDATA[Directory where the attachments are saved,if empty,attachments are save in pub/media/magearray/attachments directory; eg: orderattachments; This folder must be exits in pub/media/  directory and must have writting permissions]]></comment>
+					<depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+				<field id="allowed_extensions" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allowed Extension</label>
+					<comment><![CDATA[If empty, jpg,jpeg,gif,bmp,png are allowed; Separated by comma, eg: jpg,png]]></comment>
+					<depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+				<field id="display_allowed_file_type" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Allowed File Type On Front end</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                    </depends>
+				</field>
+				<field id="max_file_size_attachment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Max file size of attachment</label>
+					<comment><![CDATA[In MB: eg: 1, 2; If empty, max file size is 50mb;]]></comment>
+					<depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+				<field id="display_max_file_size" translate="label" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Display Allowed Maximum File Size On Front end</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                    </depends>
+				</field>
+				<field id="can_delete_attachments" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Can Delete Attachments</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+                        <field id="enabled">1</field>
+                    </depends>
+				</field>
+				
+			
+				<field id="enabled_email" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Email</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+                        <field id="enabled">1</field>
+                    </depends>
+					<comment><![CDATA[Enable Email]]></comment>
+				</field>
+				<field id="admin_name" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Name</label>
+					<depends><field id="active">1</field></depends>
+                </field>
+				
+				<field id="admin_email" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Email</label>
+					<comment><![CDATA[Email Address where you want to receive notification.if empty,no email is sent]]></comment>
+					<depends><field id="active">1</field></depends>
+                </field>
+				
+				<field id="custom_email_template_admin" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Template For Admin </label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+					<comment><![CDATA[Admin Receive notification when customer add/edit attachment]]></comment>
+				</field>
+				<field id="custom_email_template_customer" translate="label" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Email Template For Customer</label>
+					<source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+					<comment><![CDATA[Customer Receive notification when Admin add/edit attachment]]></comment>
+				</field>
+				<field id="send_email_separately" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Send email separately or attach with order email</label>
+					<source_model>MageArray\OrderAttachments\Model\Config\Source\Email</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+				</field>
+				<field id="add_attachment" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Add Attachment in email</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+				</field>
+				
+				<field id="send_email_attachment_customer" translate="label" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>When admin upload attachment in existing order, then send mail to customer</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+				</field>
+				<field id="send_email_attachment_admin" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>When customer upload attachment in existing order, then sends mail to admin</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+				</field>
+				<field id="send_email_attach_type" translate="label" type="select" sortOrder="171" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Attachment Type</label>
+					<source_model>MageArray\OrderAttachments\Model\Config\Source\AttachType</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enabled_email">1</field>
+                    </depends>
+					<comment><![CDATA[When admin/customer upload attachment in existing order, then send mail to customer/admin with all attachment or newly added only.]]></comment>
+				</field>
+				<field id="terms_and_conditions" translate="label" type="select" sortOrder="176" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Order Attachment Terms and Conditions</label>
+					<source_model>MageArray\OrderAttachments\Model\Config\Source\Cmsblock</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                    </depends>
+					<comment><![CDATA[Description to show on payment page.You can create static block and select your block from here.]]></comment>
+				</field>
+				<field id="order_statuses" translate="label" type="multiselect" sortOrder="177" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Order Status</label>
+					<source_model>MageArray\OrderAttachments\Model\Config\Source\OrderStatus</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                    </depends>
+                    <can_be_empty>1</can_be_empty>
+					<comment><![CDATA[Order Status to limit access of uploading. Customer Cannot upload attachment for selected order status]]></comment>
+				</field>
+				<field id="enable_custom_filename" translate="label" type="select" sortOrder="179" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enable Custom File Path</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<depends>
+						<field id="enabled">1</field>
+                    </depends>
+				</field>
+				<field id="custom_file_path" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Custom File Path</label>
+					<comment><![CDATA[for example {{customer_name/order_id}}. all var are replaced from order object.]]></comment>
+					<depends>
+						<field id="enabled">1</field>
+                        <field id="enable_custom_filename">1</field>
+                    </depends>
+					<validate>validate-no-empty</validate>
+                </field>
+			</group>
+		</section>
+	</system>
+</config>

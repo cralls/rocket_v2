@@ -1,0 +1,70 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$collection = $this->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('My Commission History') ?></span>
+    </legend>
+
+    <?php if (sizeof($collection) > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                    <tr>
+                        <th class="col"><?php echo __('Date') ?></th>
+                        <th class="col"><?php echo __('Commission Type') ?></th>
+                        <th class="col"><?php echo __('Commission') ?></th>
+                        <th class="col"><?php echo __('Customer Discount') ?></th>
+                        <th class="col"><?php echo __('Detail') ?></th>
+                        <th class="col"><?php echo __('Status') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $commission): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Date') ?>">
+                                <?php echo $block->formatDate($commission->getTransactionTime())." ".$block->formatTime($commission->getTransactionTime());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Commission Type') ?>">
+                                <?php echo $block->getCommissionType($commission->getCommissionType());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Commission') ?>">
+                                <?php echo $_dataHelper->formatMoney($commission->getTotalCommission())?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Customer Discount') ?>">
+                                <?php echo $_dataHelper->formatMoney($commission->getTotalDiscount())?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Detail') ?>">
+                                <?php
+                                    echo $block->getTransactionDetail(
+                                        $commission->getCommissionType(),
+                                        $commission->getOrderId(),
+                                        $commission->getCustomerId()
+                                    );
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Status') ?>">
+                                <?php echo $block->getStatusText($commission->getStatus());?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Commission History Found') ?></div>
+    <?php endif; ?>
+</fieldset>

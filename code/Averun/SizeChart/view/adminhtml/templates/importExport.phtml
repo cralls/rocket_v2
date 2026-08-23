@@ -1,0 +1,37 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<div>
+    <?php /** @var Averun\SizeChart\Block\Adminhtml\Data\ImportExport $block */ ?>
+
+    <div>
+        <form id="import_form" class="admin__fieldset" action="<?php /* @escapeNotVerified */ echo $block->getUrl('averun_sizechart/data/importPost') ?>" method="post">
+            <?php echo $block->getBlockHtml('formkey')?>
+            <div class="fieldset admin__field">
+                <span class="admin__field-label"><span><?php /* @escapeNotVerified */ echo __('Restore default data') ?></span></span>
+                <div class="admin__field-control">
+                    <?php echo $block->getButtonHtml(__('Restore default data'), "", 'import-submit') ?><br><br>
+                    <div class="message message-warning"><span><?php /* @escapeNotVerified */ echo __('Please note!') .
+                        '<br>' . __('All existing charts, dimensions, categories and types will be deleted. Default data will be restored.') .
+                        '<br>' . __('Usually import lasts 10-15 seconds.'); ?></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script>
+        require(['jquery', "loadingPopup"], function(jQuery){
+            (function ($) {
+                $('.import-submit').click(function(){
+                    if (confirm('<?php echo __('All existing data will be lost. Do you want to continue?');?>')) {
+                        $('body').loadingPopup({
+                            timeout: false
+                        });
+                        $(this.form).submit();
+                    }
+                });
+            })(jQuery);
+
+        });
+        </script>
+    </div>
+</div>

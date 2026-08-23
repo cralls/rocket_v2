@@ -1,0 +1,14 @@
+fieldset.affiliate .field {
+    margin: 0px 0px 20px;
+}
+fieldset.affiliate .field .label {
+    font-weight: 600;
+    margin: 0px 0px 8px;
+    display: inline-block;
+}
+fieldset.affiliate .field.required .label:after {
+    content: "*";
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}

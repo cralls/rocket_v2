@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/crontab.xsd">
+    <group id="default">
+        <job name="vns_ups_track_package" instance="VNS\Ups\Cron\TrackPackage" method="execute">
+            <schedule>*/15 * * * *</schedule> <!-- You can adjust the schedule as per your requirements -->
+        </job>
+    </group>
+</config>

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="MW_Affiliate::affiliate" title="Affiliate Pro" module="MW_Affiliate" sortOrder="20" resource="MW_Affiliate::affiliate" />
+
+		<add id="MW_Affiliate::withdrawn" title="Manage Withdrawals" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::withdrawn" />
+		<add id="MW_Affiliate::pending_withdrawn" title="Pending Withdrawals" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::withdrawn" resource="MW_Affiliate::pending_withdrawn" action="affiliate/affiliatewithdrawnpending" />
+		<add id="MW_Affiliate::all_withdrawn" title="All Withdrawals" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::withdrawn" resource="MW_Affiliate::all_withdrawn" action="affiliate/affiliatewithdrawn" />
+
+		<add id="MW_Affiliate::transaction" title="View All Transactions" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::transaction" />
+		<add id="MW_Affiliate::transaction_affiliate" title="Commission History" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::transaction" resource="MW_Affiliate::transaction_affiliate" action="affiliate/affiliatehistory" />
+		<add id="MW_Affiliate::transaction_credit" title="Transaction History" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::transaction" resource="MW_Affiliate::transaction_credit" action="affiliate/affiliatecredithistory" />
+
+		<!--<add id="MW_Affiliate::member" title="" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::member" />-->
+		<!--<add id="MW_Affiliate::active" title="Active Affiliates" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::member" resource="MW_Affiliate::active" action="affiliate/affiliatemember" />-->
+		<!--<add id="MW_Affiliate::pending" title="Pending Affiliates" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::member" resource="MW_Affiliate::pending" action="affiliate/affiliatememberpending" />-->
+		<!--<add id="MW_Affiliate::parent" title="All Customers" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::member" resource="MW_Affiliate::parent" action="affiliate/affiliateparent" />-->
+
+		<add id="MW_Affiliate::programs" title="Manage Programs" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::member" />
+		<add id="MW_Affiliate::program" title="Manage Programs" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::programs" resource="MW_Affiliate::program" action="affiliate/affiliateprogram" />
+		<add id="MW_Affiliate::banner" title="Manage Banners" module="MW_Affiliate" sortOrder="4" parent="MW_Affiliate::programs" resource="MW_Affiliate::banner" action="affiliate/affiliatebanner" />
+
+
+		<add id="MW_Affiliate::all" title="Manage Affiliates" module="MW_Affiliate" sortOrder="4" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::all" />
+
+		<add id="MW_Affiliate::active" title="Active Affiliates" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::all" resource="MW_Affiliate::active" action="affiliate/affiliatemember" />
+		<add id="MW_Affiliate::pending" title="Pending Affiliates" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::all" resource="MW_Affiliate::pending" action="affiliate/affiliatememberpending" />
+		<add id="MW_Affiliate::group" title="Manage Affiliate Groups" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::all" resource="MW_Affiliate::group" action="affiliate/affiliategroup" />
+		<add id="MW_Affiliate::website" title="Manage Websites" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::all" resource="MW_Affiliate::website" action="affiliate/affiliatewebsite" />
+		<add id="MW_Affiliate::parent" title="All Customers" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::all" resource="MW_Affiliate::parent" action="affiliate/affiliateparent" />
+
+		<add id="MW_Affiliate::report" title="Affiliate Report" module="MW_Affiliate" sortOrder="5" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::report" />
+		<add id="MW_Affiliate::overview" title="Overview" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::report" resource="MW_Affiliate::overview" action="affiliate/affiliatereport/overview" />
+		<add id="MW_Affiliate::referral" title="Affiliate Invitation" module="MW_Affiliate" sortOrder="2" parent="MW_Affiliate::report" resource="MW_Affiliate::referral" action="affiliate/affiliatereport/referral" />
+		<add id="MW_Affiliate::report_sales" title="Affiliate Sales" module="MW_Affiliate" sortOrder="3" parent="MW_Affiliate::report" resource="MW_Affiliate::report_sales" action="affiliate/affiliatereport" />
+		<add id="MW_Affiliate::referralsite" title="Affiliate Website(s)" module="MW_Affiliate" sortOrder="4" parent="MW_Affiliate::report" resource="MW_Affiliate::referralsite" action="affiliate/affiliatereport/referralsite" />
+
+		<add id="MW_Affiliate::settings" title="Settings" module="MW_Affiliate" sortOrder="6" parent="MW_Affiliate::affiliate" resource="MW_Affiliate::settings" />
+		<add id="MW_Affiliate::configuration" title="Configuration" module="MW_Affiliate" sortOrder="1" parent="MW_Affiliate::settings" action="adminhtml/system_config/edit/section/affiliate" resource="MW_Affiliate::configuration" />
+		<add id="MW_Affiliate::guide" title="Template Integration Guide" module="MW_Affiliate" parent="MW_Affiliate::settings" action="affiliate/guide" resource="MW_Affiliate::guide" sortOrder="20" />
+
+	</menu>
+</config>

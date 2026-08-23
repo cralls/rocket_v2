@@ -1,0 +1,156 @@
+<?php
+// Get the event data
+$event = $block->getEvent();
+$imageUrl = $event->getImageUrl();
+$imageUrl2 = $event->getImageUrlTwo();
+$imageUrl3 = $event->getImageUrlThree();
+$videoUrl = $event->getVideoUrl();
+$eventName = $event->getName();
+$location = $event->getLocation();
+$fromDate = $event->getFromDate();
+$description = $event->getDescription();
+$eventTime = $event->getTime();
+$ageRange = $event->getAgeRange();
+$eventType = $event->getType();
+$eventLink = $event->getEventLink();
+?>
+
+<!-- Top section with main event image -->
+<div style="position: relative;" class="top-section">
+<?php 
+if (!empty($imageUrl2)) {
+	 $title = " position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 58px;
+    font-weight: bold;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    line-height: 58px; "; 
+    $locationcss = " position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5); "; 
+    $date = " position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ee221d;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px; "; 
+?>
+	<img src="/media/<?= $this->escapeHtml($imageUrl2) ?>" style="width: 100%;">
+<?php } else {
+    $title = " position: relative;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: black;
+        font-size: 80px;
+        font-weight: bold;
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        line-height: 82px;
+        margin-top: 94px;
+        text-align: center; ";
+    $locationcss = " position: relative;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        color: black;
+        font-size: 34px;
+        font-weight: bold;
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        text-align: center; ";
+    $date = " position: relative;
+        top: 60%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ee221d;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 15px;
+        max-width: 160px;
+        margin-top: 20px; ";
+}
+?>
+
+    <!-- Event name -->
+    <h1 style="<?= $title ?>" class="event-title">
+        <?= $this->escapeHtml($eventName) ?>
+    </h1>
+
+    <!-- Location -->
+    <div style="<?= $locationcss ?>" class="locationcss">
+        <?= $this->escapeHtml($location) ?>
+    </div>
+
+    <!-- From Date in red box -->
+    <div style="<?= $date ?>" class="event-date">
+        <?= $this->escapeHtml(date('M d, Y', strtotime($fromDate))) ?>
+    </div>
+</div>
+
+<!-- Description and info boxes section -->
+<div class="event-details-container">
+    <div class="event-description">
+    	<img src="/media/<?= $this->escapeHtml($imageUrl) ?>" class="event-image">
+        <?= $description ?>
+    </div>
+
+    <div class="event-info-boxes">
+        <div class="event-info-box">
+            <div class="info-title">Event Time</div>
+            <div class="info-content"><?= $this->escapeHtml($eventTime) ?></div>
+        </div>
+        <div class="event-info-box">
+            <div class="info-title">Age Range</div>
+            <div class="info-content"><?= $this->escapeHtml($ageRange) ?></div>
+        </div>
+        <div class="event-info-box">
+            <div class="info-title">Event Type</div>
+            <div class="info-content"><?= $this->escapeHtml($eventType) ?></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Register for Event button -->
+<br>
+<div style="text-align: center; margin-top: 20px;">
+<?php 
+if(isset($eventLink) && $eventLink != '') {
+    $registrationUrl = $eventLink;
+} else {
+    $registrationUrl = $this->getUrl('events/registration');
+}
+?>
+    <a href="<?= $registrationUrl ?>" style="background-color: #ee221d; color: white; padding: 15px; text-decoration: none; font-size: 18px; font-weight: bold;">Register for Event</a>
+</div>
+<br>
+
+
+<!-- Image_url3 -->
+<?php if (!empty($imageUrl3)) : ?>
+<div style="text-align: center; margin-top: 20px;">
+    <img src="/media/<?= $this->escapeHtml($imageUrl3) ?>" >
+</div>
+<?php endif; ?>
+
+<!-- Video URL -->
+<?php if (!empty($videoUrl)) : ?>
+    <div style="text-align: center; margin-top: 20px;">
+        <!-- Add your YouTube video embedding code here -->
+        <!-- Replace 'YOUR_YOUTUBE_VIDEO_ID' with the actual video ID -->
+        <video style="width: 100%; position: relative;" autoplay="autoplay" loop="loop" muted="" width="100%" controls="true"> 
+  			<source src="<?= $videoUrl ?>" type="video/mp4">
+  		</video>
+    </div>
+<?php endif; ?>

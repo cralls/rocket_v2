@@ -1,0 +1,86 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$customerId = $block->getCurrentCustomer()->getId();
+$withdrawnType = $block->getAffiliateMemberModel()->load($customerId)->getAutoWithdrawn();
+$credit = $_dataHelper->getCreditByCustomer($customerId);
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Current Balance') ?></span>
+        <?php
+        if ($_dataHelper->getStoreConfig('affiliate/money/enable_withdrawal')
+                && intval($withdrawnType) == \MW\Affiliate\Model\Autowithdrawn::MANUAL):
+            ?>
+            <a style="font-size: 1.4rem;" href="<?php echo $this->getUrl('affiliate/index/withdrawn')?>" style="padding-left:10px"><?php echo __('Request Withdrawn') ?></a>
+        <?php endif; ?>
+    </legend>
+
+    <div class="field">
+        <span class="amount" style="font-style: italic;">
+            <?php echo __('Current Balance')?>:
+            <span id="your_balance" class="price" style="font-weight:bold;">
+                <?php echo $_dataHelper->getPricingHelper()->currency($credit, true, false);?>
+            </span>
+        </span>
+    </div>
+</fieldset>
+
+<?php
+$collection = $this->getCollection();
+?>
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Transaction History') ?></span>
+    </legend>
+
+    <?php if (sizeof($collection) > 0): ?>
+        <div class="field">
+            <div id="transaction_history_box" class="table-wrapper">
+                <table id="my-transaction-table" class="data table" style="clear: both">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <col width="1">
+                    <thead>
+                        <tr>
+                            <th class="col"><?php echo __('Date') ?></th>
+                            <th class="col"><?php echo __('Amount') ?></th>
+                            <th class="col"><?php echo __('Balance') ?></th>
+                            <th class="col"><?php echo __('Transaction Detail') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($collection as $transaction): ?>
+                        <tr>
+                            <td class="col" data-th="<?php echo __('Date') ?>">
+                                <?php echo $block->formatDate($transaction->getCreatedTime())." ".$block->formatTime($transaction->getCreatedTime());?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Amount') ?>">
+                                <?php
+                                if ($transaction->getAmount() > 0) {
+                                    echo "+".$_dataHelper->formatMoney($transaction->getAmount());
+                                } else {
+                                    echo $_dataHelper->formatMoney($transaction->getAmount());
+                                }
+                                ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Balance') ?>">
+                                <?php echo $_dataHelper->formatMoney($transaction->getEndTransaction()); ?>
+                            </td>
+                            <td class="col" data-th="<?php echo __('Transaction Detail') ?>">
+                                <?php echo $this->getTransactionDetail($transaction->getTypeTransaction(), $transaction->getTransactionDetail())?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="toolbar bottom">
+                <?php echo $this->getToolbarHtml()?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div><?php echo __('No Credit Transaction History Found') ?></div>
+    <?php endif; ?>
+</fieldset>

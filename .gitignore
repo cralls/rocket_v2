@@ -1,0 +1,8 @@
+# Magento environment-specific configuration
+etc/env.php
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo

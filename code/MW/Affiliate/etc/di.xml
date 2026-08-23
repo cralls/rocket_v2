@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Product Department -->
+    <preference for="MW\Affiliate\Api\Data\Account\AccountInterface" type="MW\Affiliate\Model\Affiliatecustomers"/>
+    <preference for="MW\Affiliate\Api\Account\AccountRepositoryInterface" type="MW\Affiliate\Model\Api\AccountRepository"/>
+
+    <preference for="MW\Affiliate\Api\Data\Banner\BannerInterface" type="MW\Affiliate\Model\Affiliatebanner"/>
+    <preference for="MW\Affiliate\Api\Banner\BannerRepositoryInterface" type="MW\Affiliate\Model\Api\BannerRepository"/>
+
+    <preference for="MW\Affiliate\Api\Data\Commission\CommissionInterface" type="MW\Affiliate\Model\Affiliatetransaction"/>
+    <preference for="MW\Affiliate\Api\Commission\CommissionRepositoryInterface" type="MW\Affiliate\Model\Api\CommissionRepository"/>
+
+    <preference for="MW\Affiliate\Api\Data\Program\ProgramInterface" type="MW\Affiliate\Model\Affiliateprogram"/>
+    <preference for="MW\Affiliate\Api\Program\ProgramRepositoryInterface" type="MW\Affiliate\Model\Api\ProgramRepository"/>
+
+    <preference for="MW\Affiliate\Api\Data\Transaction\TransactionInterface" type="MW\Affiliate\Model\Credithistory"/>
+    <preference for="MW\Affiliate\Api\Transaction\TransactionRepositoryInterface" type="MW\Affiliate\Model\Api\TransactionRepository"/>
+
+
+</config>

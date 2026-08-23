@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * averun_sizechart_category_index
+ * @copyright Copyright © 2017 Averun. All rights reserved.
+ * @author    dev@averun.com
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="averun_sizechart_category.store.switcher" template="Magento_Backend::store/switcher.phtml" >
+                <action method="setUseConfirm">
+                    <argument name="params" xsi:type="string">1</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="averun_sizechart_category_listing"/>
+        </referenceContainer>
+    </body>
+</page>
+

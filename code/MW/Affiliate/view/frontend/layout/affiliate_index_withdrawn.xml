@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="affiliate_account" />
+    <head>
+        <css src="MW_Affiliate::css/withdrawn.css"/>
+    </head>
+    <body>
+        <referenceBlock name="affiliate_withdrawal">
+            <arguments>
+                <argument name="is_highlighted" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Withdrawal Manager</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="customer_affiliate_withdrawn" template="MW_Affiliate::customer/account/affiliate/withdrawn.phtml" cacheable="false">
+                <block class="MW\Affiliate\Block\Customer\Account\Affiliate\Withdrawn\Form" name="customer_affiliate_withdrawn_form" as="withdrawn_form" template="MW_Affiliate::customer/account/affiliate/withdrawn/form.phtml" cacheable="false"/>
+                <block class="MW\Affiliate\Block\Customer\Account\Affiliate\Withdrawn\History" name="customer_affiliate_withdrawn_history" as="withdrawn_history" template="MW_Affiliate::customer/account/affiliate/withdrawn/history.phtml" cacheable="false"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

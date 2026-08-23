@@ -1,0 +1,48 @@
+<?php $baseUrl = $this->getBaseUrl(); ?>
+<?php $helper = $this->helper(\MageArray\OrderAttachments\Helper\Data::Class);?>
+    <div class="attachments-item-dv">
+        <?php
+        $mediaUrl = $this->getMediaUrl();
+        $attachments = $this->getCollection();
+        if ($attachments && count($attachments)):
+            ?>
+            <table class="data table table-order-items history order-attachment-table">
+                <thead>
+                <tr class="headings">
+                    <th class="cell"><?= /* @noEscape */ __('# Order'); ?></th>
+                    <th class="cell"><?= /* @noEscape */ __('Attachment'); ?></th>
+                    <th class="cell"><?= /* @noEscape */ __('Comment'); ?></th>
+                    <th class="cell last"><?= /* @noEscape */ __('Created On'); ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($attachments as $attachment):
+                    if ($attachment->getVisibleCustomerAccount() == 1): ?>
+                    <tr>
+                        <td>
+                            <a href="<?= /* @noEscape */ $this->getBaseUrl().'sales/order/view/order_id/'.$attachment->getData('order_id'); ?>"><?= /* @noEscape */ $this->getOrderId($attachment->getData('order_id')); ?></a>
+                        </td>
+                        <td>
+                            <a target="_blank"
+                               href="<?= /* @noEscape */ $this->getMediaPath().$attachment->getFilePath(); ?>"><?= /* @noEscape */ $attachment->getFileName(); ?></a>
+                        </td>
+                        <td>
+                            <?= /* @noEscape */ $attachment->getData('comment'); ?>
+                        </td>
+                        <td>
+                            <?= /* @noEscape */ $helper->getDateFormat($attachment->getData('created_at')); ?>
+                        </td>
+                    </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php
+        else:
+            echo '<p>No record found</p>';
+        endif;
+        ?>
+    </div>
+<?php if ($block->getPagerHtml()): ?>
+    <?= /* @noEscape */ $block->getPagerHtml(); ?>
+<?php endif ?>

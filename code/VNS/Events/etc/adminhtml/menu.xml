@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="VNS_Events::events" title="Events" module="VNS_Events" sortOrder="20" resource="VNS_Events::events"/>
+        <add id="VNS_Events::event" title="Manage Events" module="VNS_Events" sortOrder="10" action="events/event" resource="VNS_Events::event" parent="VNS_Events::events"/>
+    </menu>
+</config>

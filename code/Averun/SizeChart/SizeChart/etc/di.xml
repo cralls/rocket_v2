@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * di
+ * @copyright Copyright © 2017 Averun. All rights reserved.
+ * @author    dev@averun.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Temporal fix to 2.1 problem with eav attributes: https://github.com/magento/magento2/issues/5339 -->
+    <type name="Magento\Eav\Model\Entity\AttributeCache">
+        <arguments>
+            <argument name="unsupportedTypes" xsi:type="array">
+                <item name="averun_sizechart_type" xsi:type="string">averun_sizechart_type</item>
+                <item name="averun_sizechart_category" xsi:type="string">averun_sizechart_category</item>
+                <item name="averun_sizechart_dimension" xsi:type="string">averun_sizechart_dimension</item>
+                <item name="averun_sizechart_chart" xsi:type="string">averun_sizechart_chart</item>
+                <item name="averun_sizechart_size" xsi:type="string">averun_sizechart_size</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- end temporal fix -->
+    <type name="Averun\SizeChart\UI\Component\Listing\DataProvider\Dimension">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Averun\SizeChart\Model\ResourceModel\Dimension\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RefGridFilterPool</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\UI\Component\Listing\DataProvider\Chart">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Averun\SizeChart\Model\ResourceModel\Chart\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RefGridFilterPool</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\UI\Component\Listing\DataProvider\Category">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Averun\SizeChart\Model\ResourceModel\Category\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RefGridFilterPool</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\UI\Component\Listing\DataProvider\Type">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Averun\SizeChart\Model\ResourceModel\Type\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">RefGridFilterPool</argument>
+        </arguments>
+    </type>
+    <virtualType name="RefGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="averun_sizechart_type_listing_data_source" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Type\Grid\Collection</item>
+                <item name="averun_sizechart_category_listing_data_source" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="averun_sizechart_dimension_listing_data_source" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Dimension\Grid\Collection</item>
+                <item name="averun_sizechart_chart_listing_data_source" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Chart\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\Model\ResourceModel\Type\Grid\Collection">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">averun_sizechart_type_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">averun_sizechart_type_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Type</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">averun_sizechart_category_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">averun_sizechart_category_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Category</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\Model\ResourceModel\Dimension\Grid\Collection">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">averun_sizechart_dimension_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">averun_sizechart_dimension_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Dimension</argument>
+        </arguments>
+    </type>
+    <type name="Averun\SizeChart\Model\ResourceModel\Chart\Grid\Collection">
+        <arguments>
+            <argument name="eventPrefix" xsi:type="string">averun_sizechart_chart_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">averun_sizechart_chart_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Averun\SizeChart\Model\ResourceModel\Chart</argument>
+        </arguments>
+    </type>
+</config>

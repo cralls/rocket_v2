@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../Store/etc/config.xsd">
+    <default>
+        <payment>
+            <alipay>
+                <active>0</active>
+                <title>Alipay Payment</title>
+                <endpoint_test>https://openapi.alipaydev.com/gateway.do?</endpoint_test>
+                <endpoint_production>https://mapi.alipay.com/gateway.do?</endpoint_production>
+                <order_status>pending</order_status>
+                <testmode>0</testmode>
+                <model>Meetanshi\Alipay\Model\Payment</model>
+                <allow_invoice>1</allow_invoice>
+                <show_logo>1</show_logo>
+            </alipay>
+        </payment>
+    </default>
+</config>

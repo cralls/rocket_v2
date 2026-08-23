@@ -1,0 +1,182 @@
+<?php
+$_dataHelper        = $this->helper('MW\Affiliate\Helper\Data');
+$max                = $_dataHelper->getWithdrawMaxStore();
+$min                = $_dataHelper->getWithdrawMinStore();
+$customer           = $block->getCurrentCustomer();
+$customerWithdrawn  = $block->getAffiliateMember($customer->getId());
+$creditCustomer     = $block->getCreditCustomer($customer->getId());
+
+$paymentEmail       = $customerWithdrawn->getPaymentEmail();
+$paymentGateway     = $_dataHelper->getLabelPaymentGateway($customerWithdrawn->getPaymentGateway());
+$fee                = $_dataHelper->getFeePaymentGateway($customerWithdrawn->getPaymentGateway());
+$_paymentGateway    = $customerWithdrawn->getPaymentGateway();
+$autoWithdrawn      = $customerWithdrawn->getAutoWithdrawn();
+$reserveLevel       = $customerWithdrawn->getReserveLevel();
+$paymentReleaseLevel= $customerWithdrawn->getWithdrawnLevel();
+$currency           = $block->getCurrentCurrencyCode();
+$withdrawnPeriod    = $_dataHelper->getWithdrawnPeriod();
+$balance            = $creditCustomer->getCredit();
+$bankName           = $customerWithdrawn->getBankName();
+$nameAccount        = $customerWithdrawn->getNameAccount();
+$swiftBic           = $customerWithdrawn->getSwiftBic();
+$accountNumber      = $customerWithdrawn->getAccountNumber();
+$bankCountry        = $block->getBankCountryName($customerWithdrawn->getBankCountry());
+?>
+
+<div class="control">
+    <form action="<?php echo $this->getUrl('affiliate/index/withdrawnpost') ?>" method="post" id="mw_withdraw_next">
+        <ul>
+            <li>
+                <div class="field">
+                    <label for="your_balance"><?php echo __('Your Balance:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($balance);?>
+                    <input type="hidden" name="your_balance" id="your_balance" value="<?php echo $balance;?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="payment_gateway"><?php echo __('Payment Method:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $paymentGateway;?>
+                    <input type="hidden" name="payment_gateway" id="payment_gateway" value="<?php echo $paymentGateway;?>" />
+                </div>
+            </li>
+
+            <?php if ($_paymentGateway != 'banktransfer' && $_paymentGateway != 'check'): ?>
+                <li>
+                    <div class="field">
+                        <label for="account_email"><?php echo __('Withdrawal Notification Email:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $paymentEmail;?>
+                        <input type="hidden" name="account_email" id="account_email" value="<?php echo $paymentEmail;?>" />
+                    </div>
+                </li>
+            <?php elseif ($_paymentGateway == 'banktransfer'): ?>
+                <li>
+                    <div class="field">
+                        <label for="bank_name"><?php echo __('Bank Name:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $bankName;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="name_account"><?php echo __('Name on account:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $nameAccount;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="bank_country"><?php echo __('Bank Country:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $bankCountry;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="swift_bic"><?php echo __('SWIFT code:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $swiftBic;?>
+                    </div>
+                </li>
+                <li>
+                    <div class="field">
+                        <label for="account_number"><?php echo __('Account Number:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $accountNumber;?>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <li>
+                <div class="field">
+                    <label for="fee"><?php echo __('Payment Processing Fee:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $fee; ?>
+                    <input type="hidden" name="fee" id="fee" value="<?php echo $fee; ?>" />
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="reserve_level"><?php echo __('Reserve Level:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $block->getCurrency($reserveLevel);?>
+                    <input type="hidden" name="reserve_level" id="reserve_level" value="<?php echo $reserveLevel;?>" />
+                </div>
+            </li>
+
+            <?php if ($autoWithdrawn == 1):?>
+                <li>
+                    <div class="field">
+                        <label for="payment_release_level"><?php echo __('Auto payment when account balance reaches:') ?></label>
+                    </div>
+                    <div class="value">
+                        <?php echo $block->getCurrency($paymentReleaseLevel);?>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($autoWithdrawn == 2): ?>
+                <li>
+                    <div class="field">
+                        <label for="withdraw_amount"><?php echo __('Withdrawal Amount:')?> <em>*</em></label>
+                    </div>
+                    <div class="value">
+                        <input type="text" name="withdraw_amount" id="withdraw_amount" class="input-text required-entry validate-digits" />
+                        <span><?php echo "(".$block->getCurrency($min)." - ".$block->getCurrency($max).")";?></span>
+                    </div>
+                </li>
+            <?php endif; ?>
+
+            <li>
+                <div class="field">
+                    <label for="withdrawn_period"><?php echo __('Payments Processed:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $withdrawnPeriod;?>
+                </div>
+            </li>
+            <li>
+                <div class="field">
+                    <label for="currency"><?php echo __('Currency:') ?></label>
+                </div>
+                <div class="value">
+                    <?php echo $currency;?>
+                    <input type="hidden" name="currency" id="currency" value="<?php echo $currency;?>" />
+                </div>
+            </li>
+        </ul>
+
+        <?php if ($autoWithdrawn == 2): ?>
+            <div class="action-toolbar">
+                <div class="primary">
+                    <button type="submit" title="<?php echo __('Next') ?>" id="next_withdraw" class="action save primary">
+                        <span><?php echo __('Next') ?></span>
+                    </button>
+                </div>
+            </div>
+        <?php endif; ?>
+    </form>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'mage/mage'
+    ], function($) {
+        var exchangeForm = $('#mw_withdraw_next');
+        exchangeForm.mage('validation');
+    });
+</script>

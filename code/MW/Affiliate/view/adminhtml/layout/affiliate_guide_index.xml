@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>RewardPoints Guide</title>
+    </head>
+    <body>
+		<referenceContainer name="content">
+            <block class="MW\Affiliate\Block\Adminhtml\Guide" name="affiliate_guide">
+                <block class="MW\Affiliate\Block\Adminhtml\Guide\Form" name="form">
+                    <block class="MW\Affiliate\Block\Adminhtml\Guide\Renderer" name="guide.general" template="MW_Affiliate::guide/general.phtml"/>
+                </block>
+            </block>
+        </referenceContainer>
+	</body>
+</page>
+
+
+
+

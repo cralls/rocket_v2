@@ -1,0 +1,46 @@
+<div data-bind="visible: canVisibleFileUpload">
+<div class="step-title om-title" style="margin-bottom: 20px;" data-bind="i18n: 'Order Attachment'"></div>
+
+<input type="file" name="file[]" id="fileupload" data-bind="fileUpload: uploadFile" multiple>
+<div data-bind="if: attachDesc != ''" style="margin-bottom: 20px;">
+	<a href="" data-bind="click: openModel,i18n: 'Order Attachment Terms And Conditions'"></a>
+	<div id="confirm_content"></div>
+</div>
+<div class="file-note">
+	<div class="allowed-file-type"></div>
+	<div class="allowed-file-size"></div>
+</div>
+
+<div class="filePreview"></div>
+<div class="indicator">
+<div class="progress">
+    <div class="bar"></div>
+</div>
+<div class="percent" >0&#37;</div>
+</div>
+<div class="error-msg"></div>
+<style>
+.filePreview {margin-top: 10px;}
+span.remove-btn {margin-left: 20px; }
+.progress .bar {background-color: #ff5501;height:20px;color: #FFFFFF;width:0%;-webkit-transition: width .3s;-moz-transition: width .3s;transition: width .3s;max-width:277px;}
+    .progress
+    {
+        margin: -35px 2px 7px 295px;
+        padding:0;
+        width: 277px;
+		border: 1px solid #ff5501;
+    }
+	.percent{
+		margin: -35px 2px 7px 295px;
+		text-align: center;
+        width: 277px;
+		padding:30px 0;
+	}
+	.indicator{
+		display:none;
+	}
+	
+.file-note {margin-bottom: 10px;}
+.error-msg {color: #e53f30;}
+</style>
+</div>

@@ -1,0 +1,64 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block Averun\SizeChart\Block\Customer\Member\Edit */
+?>
+<div class="block">
+    <div class="block-title"><strong><?php /* @escapeNotVerified */ echo $block->getTitle() ?></strong></div>
+    <div class="block-content">
+        <form action="<?php echo $block->getSaveUrl() ?>" method="post" id="form-validate" class="scaffold-form" enctype="multipart/form-data" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+            <fieldset class="fieldset info">
+                <?php echo $block->getBlockHtml('formkey')?>
+                <input type="hidden" name="success_url" value="<?php echo $block->getSuccessUrl() ?>" />
+                <input type="hidden" name="error_url" value="<?php echo $block->getErrorUrl() ?>" />
+                <legend class="legend"><?php echo __('Member Information') ?></legend>
+
+                <div class="field required">
+                    <label class="label" for="name">
+                        <span><?php echo __('Name') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" id="name" name="name" value="<?php echo $block->escapeHtml($block->getMemberModel()->getName()) ?>" title="<?php echo __('Name') ?>" class="input-text required-entry" data-validate="{required:true}" aria-required="true">
+                    </div>
+                </div>
+
+                <div class="field choice">
+                    <input type="checkbox" name="active" id="active" data-role="active" value="1" title="<?php /* @escapeNotVerified */ echo __('Use as My Default Size chart member profile') ?>"
+                           class="checkbox" <?php if ($block->getMemberModel()->getActive()) { echo 'checked="checked"'; } ?> />
+                    <label class="label" for="active"><span><?php /* @escapeNotVerified */ echo __('Use as My Default Size chart member profile') ?></span></label>
+                </div>
+            </fieldset>
+            <div class="fieldset abs-add-clearfix-desktop">
+                <legend class="legend"><?php echo __('Measurements') ?></legend>
+                <div class="block-content">
+                <?php $measurements = $block->getMeasurementList(); ?>
+                <?php $i = 0;
+                foreach ($measurements as $measure) {
+                    ?>
+                    <div class="box left">
+                        <label for=dimension_<?php echo $measure['identifier'];?>" class="label"><?php echo __($measure['name']) ?></label>
+                        <div class="control">
+                            <input type="text" name="dimension[<?php echo $measure['identifier'];?>]"
+                                   value="<?php echo (!empty($measure['value'])) ? $block->escapeHtml($measure['value']) : '' ?>"
+                                   title="<?php echo __($measure['name']) ?>"
+                                   id="dimension_<?php echo $measure['identifier'];?>"
+                                   class="input-text"/>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
+                </div>
+            </div>
+            <div class="message notice"><?php echo __('Please note that all values must be entered in cm.') ?></div>
+
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button type="submit" class="action save primary" title="<?php /* @escapeNotVerified */ echo __('Save Member') ?>"><span><?php /* @escapeNotVerified */ echo __('Save Member') ?></span></button>
+                </div>
+                <div class="secondary">
+                    <a class="action back" href="<?php echo $block->escapeUrl($block->getBackUrl()) ?>"><span><?php /* @escapeNotVerified */ echo __('Go back') ?></span></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

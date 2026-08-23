@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">rss_custom_designs_form.rss_custom_designs_form_data_source</item>
+            <item name="deps" xsi:type="string">rss_custom_designs_form.rss_custom_designs_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Custom Design Request</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">rss_custom_designs_form</item>
+        </item>
+    </argument>
+    
+    <dataSource name="rss_custom_designs_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">
+                Rss\CustomDesigns\Ui\DataProvider\CustomDesign\FormDataProvider
+            </argument>
+            <argument name="name" xsi:type="string">
+                rss_custom_designs_form_data_source
+            </argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">entity_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    
+    
+    <dataSource name="orderimport_upload_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">VNS\OrderImport\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">orderimport_upload_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    
+    <form>
+        <fieldset name="general">
+            <field name="sales_person_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Sales Person's Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+        </fieldset>
+    </form>
+</listing>
+
+
+    <!--fieldset name="general" sortOrder="10">
+        <field name="request_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Is this a new request?</item>
+                    <item name="formElement" xsi:type="string">radios</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/radios</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="options" xsi:type="array">
+                        <item name="New" xsi:type="array"><item name="value" xsi:type="string">New</item><item name="label" xsi:type="string">New</item></item>
+                        <item name="Updated" xsi:type="array"><item name="value" xsi:type="string">Updated</item><item name="label" xsi:type="string">Updated</item></item>
+                    </item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="sales_person_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Sales Person's Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="sales_person_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Sales Person's Email</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-email" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="customer_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Customer Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="priority">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Priority</item>
+                    <item name="formElement" xsi:type="string">radios</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/radios</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="options" xsi:type="array">
+                        <item name="Urgent" xsi:type="array"><item name="value" xsi:type="string">Urgent</item><item name="label" xsi:type="string">Urgent</item></item>
+                        <item name="Regular" xsi:type="array"><item name="value" xsi:type="string">Regular</item><item name="label" xsi:type="string">Regular</item></item>
+                    </item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="date_needed">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Date Art is Needed</item>
+                    <item name="formElement" xsi:type="string">date</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="sportswear_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Type of Sportswear</item>
+                    <item name="formElement" xsi:type="string">select</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="options" xsi:type="array">
+                        <item name="Triathlon"  xsi:type="array"><item name="value" xsi:type="string">Triathlon</item><item name="label" xsi:type="string">Triathlon</item></item>
+                        <item name="Running"    xsi:type="array"><item name="value" xsi:type="string">Running</item><item name="label" xsi:type="string">Running</item></item>
+                        <item name="Cycling"    xsi:type="array"><item name="value" xsi:type="string">Cycling</item><item name="label" xsi:type="string">Cycling</item></item>
+                        <item name="Swimming"   xsi:type="array"><item name="value" xsi:type="string">Swimming</item><item name="label" xsi:type="string">Swimming</item></item>
+                        <item name="Soccer"     xsi:type="array"><item name="value" xsi:type="string">Soccer</item><item name="label" xsi:type="string">Soccer</item></item>
+                        <item name="Basketball" xsi:type="array"><item name="value" xsi:type="string">Basketball</item><item name="label" xsi:type="string">Basketball</item></item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="product_other">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">If other, requested product</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="level">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Level</item>
+                    <item name="formElement" xsi:type="string">select</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="options" xsi:type="array">
+                        <item name="RJ"    xsi:type="array"><item name="value" xsi:type="string">RJ</item><item name="label" xsi:type="string">RJ</item></item>
+                        <item name="Elite" xsi:type="array"><item name="value" xsi:type="string">Elite</item><item name="label" xsi:type="string">Elite</item></item>
+                        <item name="Rocket" xsi:type="array"><item name="value" xsi:type="string">Rocket</item><item name="label" xsi:type="string">Rocket</item></item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="level_other">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Level (Other)</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="logos_url">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Link to Logos</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                        <item name="validate-url" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="pantone_pref">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Pantone Colors Preference</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="design_style">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Design Instructions</item>
+                    <item name="formElement" xsi:type="string">radios</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/radios</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="options" xsi:type="array">
+                        <item name="WILD"       xsi:type="array"><item name="value" xsi:type="string">WILD</item><item name="label" xsi:type="string">WILD</item></item>
+                        <item name="MODERATE"   xsi:type="array"><item name="value" xsi:type="string">MODERATE</item><item name="label" xsi:type="string">MODERATE</item></item>
+                        <item name="CONSERVATIVE" xsi:type="array"><item name="value" xsi:type="string">CONSERVATIVE</item><item name="label" xsi:type="string">CONSERVATIVE</item></item>
+                    </item>
+                    <item name="validation" xsi:type="array"><item name="required-entry" xsi:type="boolean">true</item></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="comments">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Additional Comments</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+					<item name="component" xsi:type="string">Magento_Ui/js/form/element/textarea</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="rows" xsi:type="number">4</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form-->

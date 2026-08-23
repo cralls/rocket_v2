@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul_Rmasystem Frontend events
+ * @category  Webkul
+ * @package   Webkul_Rmasystem
+ * @author    Webkul
+ * @copyright Copyright (c)  Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="wk_rma" resource="default" engine="innodb" comment="Rma Product Table">
+        <column xsi:type="int" name="rma_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rma Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" default="0" comment="Order Id"/>
+        <column xsi:type="text" name="group" nullable="false" comment="Group"/>
+         <column xsi:type="text" name="name" nullable="false" comment="Customer Name"/>
+        <column xsi:type="text" name="increment_id" nullable="false" comment="Increment Id"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" default="0" comment="Customer Id"/>
+        <column xsi:type="int" name="package_condition" unsigned="true" nullable="false" default="0" comment="Package condition"/>
+        <column xsi:type="int" name="resolution_type" unsigned="true" nullable="false" default="0" comment="Resolution Type"/>
+        <column xsi:type="text" name="additional_info" nullable="false" comment="Additional Info"/>
+        <column xsi:type="int" name="customer_delivery_status" unsigned="true" nullable="false" default="0" comment="Customer Delivery Status"/>
+        <column xsi:type="text" name="customer_consignment_no" nullable="false" comment="Customer Consignment No"/>
+        <column xsi:type="int" name="admin_delivery_status" unsigned="true" nullable="false" default="0"  comment="Admin Delivery Status"/>
+        <column xsi:type="text" name="admin_consignment_no" nullable="false" comment="Admin Consignment No"/>
+        <column xsi:type="text" name="image" nullable="false" comment="Image"/>
+        <column xsi:type="int" name="shipping_label" unsigned="true" nullable="false" default="0" comment="Shipping Label"/>
+        <column xsi:type="text" name="guest_email" nullable="false" comment="Guest Email"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="Status"/>
+        <column xsi:type="int" name="admin_status" unsigned="true" nullable="false" default="0" comment="Admin Final Status"/>
+        <column xsi:type="int" name="final_status" unsigned="true" nullable="false" default="0" comment="Final Status"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rma_id"/>
+        </constraint>
+    </table>
+    <table name="wk_rma_conversation" resource="default" engine="innodb" comment="Rma Conversation Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="rma_id" unsigned="true" nullable="false" default="0" comment="Rma Id"/>
+        <column xsi:type="text" name="message" nullable="false" comment="Message"/>
+        <column xsi:type="text" name="sender" nullable="false" comment="Sender"/>
+        <column xsi:type="text" name="attachment" nullable="false" comment="Attachment"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+         <constraint xsi:type="foreign" referenceId="WK_RMA_CONVERSATION_RMA_ID_WK_RMA_RMA_ID"
+         table="wk_rma_conversation" column="rma_id" referenceTable="wk_rma"
+          referenceColumn="rma_id" onDelete="CASCADE"/>
+        <index referenceId="WK_RMA_CONVERSATION_RMA_ID_WK_RMA_RMA_ID" indexType="btree">
+            <column name="rma_id"/>
+        </index>
+    </table>
+    <table name="wk_rma_items" resource="default" engine="innodb" comment="Rma Item Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="rma_id" unsigned="true" nullable="false" default="0" comment="Rma Id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" default="0" comment="Order Id"/>
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" default="0" comment="Item Id"/>
+        <column xsi:type="int" name="reason_id" unsigned="true" nullable="false" default="0" comment="Reason Id"/>
+        <column xsi:type="int" name="qty" unsigned="true" nullable="false" default="0" comment="Quantity"/>
+        <column xsi:type="int" name="is_stock_added" unsigned="true" nullable="false" default="0" comment="Is Stock Added"/>
+        <column xsi:type="text" name="rma_reason" nullable="false" comment="Rma Reason"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+         <constraint xsi:type="foreign" referenceId="WK_RMA_ITEMS_RMA_ID_WK_RMA_RMA_ID"
+         table="wk_rma_items" column="rma_id" referenceTable="wk_rma"
+          referenceColumn="rma_id" onDelete="CASCADE"/>
+        <index referenceId="WK_RMA_ITEMS_RMA_ID_WK_RMA_RMA_ID" indexType="btree">
+            <column name="rma_id"/>
+        </index>
+    </table>
+    <table name="wk_rma_label" resource="default" engine="innodb" comment="Rma Label Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="title" nullable="false" comment="title"/>
+        <column xsi:type="text" name="filename" nullable="false" comment="filename"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="filename"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_rma_reason" resource="default" engine="innodb" comment="Rma Reason Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="reason" nullable="false" comment="Reason"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="ststatus"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="wk_rma_customfield" resource="default" engine="innodb" comment="Rma Custom field Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="input_type" nullable="false" comment="Input type"/>
+        <column xsi:type="text" name="frontend_class" nullable="true" comment="Frontend Class"/>
+        <column xsi:type="text" name="label" nullable="false" comment="Label"/>
+        <column xsi:type="text" name="inputname" nullable="false" comment="Inputname"/>
+        <column xsi:type="text" name="select_option" nullable="false" comment="Select Option"/>
+        <column xsi:type="text" name="validationtype" nullable="false" comment="validationtype"/>
+        <column xsi:type="int" name="required" unsigned="true" nullable="false" default="0" comment="required"/>
+        <column xsi:type="int" name="status" unsigned="true" nullable="false" default="0" comment="status"/>
+        <column xsi:type="int" name="sort" unsigned="true" nullable="false" default="0" comment="sort"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+     <table name="wk_rma_customfield_value" resource="default" engine="innodb" comment="Rma Custom field Values Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="field_id" unsigned="true" nullable="false" comment="Field Id"/>
+        <column xsi:type="int" name="rma_id" unsigned="true" nullable="false" comment="Rma Id"/>
+        <column xsi:type="text" name="value" nullable="true" comment="value"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="false" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated Datetime"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

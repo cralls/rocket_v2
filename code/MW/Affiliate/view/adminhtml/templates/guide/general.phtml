@@ -1,0 +1,42 @@
+<?php
+
+
+?>
+<?php
+
+/** @var \MW\RewardPoints\Block\Adminhtml\Guide $block */
+
+$userGuide = __('
+_____________________________________________________________________________________________________________________<br />
+
+<strong> Integration Referral code and Credit on Shopping cart if you using theme from 3rd party. </strong><br />
+_____________________________________________________________________________________________________________________<br />
+
+1. edit the file: <br/> <strong>app/design/frontend/*vendor*/*your_theme*/Magento_Checkout/templates/cart/coupon.phtml</strong><br />
+
+If this file does not exist on your theme, please copy it from: <br/> <strong>vendor/magento/module-checkout/view/frontend/templates/cart/coupon.phtml</strong><br />
+
+2. copy this code above:<br/>
+<br/>
+    <strong>&lt;?php </strong> <br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp /* for Referral Code */ <br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp if($this->helper(\'Magento\Catalog\Helper\Data\')->isModuleOutputEnabled(\'MW_Affiliate\')) { <br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp      echo $this->helper(\'MW\Affiliate\Helper\Theme\')->getRefferalCodeBlockOnCart();  <br/>
+      &nbsp&nbsp&nbsp&nbsp&nbsp } <br/>
+
+       &nbsp&nbsp&nbsp&nbsp&nbsp /* for Credit Code */ <br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp if($this->helper(\'Magento\Catalog\Helper\Data\')->isModuleOutputEnabled(\'MW_Affiliate\')) { <br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp     echo $this->helper(\'MW\Affiliate\Helper\Theme\')->getCreditBlockOnCart(); <br/>
+       &nbsp&nbsp&nbsp&nbsp&nbsp } <br/>
+     <strong>?&gt;</strong><br/>
+<br/>
+and place it above this code:<br/><br/>
+
+<strong>&lt;div  </strong> class="block discount" id="block-discount" data-mage-init=\'{"collapsible":{"openedState": "active", "saveState": false}}\'  <strong>&gt;</strong>
+<br/>
+<br/>
+');
+?>
+<div class="fieldset ">
+    <?php echo $userGuide ?>
+</div>

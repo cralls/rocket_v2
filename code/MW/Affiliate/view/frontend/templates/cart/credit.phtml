@@ -1,0 +1,71 @@
+<?php
+    $storeCode = $this->_storeManager->getStore()->getCode();
+    $show = $this->_helper->allowUsingCreditToCheckout($storeCode);
+
+if ($show) {
+    ?>
+
+        <form id="form_discount_credit" action=" " method="post">
+            <div class="discount">
+                <h2><?php echo __('Use Credit') ?></h2>
+                <div class="discount-form">
+                    <label for="credit_code"><?php echo __('Enter your credit here') ?></label>
+                    <input type="hidden" name="removeCredit" id="remove-credit" value="0"/>
+                    <div class="input-box">
+                        <input class="input-text" id="credit_value" name="credit_value" value="<?php echo $this->_helper->getCreditByCheckout() ?>"/>
+                    </div>
+                    <div class="buttons-set">
+                        <button type="button" title="<?php echo __('Apply Credit') ?>" class="button" onclick="submitCredit(false)"
+                                value="<?php echo __('Apply Credit') ?>">
+                            <span><span><?php echo __('Apply Credit') ?></span></span></button>
+
+                    <?php if (($this->_helper->getCreditByCheckout()) > 0): ?>
+                            &nbsp;
+                            <button id = "bt-cancel-credit" type="button" title="<?php echo __('Cancel Credit') ?>" class="button" onclick="submitCredit(true)"
+                                    value="<?php echo __('Cancel Credit') ?>">
+                                <span><span><?php echo __('Cancel Credit') ?></span></span></button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <script type="text/javascript">
+            function submitCredit(isRemove) {
+                //this.preventDefault();
+                var links = '<?php echo $block->getUrl('affiliate/checkout/creditPost') ?>';
+
+                if (isRemove) {
+                    jQuery('#remove-credit').val(1);
+                } else {
+                    jQuery('#remove-credit').val(0);
+                }
+
+                jQuery(document).ready(function(){
+                    jQuery.ajax({
+                        url : links,
+                        type : "post",
+                        dataType:"json",
+                        data : {
+                            credit_value :  jQuery('#credit_value').val(),
+                            remove_credit : jQuery('#remove-credit').val()
+                        },
+                        success : function (response){
+                            if(response.canceled){
+                                jQuery('#bt-cancel-credit').hide();
+                                jQuery('#form-validate').submit();
+                            }
+                            if(response.success){
+                                jQuery('#bt-cancel-credit').show();
+                                jQuery('#form-validate').submit();
+                            }
+                        }
+                    });
+                });
+            };
+            //]]>
+        </script>
+
+        <?php
+}?>

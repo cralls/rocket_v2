@@ -1,0 +1,96 @@
+<?php $this_rma = $block->getRmaDetail();
+    $id = $this_rma->getRmaId();
+?>
+    <div class="page-title">
+        <h1><?= /* @noEscape */ __("Shipping Label"); ?>
+            <span style="float:right;">#<?= /* @noEscape */ $this_rma->getIncrementId()."-".$id; ?></span>
+        </h1>
+    </div>
+    <div class="dashboard">
+        <div class="box-account box-info wk_rma_bigbox">
+            <div class="box-content">
+        <?php   $label = $block->getRmaShippingLabelModel($this_rma->getShippingLabel());?>
+                <div class="shipping_label_each">
+                    <img src="<?= /* @noEscape */ $block->getLabelBaseUrl().$label->getFilename(); ?>" class="shipping_label_img"/>
+                </div>
+                <?php           $filename = $block->getBarBaseUrl().$id.".gif"; ?>
+                <?= /* @noEscape */ "<img class='wk_barcode_images' alt='image' src='".$filename."'/>";  ?>
+            </div>
+            <div class="col2-set" style="clear:both;">
+                <div class="col-1">
+                    <div class="box">
+                        <div class="box-title">
+                            <h3><?= /* @noEscape */ __("Order Id"); ?></h3>
+                        </div>
+                        <div class="box-content">
+                            <p>#<?= /* @noEscape */ $this_rma->getIncrementId(); ?></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="box">
+                        <div class="box-title">
+                            <h3><?= /* @noEscape */ __("RMA Id"); ?></h3>
+                        </div>
+                        <div class="box-content">
+                            <p>#<?= /* @noEscape */ $this_rma->getIncrementId()."-".$id; ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col2-set">
+                <div class="col-1">
+                    <div class="box">
+                        <div class="box-title">
+                            <h3><?= /* @noEscape */ __("Created On"); ?></h3>
+                        </div>
+                        <div class="box-content">
+                            <p><?= /* @noEscape */ date("Y-m-d g:i:s a", $block->getTimestamp($this_rma->getCreatedAt()));  ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 class="table-caption"><?= /* @noEscape */ __("Item(s) Requested for RMA"); ?></h2>
+        <table class="data-table" id="item_table">
+            <thead>
+                <tr>
+                    <th><?= /* @noEscape */ __("Product Name"); ?></th>
+                    <th><?= /* @noEscape */ __("SKU"); ?></th>
+                    <th class="a-right"><?= /* @noEscape */ __("Return Qty"); ?></th>
+                    <th class="a-right"><?= /* @noEscape */ __("Reason"); ?></th>
+                </tr>
+            </thead>
+            <?php   $orderItems = $block->getItemCollection($id);
+            foreach ($orderItems as $item) {
+                $mage_item = $block->getSalesOrderItemDetail($item->getItemId());
+                if ($mage_item->getProductType()!=='downloadable' && $mage_item->getProductType()!=='virtual'):
+                    $product = $block->getProductDetail($mage_item->getProductId());
+                    $reason = $block->getReason($item->getReasonId())->getReason();
+                    if (!$reason) {
+                        $reason = $item->getRmaReason();
+                    }   ?>
+                <tbody>
+                <tr>
+                    <td><h3 class="product-name"><?= /* @noEscape */ $product->getName(); ?></h3></td>
+                    <td><?= /* @noEscape */ $product->getSku(); ?></td>
+                    <td class="a-right">
+                    <?= /* @noEscape */ $item->getQty(); ?>
+                    </td>
+                    <td class="a-right">
+                    <?= /* @noEscape */ $reason;   ?>
+                    </td>
+                </tr>
+                </tbody>
+                <?php endif; ?>
+            <?php   } ?>
+        </table>
+    </div>
+<script>
+require([
+        "jquery",
+    ], function($){
+            'use strict';
+            window.print();
+        });
+</script>

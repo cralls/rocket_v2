@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <type name="Magento\Framework\Event\ManagerInterface">
+        <plugin name="pulsestorm_commercebug_plugins_events" type="Vectornetworksolutionsllc\Commercebug\Plugins\Events" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\Event\InvokerInterface">
+        <plugin name="pulsestorm_commercebug_plugins_observers" type="Vectornetworksolutionsllc\Commercebug\Plugins\Observers" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\View\Model\Layout\Merge">
+        <plugin name="pulsestorm_commercebug_plugins_merge" type="Vectornetworksolutionsllc\Commercebug\Plugins\Merge" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\View\Layout">
+        <plugin name="pulsestorm_commercebug_magento_framework_view_layout_1" type="Vectornetworksolutionsllc\Commercebug\Plugins\MagentoFrameworkViewLayout" sortOrder="10" disabled="false"/>
+        <plugin name="pulsestorm_commercebug_magento_framework_view_layout_2" type="Vectornetworksolutionsllc\Commercebug\Plugin\Magento\Framework\View\Layout"/>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="pulsestorm_commercebug_command_contextscan" xsi:type="object">Vectornetworksolutionsllc\Commercebug\Command\Contextscan</item>
+                <item name="pulsestorm_commercebug_command_testbed" xsi:type="object">Vectornetworksolutionsllc\Commercebug\Command\Testbed</item>
+                <item name="pulsestorm_commercebug_command_scandoubleparam" xsi:type="object">Vectornetworksolutionsllc\Commercebug\Command\Scandoubleparam</item>
+            </argument>
+        </arguments>
+    </type>        
+    <type name="Magento\Framework\Filesystem\Driver\File">
+        <plugin name="pulsestorm_commercebug_magento_framework_filesystem_driver_file" type="Vectornetworksolutionsllc\Commercebug\Plugins\MagentoFrameworkFilesystemDriverFile"/>
+    </type>
+    <type name="Magento\Framework\View\Asset\GroupedCollection">
+        <plugin name="pulsestorm_commercebug_magento_framework_view_asset_groupedcollection" type="Vectornetworksolutionsllc\Commercebug\Plugin\Magento\Framework\View\Asset\GroupedCollection"/>
+    </type>
+    <type name="Magento\Framework\View\Layout\Data\Structure">
+        <plugin name="pulsestorm_commercebug_magento_framework_view_layout_data_structure" type="Vectornetworksolutionsllc\Commercebug\Plugin\Magento\Framework\View\Layout\Data\Structure"/>
+    </type>
+</config>

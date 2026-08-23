@@ -1,0 +1,234 @@
+<?php
+$customer = $this->getCurrentCustomer();
+$affiliate = $this->getAffiliateMemberModel()->load($customer->getId());
+?>
+
+
+<?php if ($affiliate->getStatus() == \MW\Affiliate\Model\Statusactive::PENDING): ?>
+    <p class="error-msg">
+        <?php echo __('You have registered in our Affiliate system. Please wait for the response of administrator.') ?>
+    </p>
+<?php return; endif ?>
+
+<?php if ($affiliate->getStatus() == \MW\Affiliate\Model\Statusactive::NOTAPPROVED): ?>
+    <p class="error-msg">
+        <?php echo __('You have not successfully registered. For more details, Please contact with the administrator.') ?>
+    </p>
+<?php return; endif ?>
+
+
+<?php if ($affiliate->getStatus() == \MW\Affiliate\Model\Statusreferral::LOCKED): ?>
+    <p class="error-msg">
+        <?php echo __('Affiliate Account was disabled, please contact us to solve this problem.') ?>
+    </p>
+<?php else: ?>
+    <?php
+        $_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+        $creditCustomer = $this->getCustomerCredit($customer->getId());
+        $balance = $creditCustomer->getCredit();
+    ?>
+
+    <form action="<?php echo $this->getUrl('affiliate/index/createpost') ?>" method="post" name="mw_referral_account" id="form-validate" class="form-edit-account">
+        <fieldset class="fieldset">
+
+        </fieldset>
+
+        <fieldset class="fieldset affiliate" style="clear: both; float:left;">
+
+
+
+            <?php if ($_dataHelper->getStoreConfig('affiliate/money/enable_withdrawal')): ?>
+                <div class="field required">
+                    <label for="getway_withdrawn" class="label"><span><?php echo __('Payment Method') ?></span></label>
+                    <div class="control">
+                        <select id="getway_withdrawn" name="getway_withdrawn" class="required-entry">
+                            <option value=""><?php echo __('Please select a payment method') ?></option>
+                            <?php $gateways = $_dataHelper->getGatewayStore(); ?>
+                            <?php if ($gateways): ?>
+                                <?php foreach ($gateways as $gateway): ?>
+                                    <?php if (strtolower(trim($gateway['mw_status'])) == 'yes'): ?>
+                                    <option <?php if ($affiliate->getPaymentGateway() == $gateway['gateway_value']) { echo 'selected="selected"'; }?> value="<?php echo $gateway['gateway_value'];?>"><?php echo $gateway['gateway_title'];?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field required" id="mw_paypal_email">
+                    <label for="email_address" class="label"><span><?php echo __('Withdrawal Notification Email') ?></span></label>
+                    <div class="control">
+                        <input type="text" name="paypal_email" id="paypal_email" value="<?php echo $affiliate->getPaymentEmail();?>" title="<?php echo __('Paypal Email') ?>" class="input-text validate-email required-entry" />
+                    </div>
+                </div>
+
+                <div id="form_account_bank">
+                    <div class="field required">
+                        <label for="bank_name" class="label"><span><?php echo __('Bank Name') ?></span></label>
+                        <div class="control">
+                            <input type="text" name="bank_name" id="bank_name" value="<?php echo $affiliate->getBankName();?>" title="<?php echo __('Bank Name') ?>" class="input-text required-entry" />
+                        </div>
+                    </div>
+
+                    <div class="field required">
+                        <label for="name_account" class="label"><span><?php echo __('Name on account') ?></span></label>
+                        <div class="control">
+                            <input type="text" name="name_account" id="name_account" value="<?php echo $affiliate->getNameAccount();?>" title="<?php echo __('Name on account') ?>" class="input-text required-entry" />
+                        </div>
+                    </div>
+
+                    <div class="field required">
+                        <label for="bank_country" class="label"><span><?php echo __('Bank Country') ?></span></label>
+                        <div class="control">
+                            <?php echo $block->getCountryHtmlSelect($affiliate->getBankCountry(), 'bank_country', 'bank_country', 'Bank Country') ?>
+                        </div>
+                    </div>
+
+                    <div class="field required">
+                        <label for="swift_bic" class="label"><span><?php echo __('SWIFT code') ?></span></label>
+                        <div class="control">
+                            <input type="text" name="swift_bic" id="swift_bic" value="<?php echo $affiliate->getSwiftBic();?>" title="<?php echo __('SWIFT code') ?>" class="input-text required-entry" />
+                        </div>
+                    </div>
+
+                    <div class="field required">
+                        <label for="account_number" class="label"><span><?php echo __('Account Number') ?></span></label>
+                        <div class="control">
+                            <input type="text" name="account_number" id="account_number" value="<?php echo $affiliate->getAccountNumber();?>" title="<?php echo __('Account Number') ?>" class="input-text required-entry" />
+                        </div>
+                    </div>
+
+                    <div class="field required">
+                        <label for="re_account_number" class="label"><span><?php echo __('Re-enter Account Number') ?></span></label>
+                        <div class="control">
+                            <input type="text" name="re_account_number" id="re_account_number" value="<?php echo $affiliate->getReAccountNumber();?>" title="<?php echo __('Re-enter Account Number') ?>" class="input-text required-entry validate-re_account_number" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field required">
+                    <label for="auto_withdrawn" class="label"><span><?php echo __('Auto Withdrawal') ?></span></label>
+                    <div class="control">
+                        <select id="auto_withdrawn" name="auto_withdrawn">
+                            <?php $autowithdrawns = \MW\Affiliate\Model\Autowithdrawn::getOptionArray();?>
+                            <?php foreach ($autowithdrawns as $value => $autowithdrawn): ?>
+                                <option <?php if ($affiliate->getAutoWithdrawn() == $value): ?>selected="selected"<?php endif; ?> value="<?php echo $value;?>"><?php echo $autowithdrawn;?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field required" id="payment_release_level_">
+                    <?php
+                    $max = $_dataHelper->getPricingHelper()->currency($_dataHelper->getWithdrawMaxStore());
+                    $min = $_dataHelper->getPricingHelper()->currency($_dataHelper->getWithdrawMinStore());
+                    ?>
+                    <label for="payment_release_level" class="label"><span><?php echo __('Auto payment when account balance reaches (%1 - %2)', $min, $max)?></span></label>
+                    <div class="control">
+                        <input type="text" name="payment_release_level" id="payment_release_level" value="<?php echo round($affiliate->getWithdrawnLevel(), 0);?>" title="<?php echo __('Auto payment when account balance reaches') ?>" class="input-text validate-digits required-entry" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="reserve_level" class="label">
+                        <span><?php echo __('Reserve Level (to be kept in account)') ?></span>
+                    </label>
+                    <div class="control">
+                        <input type="text" name="reserve_level" id="reserve_level" value="<?php echo round($affiliate->getReserveLevel(), 0);?>" title="<?php echo __('Reserve Level') ?>" class="input-text validate-digits" />
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="referral_site" class="label">
+                        <span><?php echo __('Affiliate\'s Website(s)') ?></span>
+                    </label>
+                    <div class="control">
+                        <textarea class="input-text" title="<?php echo __('Affiliate Website(s)') ?>" name="referral_site" id="referral_site" > </textarea>
+                    </div>
+                    <div style="display:none" id="website-validation-error" class="validation-advice"></div>
+                </div>
+
+
+            <?php endif; ?>
+
+            <p><?php echo __('* Note: Affiliate may use balance as store credit in shopping cart.') ?></p>
+        </fieldset>
+
+        <div class="action-toolbar">
+            <div class="primary">
+                <button type="submit" title="<?php echo __('Save') ?>" id="referral_acount" class="action save primary">
+                    <span><?php echo __('Save') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <?php if ($_dataHelper->getStoreConfig('affiliate/money/enable_withdrawal')): ?>
+        <script>
+            require([
+                'jquery',
+                'mage/mage'
+            ], function($) {
+                var dataForm = $('#form-validate');
+                dataForm.mage('validation');
+                var url = "<?php echo $this->getUrl('affiliate/index/ajaxgetfee') ?>";
+
+                if ($('#auto_withdrawn').val() == '2') {
+                    $('#payment_release_level_').hide();
+                } else {
+                    $('#payment_release_level_').show();
+                }
+
+                if ($('#getway_withdrawn').val() == 'banktransfer') {
+                    $('#form_account_bank').show();
+                    $('#mw_paypal_email').hide();
+                } else if ($('#getway_withdrawn').val() == 'check') {
+                    $('#form_account_bank').hide();
+                    $('#mw_paypal_email').hide();
+                } else {
+                    $('#mw_paypal_email').show();
+                    $('#form_account_bank').hide();
+                };
+
+                $('#auto_withdrawn').on('change', function () {
+                    if ($('#auto_withdrawn').val() == '2') {
+                        $('#payment_release_level_').hide();
+                    } else {
+                        $('#payment_release_level_').show();
+                    }
+                });
+
+                $('#getway_withdrawn').on('change', function () {
+                    var gateway = $('#getway_withdrawn').val();
+                    if (gateway == 'banktransfer') {
+                        $('#form_account_bank').show();
+                        $('#mw_paypal_email').hide();
+                    } else if (gateway == 'check') {
+                        $('#form_account_bank').hide();
+                        $('#mw_paypal_email').hide();
+                    } else {
+                        $('#mw_paypal_email').show();
+                        $('#form_account_bank').hide();
+                    }
+
+//                    if (gateway) {
+//                        $.ajax({
+//                            url: url,
+//                            type: 'POST',
+//                            data: {ajax: true, gateway: gateway},
+//                            showLoader: true,
+//                            success: function(result) {
+//                                if (result) {
+//                                    var fee = $.parseJSON(result);
+//                                    $('#aff-gateway-fee').html(fee);
+//                                }
+//                            }
+//                        });
+//                    } else {
+//                         $('#aff-gateway-fee').html('');
+//                    }
+                });
+            });
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

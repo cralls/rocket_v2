@@ -1,0 +1,126 @@
+{
+    "wk_rma": {
+        "column": {
+            "rma_id": true,
+            "order_id": true,
+            "group": true,
+            "name": true,
+            "increment_id": true,
+            "customer_id": true,
+            "package_condition": true,
+            "resolution_type": true,
+            "additional_info": true,
+            "customer_delivery_status": true,
+            "customer_consignment_no": true,
+            "admin_delivery_status": true,
+            "admin_consignment_no": true,
+            "image": true,
+            "shipping_label": true,
+            "guest_email": true,
+            "status": true,
+            "admin_status": true,
+            "final_status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_rma_conversation": {
+        "column": {
+            "id": true,
+            "rma_id": true,
+            "message": true,
+            "sender": true,
+            "attachment": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_RMA_CONVERSATION_RMA_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_RMA_CONVERSATION_RMA_ID_WK_RMA_RMA_ID": true
+        }
+    },
+    "wk_rma_items": {
+        "column": {
+            "id": true,
+            "rma_id": true,
+            "order_id": true,
+            "item_id": true,
+            "reason_id": true,
+            "qty": true,
+            "is_stock_added": true,
+            "rma_reason": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "WK_RMA_ITEMS_RMA_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "WK_RMA_ITEMS_RMA_ID_WK_RMA_RMA_ID": true
+        }
+    },
+    "wk_rma_label": {
+        "column": {
+            "id": true,
+            "title": true,
+            "filename": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_rma_reason": {
+        "column": {
+            "id": true,
+            "reason": true,
+            "status": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_rma_customfield": {
+        "column": {
+            "id": true,
+            "input_type": true,
+            "frontend_class": true,
+            "label": true,
+            "inputname": true,
+            "select_option": true,
+            "validationtype": true,
+            "required": true,
+            "status": true,
+            "sort": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "wk_rma_customfield_value": {
+        "column": {
+            "id": true,
+            "field_id": true,
+            "rma_id": true,
+            "value": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

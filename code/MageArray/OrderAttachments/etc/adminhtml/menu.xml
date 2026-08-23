@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <update id="MageArray_Core::core" title="MageArray Extensions" module="MageArray_OrderAttachments" sortOrder="30" resource="MageArray_OrderAttachments::orderattachment"/>
+		<add id="MageArray_OrderAttachments::orderattachment" title="Order Attachments" module="MageArray_OrderAttachments" sortOrder="20" parent="MageArray_Core::core" dependsOnModule="MageArray_OrderAttachments" resource="MageArray_OrderAttachments::orderattachment"/>
+		<add id="MageArray_OrderAttachments::orderattachments" title="Settings" module="MageArray_OrderAttachments" sortOrder="30" resource="MageArray_OrderAttachments::setting" action="adminhtml/system_config/edit/section/orderattachments" parent="MageArray_OrderAttachments::orderattachment"/>
+    </menu>
+</config>

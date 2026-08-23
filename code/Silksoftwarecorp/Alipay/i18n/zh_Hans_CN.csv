@@ -1,0 +1,25 @@
+Payment Error,支付错误
+Wrong private key format,错误的私钥格式
+Wrong Alipay Public Key,支付宝公钥错误
+Invalid amount for capture.,无效的结算金额
+Alipay require CNY currency rate. Please Select Chinese Yuan in Currency Setup > Allowed Currencies and set the currency rate.,支付宝要求人民币的汇率。请在Currey Setup > Allowed Currencies 中选择人民币并设置人民币的汇率
+Your order has been received. You will be redirected to Alipay to complete the payment.,你的订单已经被接受。你将会跳转到支付宝去完成支付。
+Continue to Pay,继续支付
+"There is something wrong with this payment, please contact the store owner.",当前支付出现了一些问题，请联系店铺所有者。
+Your order number is: %1.,你的订单号是 %1。
+Your order # is: <span>%1</span>.,你的订单号: <span>%1</span>.
+We'll email you an order confirmation with details and tracking info.,我们将向你发送带有订单详情和物流信息的订单确认邮件
+Continue Shopping,继续购物
+Place Order,下单
+Alipay,支付宝
+Enabled,开启
+Title,标题
+APP ID,APP ID
+APP PRIVATE KEY,APP PRIVATE KEY
+ALIPAY PUBLIC KEY,ALIPAY PUBLIC KEY
+Sign Type,加密类型
+Sandbox Mode,沙盒模式
+Instructions,说明
+Sort Order,排序顺序
+Logo,图标
+Your payment has been received.,你的支付已成功

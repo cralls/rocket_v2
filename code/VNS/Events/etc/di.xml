@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="VNS\Events\Model\ResourceModel\Event\Grid\Collection" type="VNS\Events\Ui\Component\DataProvider\SearchResult\Events">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vns_events</argument>
+            <argument name="resourceModel" xsi:type="string">VNS\Events\Model\ResourceModel\Event</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="vns_events_grid_data_source" xsi:type="string">VNS\Events\Model\ResourceModel\Event\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

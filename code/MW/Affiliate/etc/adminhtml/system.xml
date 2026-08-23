@@ -1,0 +1,333 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageworld" translate="label" sortOrder="100">
+            <label>mageworld</label>
+        </tab>
+        <section id="affiliate" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Affiliate Pro</label>
+            <tab>mageworld</tab>
+            <resource>Mw_Affiliate::system_config</resource>
+            <group id="general_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Affiliate Pro</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="mw_affiliate_label1" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>MW\Affiliate\Block\Adminhtml\System\Config\Label1</frontend_model>
+                </field>
+                <field id="auto_signup_affiliate" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto sign up new registered customers to Affiliate Program</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default: No (If you set Yes, Extend registration form will not be available)</comment>
+                </field>
+                <field id="overwrite_register" translate="label comment" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extend default customer registration form to allow sign up box for Affiliate program</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default: No (Only set Yes if there is no other module extending customer registration form to avoid conflict)</comment>
+                    <depends><field id="auto_signup_affiliate">0</field></depends>
+                </field>
+                <field id="signup_affiliate" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable customer to voluntarily sign up for affiliate program on default customer registration form</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Signupform</source_model>
+                    <depends><field id="overwrite_register">1</field></depends>
+                </field>
+                <field id="auto_approve" translate="label comment" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto approve Affiliate registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default: No (If No, admin has to go to Affiliate Pro/Manage Affiliates/Pending Affiliates to approve manually. If Yes, the system will automatically approve Affiliate member.)</comment>
+                </field>
+                <field id="default_group" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Assign affiliate to group when registration auto-approved</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Defaultgroup</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="referral_code" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Length of the manual referral code (set # of characters)</label>
+                    <validate>required-entry validate-digits</validate>
+                </field>
+                <field id="mw_affiliate_label2" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>MW\Affiliate\Block\Adminhtml\System\Config\Label2</frontend_model>
+                </field>
+                <field id="show_referral_code_register" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show manual affiliate referral code field on extended customer registration form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For manually referred customers to receive discount and affiliate to earn commission</comment>
+                </field>
+                <!--<field id="show_credit_cart" translate="label comment" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">-->
+                    <!--<label>Show Credit Block on shopping cart page to allow Affiliates to enter credit</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Default: No (Only set Yes if there is no other module extending the shopping cart page to avoid conflict)</comment>-->
+                <!--</field>-->
+                <field id="show_referral_code_cart" translate="label comment" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show manual referral code block on extended shopping cart page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>For manually referred customers to receive discount and affiliate to earn commission</comment>
+                </field>
+                <field id="set_customerinvited" translate="label comment" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reassign customer to new affiliate when they use new manual referral code </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default: No (If Yes, the customer’s referral code will be updated. If No, the original referral code will remain)</comment>
+                </field>
+                <field id="affiliate_share" translate="label" type="textarea" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_class>affiliate_share</frontend_class>
+                    <label>Do not display 'Share this page' link on following pages:</label>
+                </field>
+            </group>
+
+            <group id="general" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manage Affiliate Commission and Customer Discount</label>
+                <field id="affiliate_position" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Program Executing Priority</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Position</source_model>
+                    <comment>Only 1 Affiliate program will take effect if purchased product belongs to 2 or more programs</comment>
+                </field>
+
+                <field id="affiliate_discount_with_tax" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Calculate affiliate Discount with Tax</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[ <span>
+                        Yes: Customer get Discount with Base Price of Product incl Tax <br/>
+                        No: Customer get Discount withBase Price of Product excl Tax  <br/>
+                        (Only use with Discount by Percent which setup in Programs)
+                         </span>
+                    ]]></comment>
+
+                </field>
+
+                <field id="affiliate_discount" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Calculate affiliate commission</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Commission</source_model>
+                </field>
+                <field id="affiliate_tax" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include taxes when calculating Affiliate commission</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Apply for Taxable Good class only</comment>
+                </field>
+                <field id="affiliate_commission" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply discount and commission for affiliates when they purchase products themselves</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="status_add_commission" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add commission to account balance when order status is</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="enabled_reward" translate="label comment" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto-subtract commission in case of customer refund</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Default: Yes (Yes: Reverse commission / No: Do not reverse commission when referred order is refunded)</comment>
+                </field>
+                <field id="status_subtract_commission" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reverse commission from account balance when order status is</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="commission_holding_period" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hold commission in number of days</label>
+                </field>
+                <field id="referral_visitor_commission" translate="label comment" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Commission for referral visitor</label>
+                    <comment>X/Y - X dollar for Y referral visitors</comment>
+                </field>
+                <field id="referral_signup_commission" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Commission for referral sign-up</label>
+                </field>
+                <field id="referral_subscribe_commission" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Commission for referral subscribe</label>
+                </field>
+            </group>
+
+            <group id="money" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manage Affiliate Withdrawal Requests</label>
+                <field id="enable_withdrawal" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Affiliate Withdrawal</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="gateways" translate="label comment" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Method</label>
+                    <frontend_model>MW\Affiliate\Block\Adminhtml\System\Config\Paymentgateway</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[ <span style="width:350px;display: block;">Payment Method Code (paypal, moneybookers, banktransfer,check)<br/>Payment Method Fee (X: fixed fee amount or Y%: by percentage of withdraw amount)<br/>Enable Frontend (Enter: Yes or No)</span>]]></comment>
+                </field>
+                <field id="affiliate_withdraw_min" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum withdrawal amount</label>
+                    <validate>required-entry validate-digits</validate>
+                    <comment>Default: 30</comment>
+                </field>
+                <field id="affiliate_withdraw_max" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum for referral subscribe</label>
+                    <validate>required-entry validate-digits</validate>
+                    <comment>Default: 10000</comment>
+                </field>
+                <field id="affiliate_withdrawn_period" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Withdrawal Period</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Period</source_model>
+                </field>
+                <field id="affiliate_withdrawn_day" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Withdrawal processing day</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Days</source_model>
+                </field>
+                <field id="affiliate_withdrawn_month" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Withdrawal processing date</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Months</source_model>
+                    <frontend_class>affiliate_withdrawn_month</frontend_class>
+                </field>
+            </group>
+
+            <group id="invitation" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Affiliate - Customer Invitations</label>
+                <field id="using_customer_email" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Affiliate's email address when sending invitations to friends in 'My invitations' or with link on product and category pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email_sender" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender (who reply emails will be sent to if affiliate does NOT use own email return address above)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template For Recipients</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="affiliate_cookie" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>'Referred but unregistered Customer' Cookie to expire in (set # of days)</label>
+                    <validate>required-entry validate-digits</validate>
+                    <comment>Note: New Registered Customer Referrals are dealt with under Affiliate - Customer Invitations</comment>
+                </field>
+            </group>
+
+            <group id="likebox" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Affiliate - Widget</label>
+                <field id="likebox_width" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget width</label>
+                    <validate>required-entry validate-digits</validate>
+                </field>
+                <field id="likebox_title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget title</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="likebox_product_qty" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget product quantity</label>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+
+            <group id="paypal_credential" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Affiliate - Paypal</label>
+                <field id="paypal_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Automatic Withdraw By Paypal</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_username" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Username</label>
+                </field>
+                <field id="api_password" translate="label" type="password" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Password</label>
+                </field>
+                <field id="api_signature" translate="label" type="password" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Signature</label>
+                </field>
+                <field id="api_endpoint" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Endpoint</label>
+                    <source_model>MW\Affiliate\Model\System\Config\Source\Paypalendpoint</source_model>
+                </field>
+                <field id="paypal_notification_subject" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Paypal Notification Subject</label>
+                </field>
+                <field id="paypal_notification_note" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Paypal Notification Note</label>
+                </field>
+                <field id="paypal_min_balance" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Paypal Balance Minimum (When the balance is lower than this number, an email will be sent to notification email below)</label>
+                </field>
+                <field id="paypal_email_notification" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Email When Paypal Account Balance Is Low</label>
+                </field>
+            </group>
+
+            <group id="admin_customer" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Email Notification Templates</label>
+                <field id="email_sender" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender (who reply emails will be sent to)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Admin when New Affiliate signs up</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_to" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send New Affiliate Request To:</label>
+                    <comment>separate by ","</comment>
+                </field>
+            </group>
+
+            <group id="customer" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Affiliate Email Notification Templates</label>
+                <field id="email_sender" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender (who reply emails will be sent to)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate after sign up</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_successful" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate Approval</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_unsuccessful" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify if Affiliate registration not approved</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_lock" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify when affiliate account locked</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_unlock" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify when affiliate account unlocked</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_withdrawn" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate Withdrawal request</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_withdrawn_complete" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate withdrawal completed</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_withdrawn_cancel" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate withdrawal cancelled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_credit_balance_changed" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate credit balance changed</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="email_template_add_program" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Affiliate of new program</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+
+            <group id="options" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Credit Options</label>
+                <field id="allow_using_credit_to_checkout" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show credit discount on shopping cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_credit_to_checkout" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max amount of credit to checkout</label>
+                    <validate>validate-digits</validate>
+                    <comment>Customer can use credit to checkout but not over this amount. Input 0 or leave empty if no limitation.</comment>
+                </field>
+            </group>
+
+            <group id="author_information" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                <frontend_model>MW\Affiliate\Block\Adminhtml\System\Config\AuthorInformation</frontend_model>
+            </group>
+        </section>
+
+    </system>
+</config>

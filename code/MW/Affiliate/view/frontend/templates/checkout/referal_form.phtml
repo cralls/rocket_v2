@@ -1,0 +1,9 @@
+<?php
+$quote = $block->getQuote();
+$affiliateDiscount = 1;//(int) $quote->getAffiliateDiscount();
+?>
+
+<script>
+    window.affiliateInfo = '<?php echo \Zend_Json::encode($block->getAffiliateData()); ?>';
+    window.affiliateDiscount = '<?php echo $affiliateDiscount; ?>';
+</script>

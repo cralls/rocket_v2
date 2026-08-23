@@ -1,0 +1,10 @@
+<fieldset class="fieldset withdrawn-form">
+    <legend class="legend">
+        <span><?php echo __('Withdrawal Information') ?></span>
+        <a href="<?php echo $this->getUrl('affiliate/index/referralaccount'); ?>" style="float:right; font-size: 1.4rem;"><?php echo __('Edit') ?></a>
+    </legend>
+
+    <?php echo $block->getChildHtml('withdrawn_form') ?>
+</fieldset>
+
+<?php echo $block->getChildHtml('withdrawn_history') ?>

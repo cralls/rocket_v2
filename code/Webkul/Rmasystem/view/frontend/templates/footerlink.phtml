@@ -1,0 +1,17 @@
+<?php
+if (!$block->isCustomerLoggedIn()) {
+    ?>
+<li id="rma_guest_login"><a href="<?= /* @noEscape */ $block->getHref();?>">RMA Guest Login</a></li>
+<?php }?>
+
+<script type="text/x-magento-init">
+    {
+        "*":{
+            "footerLinkJs":{
+                "IsEnable": {
+                    "url": "<?= /* @noEscape */ $block->getUrl('rmasystem/index/isEnable') ; ?>"
+                }
+            }
+        }
+    }
+</script>

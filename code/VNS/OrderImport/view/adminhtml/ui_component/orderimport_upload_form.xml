@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">orderimport_upload_form.orderimport_upload_form_data_source</item>
+            <item name="deps" xsi:type="string">orderimport_upload_form.orderimport_upload_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Import Orders</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">orderimport_upload_form</item>
+        </item>
+    </argument>
+    <dataSource name="orderimport_upload_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">VNS\OrderImport\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">orderimport_upload_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <form>
+        <fieldset name="general">
+            <field name="file" formElement="fileUploader">
+                <settings>
+                    <label translate="true">Upload File</label>
+                    <componentType>fileUploader</componentType>
+                    <source>general</source>
+                    <dataScope>file</dataScope>
+                    <uploaderConfig>
+                        <param xsi:type="url" name="url" path="vns_orderimport/upload/save"/>
+                    </uploaderConfig>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                </settings>
+            </field>
+        </fieldset>
+    </form>
+</listing>

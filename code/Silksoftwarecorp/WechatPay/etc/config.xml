@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <wechat_pay>
+                <model>Silksoftwarecorp\WechatPay\Model\Method\WechatPay</model>
+                <title>WechatPay</title>
+                <payment_action>order</payment_action>
+                <order_status>pending</order_status>
+                <sign_type>HMAC-SHA256</sign_type>
+            </wechat_pay>
+        </payment>
+    </default>
+</config>

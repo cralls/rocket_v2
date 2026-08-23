@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Sample_News extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ *
+ * @category  Sample
+ * @package   Sample_News
+ * @copyright 2016 Marius Strajeru
+ * @license   http://opensource.org/licenses/mit-license.php MIT License
+ * @author    Marius Strajeru
+ */
+
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/layout_generic.xsd">
+
+       <referenceContainer name="root" label="Root">
+            <block class="MageArray\OrderAttachments\Block\Adminhtml\Attachments" name="attachmentlist" template="MageArray_OrderAttachments::attachmentlist.phtml">
+            </block>
+        </referenceContainer>
+    
+</layout>

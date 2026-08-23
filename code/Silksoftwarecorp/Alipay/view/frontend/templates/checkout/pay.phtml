@@ -1,0 +1,33 @@
+<?php
+/**
+ * @author Silksoftware Team
+ * @package Silksoftwarecorp_Alipay
+ * @copyright Copyright (c) 2018 Silk Software Corp. (https://www.silksoftware.com)
+ * @license  https://www.silksoftware.com/licenses/magento_extensions_license_1.0.txt | SILK Software Corp. | Extension License 1.0
+ */
+$postData = $block->getPostData();
+?>
+<div class="">
+<?php if(!empty($postData)): ?>
+    <p><?php echo __("Your order has been received. You will be redirected to Alipay to complete the payment."); ?></p>
+    <form action="<?php echo $block->getPostUrl(); ?>" method="post" >
+        <?php foreach($postData as $key=>$val): ?>
+            <?php
+                if (null != $val && $val != '' ) {
+                    //$val = $this->characet($val, $this->postCharset);
+                    $val = str_replace("'","&apos;",$val);
+                    //$val = str_replace("\"","&quot;",$val);
+                    echo "<input type='hidden' name='".$key."' value='".$val."'/>";
+                }
+            ?>
+        <?php endforeach; ?>
+		<input disabled="disabled" name="form_key" type="hidden" value="" />
+	<button type="submit" class="action primary"
+            title="<?php /* @escapeNotVerified */ echo __('Continue to Pay') ?>">
+        <span><?php /* @escapeNotVerified */ echo __('Continue to Pay') ?></span>
+    </button>
+    </form>
+<?php else: ?>
+    <p><?php echo __("There is something wrong with this payment, please contact the store owner.") ?></p>
+<?php endif; ?>
+</div>

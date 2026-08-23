@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="Rss\CustomDesigns\Model\ResourceModel\CustomDesign\Collection"
+                 type="Rss\CustomDesigns\Ui\Component\DataProvider\SearchResult\Items">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">rss_custom_designs</argument>
+            <argument name="resourceModel" xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\CustomDesign</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rss_custom_designs_listing_data_source"
+                      xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\CustomDesign\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <virtualType name="Rss\CustomDesigns\Model\ResourceModel\ProductionRequest\Collection"
+                 type="Rss\CustomDesigns\Ui\Component\DataProvider\SearchResult\Items">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">rss_production_requests</argument>
+            <argument name="resourceModel" xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\ProductionRequest</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rss_production_request_listing_data_source"
+                      xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\ProductionRequest\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="Rss\CustomDesigns\Ui\DataProvider\CustomDesign\FormDataProvider">
+    	<arguments>
+        	<argument name="name" xsi:type="string">rss_custom_designs_form_data_source</argument>
+        	<argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+        	<argument name="requestFieldName" xsi:type="string">entity_id</argument>
+    	</arguments>
+	</type>
+	
+	<virtualType name="Rss\CustomDesigns\Model\ResourceModel\Pattern\Collection"
+             type="Rss\CustomDesigns\Ui\Component\DataProvider\SearchResult\Items">
+	    <arguments>
+	        <argument name="mainTable" xsi:type="string">rss_custom_designs_patterns</argument>
+	        <argument name="resourceModel" xsi:type="string">
+	            Rss\CustomDesigns\Model\ResourceModel\Pattern
+	        </argument>
+	    </arguments>
+	</virtualType>
+	
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+	    <arguments>
+	        <argument name="collections" xsi:type="array">
+	            <item name="rss_custom_designs_patterns_listing_data_source"
+	                  xsi:type="string">
+	                Rss\CustomDesigns\Model\ResourceModel\Pattern\Collection
+	            </item>
+	        </argument>
+	    </arguments>
+	</type>
+	
+	<virtualType name="Rss\CustomDesigns\Model\ResourceModel\Bom\Collection"
+                 type="Rss\CustomDesigns\Ui\Component\DataProvider\SearchResult\Items">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">rss_custom_designs_bom</argument>
+            <argument name="resourceModel" xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\Bom</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rss_custom_designs_bom_listing_data_source" xsi:type="string">Rss\CustomDesigns\Model\ResourceModel\Bom\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+	
+</config>

@@ -1,0 +1,16 @@
+#statisticsGrid_table tr td:first-child{
+    width: 390px;
+}
+#aff_report_from, #aff_report_to {
+    width: 20rem;
+}
+#lastOrdersGrid_table tr td,
+#lastOrdersGrid_table tr th,
+#statisticsGrid_table tr td {
+    border: 1px solid #000000;
+    padding: 2px;
+}
+#lastOrdersGrid_table tr td.a-right,
+#statisticsGrid_table tr td.a-right {
+    text-align: right;
+}

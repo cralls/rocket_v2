@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="mw_affiliate_report_referralsite.grid.container">
+            <block class="Magento\Reports\Block\Adminhtml\Grid" name="mw_affiliate_report_referralsite.grid" as="grid">
+                <arguments>
+                    <argument name="use_ajax" xsi:type="string">0</argument>
+                    <argument name="pager_visibility" xsi:type="string">0</argument>
+                    <argument name="id" xsi:type="string">gridReferralsite</argument>
+                    <argument name="dataSource" xsi:type="object">MW\Affiliate\Model\ResourceModel\Affiliateinvitation\Referralsite\Collection\Initial</argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\Export" name="mw_affiliate_report_referralsite.grid.export" as="grid.export">
+                    <arguments>
+                        <argument name="exportTypes" xsi:type="array">
+                            <item name="csv" xsi:type="array">
+                                <item name="urlPath" xsi:type="string">*/*/exportReferralsiteCsv</item>
+                                <item name="label" xsi:type="string" translate="true">CSV</item>
+                            </item>
+                            <item name="excel" xsi:type="array">
+                                <item name="urlPath" xsi:type="string">*/*/exportReferralsiteExcel</item>
+                                <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="mw_affiliate_report_referralsite.grid.columnSet">
+                    <arguments>
+                        <argument name="filter_visibility" xsi:type="string">0</argument>
+                        <argument name="empty_text" xsi:type="string" translate="true">We can't find records for this period.</argument>
+                        <argument name="empty_cell_label" xsi:type="string" translate="true">We can't find records for this period.</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="period">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Interval</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="id" xsi:type="string">period</argument>
+                            <argument name="index" xsi:type="string">period</argument>
+                            <argument name="grouped" xsi:type="string">1</argument>
+                            <argument name="totals_label" xsi:type="string" translate="true">Total</argument>
+                            <argument name="column_css_class" xsi:type="string">col-period</argument>
+                            <argument name="header_css_class" xsi:type="string">col-period</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="referral_from_domain">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Affiliate Website(s)</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">referral_from_domain</argument>
+                            <argument name="id" xsi:type="string">referral_from_domain</argument>
+                            <argument name="column_css_class" xsi:type="string">col-referral-from-domain</argument>
+                            <argument name="header_css_class" xsi:type="string">col-referral-from-domain</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="count_click_link_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true"># of Clicks</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">count_click_link_sum</argument>
+                            <argument name="id" xsi:type="string">count_click_link_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-count-click-link-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-count-click-link-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="count_register_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true"># of New Accounts</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">count_register_sum</argument>
+                            <argument name="id" xsi:type="string">count_register_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-count-register-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-count-register-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="count_purchase_sum">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true"># of Purchases</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">count_purchase_sum</argument>
+                            <argument name="id" xsi:type="string">count_purchase_sum</argument>
+                            <argument name="column_css_class" xsi:type="string">col-count-purchase-sum</argument>
+                            <argument name="header_css_class" xsi:type="string">col-count-purchase-sum</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="website_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Website</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">website_id</argument>
+                            <argument name="id" xsi:type="string">website_id</argument>
+                            <argument name="column_css_class" xsi:type="string">col-website-id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-website-id</argument>
+                            <argument name="renderer" xsi:type="string">MW\Affiliate\Block\Adminhtml\Renderer\WebsiteReport</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

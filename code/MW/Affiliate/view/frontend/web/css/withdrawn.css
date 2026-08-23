@@ -1,0 +1,34 @@
+#mw_withdraw_next ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#mw_withdraw_next ul,
+#mw_withdraw_next ul li {
+    float: left;
+    width: 100%;
+}
+.withdrawn-form div.field {
+    width: 25%;
+}
+.withdrawn-form div.field,
+.withdrawn-form div.value {
+    float: left;
+}
+.withdrawn-form div.value {
+    position: relative;
+}
+em {
+    color: #f20d0d;
+}
+#withdraw_amount {
+    width: 200px;
+}
+.action-toolbar {
+    clear: both;
+    float: left;
+    margin-top: 20px;
+}
+.back-link {
+    margin-top: 10px;
+}

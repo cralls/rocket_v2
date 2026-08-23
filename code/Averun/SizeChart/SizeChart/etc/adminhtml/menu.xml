@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * menu
+ * @copyright Copyright © 2017 Averun. All rights reserved.
+ * @author    dev@averun.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Averun_SizeChart::sizechart" title="Size Chart" translate="title" module="Averun_SizeChart" sortOrder="100" parent="Magento_Backend::content" resource="Averun_SizeChart::sizechart" />
+        <add id="Averun_SizeChart::chart" title="Chart" module="Averun_SizeChart" sortOrder="200" parent="Averun_SizeChart::sizechart" action="averun_sizechart/chart" resource="Averun_SizeChart::chart"/>
+        <add id="Averun_SizeChart::category" title="Category" module="Averun_SizeChart" sortOrder="300" parent="Averun_SizeChart::sizechart" action="averun_sizechart/category" resource="Averun_SizeChart::category"/>
+        <add id="Averun_SizeChart::dimension" title="Dimension" module="Averun_SizeChart" sortOrder="400" parent="Averun_SizeChart::sizechart" action="averun_sizechart/dimension" resource="Averun_SizeChart::dimension"/>
+        <add id="Averun_SizeChart::type" title="Type" module="Averun_SizeChart" sortOrder="500" parent="Averun_SizeChart::sizechart" action="averun_sizechart/type" resource="Averun_SizeChart::type"/>
+        <add id="Averun_SizeChart::import" title="Import Default Data" module="Averun_SizeChart" sortOrder="600" parent="Averun_SizeChart::sizechart" action="averun_sizechart/data/importExport" resource="Averun_SizeChart::import"/>
+    </menu>
+</config>

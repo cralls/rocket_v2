@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+<virtualType name="VNS\Custom\Model\ResourceModel\CustomMsg\Collection" type="VNS\Custom\Ui\DataProvider\CustomMsgDataProvider">
+	<arguments>
+		<argument name="mainTable" xsi:type="string">custom_msg</argument>
+		<argument name="resourceModel" xsi:type="string">VNS\Custom\Model\ResourceModel\CustomMsg</argument>
+	</arguments>
+</virtualType>
+<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+	<arguments>
+		<argument name="collections" xsi:type="array">
+			<item name="vns_custom_grid_data_source" xsi:type="string">VNS\Custom\Model\ResourceModel\CustomMsg\Collection</item>
+		</argument>
+	</arguments>
+</type>
+<type name="Magento\Catalog\Controller\Product\View">
+    <plugin name="vns_custom_check_category" type="VNS\Custom\Plugin\ProductViewPlugin" sortOrder="10"/>
+</type>
+<type name="Magento\Checkout\Block\Cart">
+    <plugin name="vns_custom_continue_shopping_url" type="VNS\Custom\Plugin\ContinueShoppingUrlPlugin" sortOrder="10"/>
+</type>
+<type name="Magento\Quote\Api\CartManagementInterface">
+        <plugin name="restrict_order_plugin" type="VNS\Custom\Plugin\OrderRestrictPlugin" sortOrder="10"/>
+    </type>
+
+</config>

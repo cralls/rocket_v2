@@ -1,0 +1,17 @@
+{
+	"name": "magearray/module-orderattachments",
+	"description": "Order Attachments Extension for Magento 2 By MageArray",
+	"type": "magento2-module",
+	"version": "1.0.13",
+	"license": [
+		"proprietary"
+	],
+	"autoload": {
+		"files": [
+			"registration.php"
+		],
+		"psr-4": {
+			"MageArray\\OrderAttachments\\": ""
+		}
+	}
+}

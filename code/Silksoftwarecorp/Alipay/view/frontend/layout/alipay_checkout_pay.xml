@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Alipay Checkout Page</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <!--<referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Your order has been purchased!</argument>
+            </action>
+        </referenceBlock>-->
+        <referenceContainer name="content">
+            <block class="Silksoftwarecorp\Alipay\Block\Checkout\Pay" name="checkout.alipay.pay" template="Silksoftwarecorp_Alipay::checkout/pay.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,19 @@
+p.switcher {
+    margin-bottom: 10px;
+    border: 1px solid #cddddd;
+    background: #e7efef;
+    padding: 10px;
+}
+.box-left {
+    float: left;
+}
+.box-right {
+    float: right;
+}
+.entry-edit {
+    border: 1px solid #ccc;
+}
+.entry-edit .entry-edit-head {
+    background: #e7efef;
+    padding: 15px 15px 5px;
+}

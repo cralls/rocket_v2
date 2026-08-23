@@ -1,0 +1,79 @@
+<?php
+/**
+ *
+ * @category   MW
+ * @package    MW_Credit
+ * @author Mage World <support@mage-world.com>
+ */
+?>
+<?php
+
+$storeCode = $this->_storeManager->getStore()->getCode();
+$show = $this->_helper->getShowReferralCodeCartStore($storeCode);
+
+if ($show) {
+    ?>
+    <form id="form_referral_code" action=" " method="post">
+        <div class="discount">
+            <h2><?php echo __('Referral Code') ?></h2>
+            <div class="discount-form">
+                <label class="label" for="credit_code"><?php echo __('Enter your referral code if you have.') ?></label>
+                <input type="hidden" name="removeCode" id="remove-code" value="0" />
+                <div class="input-box">
+                    <input class="input-text" id="code_value" name="code_value" value="<?php echo trim($this->_helper->getReferralCodeByCheckout()) ?>" />
+                </div>
+                <div class="buttons-set">
+                    <button type="button" title="<?php echo __('Apply Code') ?>" class="button" onclick="myFunction(false)" value="<?php echo __('Apply Code') ?>"><span><span><?php echo __('Apply Code') ?></span></span></button>
+                     &nbsp;
+                    <button id="bt-cancel" type="button" title="<?php echo __('Cancel Code') ?>" class="button" onclick="myFunction(true)" value="<?php echo __('Cancel Code') ?>"><span><span><?php echo __('Cancel Code') ?></span></span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //<![CDATA[
+
+            require([
+                'jquery'
+            ], function($){
+                $(window).on('load', function(){
+                    var referralCode = '<?php echo strlen($this->_helper->getReferralCodeByCheckout()) ?>';
+                    if( (!referralCode) || (referralCode == 0) ){
+                        $('#bt-cancel').hide();
+                    }
+                });
+            });
+            function myFunction(isRemove) {
+                var links = '<?php echo $block->getUrl('affiliate/checkout/referralCodePost') ?>';
+                if (isRemove) {
+                    jQuery('#remove-code').val(1);
+                    jQuery('#code_value').val('');
+                } else {
+                    jQuery('#remove-code').val(0);
+                }
+                jQuery(document).ready(function(){
+                    jQuery.ajax({
+                        url : links,
+                        type : "post",
+                        dataType:"json",
+                        data : {
+                            code_value :  jQuery('#code_value').val(),
+                            removeCode : jQuery('#remove-code').val(),
+                        },
+                        success : function (response){
+                            if(response.canceled){
+                                jQuery('#bt-cancel').hide();
+                                jQuery('#form-validate').submit();
+                            }
+                            if(response.success){
+                                jQuery('#bt-cancel').show();
+                                jQuery('#form-validate').submit();
+                            }
+
+                        }
+                    });
+                });
+            };
+        //]]>
+    </script>
+<?php }?>

@@ -1,0 +1,27 @@
+/*#form_referral_code*/
+#form_referral_code .label{
+	font-weight: 400;
+    font-size: 1.4rem;
+    margin: 0 0 8px;
+    display: inline-block;
+}
+
+
+#form_referral_code #code_value{
+	background: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    height: 38px;
+    line-height: 1.4;
+    padding: 10px;
+    vertical-align: baseline;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#form_referral_code .input-box{
+	margin: 0 0 9px;
+}

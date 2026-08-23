@@ -1,0 +1,9 @@
+<?php
+$product = $block->getProduct(); 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->create('Magento\Catalog\Model\Product')->load($product->getId());
+ ?>
+
+<div class="product-header-links">
+	<div id="size_info"><?php echo $_product->getResource()->getAttribute('size_info')->getFrontend()->getValue($_product);?></div>
+</div>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="affiliate_invitation_email_template" label="Invitation Email To Friends" file="invitation_email_to_friend.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template" label="Notify Affiliate Sign Up" file="notify_customer_affiliate_sign_up.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_successful" label="Notify Affiliate affiliate approved" file="notify_customer_affiliate_approved.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_unsuccessful" label="Notify Affiliate unapproved" file="notify_customer_affiliate_unapproved.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_lock" label="Notify Affiliate account locked" file="notify_customer_affiliate_account_locked.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_unlock" label="Notify Affiliate account unlocked" file="notify_customer_affiliate_account_unlocked.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_withdrawn" label="Notify Affiliate withdrawal request" file="notify_customer_withdrawal_request.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_withdrawn_complete" label="Notify Affiliate withdrawal completed" file="notify_customer_withdrawal_completed.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_withdrawn_cancel" label="Notify Affiliate withdrawal cancelled" file="notify_customer_withdrawal_cancelled.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_credit_balance_changed" label="Notify Affiliate credit balance changed" file="notify_customer_credit_balance_changed.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_customer_email_template_add_program" label="Notify Affiliate of new program" file="notify_customer_new_program.html" type="html" module="MW_Affiliate" area="frontend"/>
+    <template id="affiliate_admin_customer_email_template" label="Notify admin affiliate sign up" file="notify_admin_affiliate_sign_up.html" type="html" module="MW_Affiliate" area="frontend"/>
+</config>

@@ -1,0 +1,35 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    
+    <head>
+        <css src="MW_Affiliate::css/style.css"/>
+    </head>
+    <body>
+
+        <referenceContainer name="cart.summary">
+            <block class="MW\Affiliate\Block\Cart\ReferalForm" name="affiliate_checkout_cart_referalcode" after="-" cacheable="false" template="MW_Affiliate::cart/referal_form.phtml"/>
+            <block class="MW\Affiliate\Block\Cart\CreditForm" name="credit_checkout_cart_creditcode" after="-" cacheable="false" template="MW_Affiliate::cart/credit.phtml"/>
+        </referenceContainer>
+
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="before_grandtotal" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="affiliate_discount" xsi:type="array">
+                                            <item name="config" xsi:type="array">
+                                                <item name="affiliate_discount" xsi:type="string" translate="true">Affiliate Discount</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

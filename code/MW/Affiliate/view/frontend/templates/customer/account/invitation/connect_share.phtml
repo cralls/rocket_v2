@@ -1,0 +1,113 @@
+<?php
+$_dataHelper = $this->helper('MW\Affiliate\Helper\Data');
+$customer = $block->getCustomer();
+$oRequestToken = $block->getRequestToken();
+$urlNew = $block->getRequest()->getParam('mw_link');
+$urlProtocol = $block->getRequest()->getParam('mw_pro');
+if ($urlNew && $urlProtocol) {
+    $urlNew = $urlProtocol . '//' . $urlNew;
+    $url = $_dataHelper->getLinkBanner($customer, $urlNew);
+} else {
+    $url = $_dataHelper->getLink($customer);
+}
+?>
+
+
+<fieldset class="fieldset">
+    <legend class="legend">
+        <span><?php echo __('Connect & Share') ?></span>
+    </legend>
+
+    <div class="field">
+        <div id="tabs">
+<!--            <ul>-->
+<!--                <li><a href="#tabs-1">--><?php //echo __('Social Share') ?><!--</a></li>-->
+<!--                <li><a href="#tabs-2">--><?php //echo __('Via Email') ?><!--</a></li>-->
+<!--            </ul>-->
+            <div id="tabs-1">
+                <div class="box-account box-info">
+                    <span><?php echo __('With friends on Facebook, Twitter, or Google.') ?></span>
+                    <ul class="form-list">
+<!--                        <li class="fields">-->
+                            <div class="customer-name">
+                                <div class="name-firstname">
+                                    <div style = "padding-top: 10px;">
+                                        <!-- AddThis Button BEGIN -->
+                                        <div class="addthis_toolbox addthis_default_style addthis_32x32_style"
+                                             addthis:url="<?php echo $url;?>"
+                                             addthis:title="<?php echo $url; ?>"
+                                             addthis:description="<?php echo $url; ?>">
+                                            <a class="addthis_button_preferred_1"></a>
+                                            <a class="addthis_button_preferred_2"></a>
+                                            <a class="addthis_button_preferred_3"></a>
+                                            <a class="addthis_button_preferred_4"></a>
+                                            <a class="addthis_button_whatsapp"></a>
+                                            <a href="http://www.addthis.com/bookmark.php?v=250&pubid={YOUR_PROFILE_ID}" class="addthis_button_compact"></a>
+                                            <a class="addthis_counter addthis_bubble_style"></a>
+                                        </div>
+                                        <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-500a790c6c746380"></script>
+                                    </div>
+                                </div>
+                            </div>
+<!--                        </li>-->
+                    </ul>
+                </div>
+            </div>
+            <div id="tabs-2">
+                <div class="fieldset group-select">
+                    <input type="hidden" name="form_key" value="<?php echo $block->getFormKey() ?>"/>
+                    <h2 class="legend"><?php echo __('Invite Friends Via Email');?></h2><br>
+                    <span><?php echo __('Send invitation emails to your friends and family');?></span>
+                    <ul class="form-list">
+<!--                        <li class="fields">-->
+                            <div class="customer-name">
+                                <div class="field name-firstname">
+                                    <label class="required" style="color:#666666" for="email"><?php echo __('Email of your friends');?><em style="color:#EB340A">*</em></label>
+                                    <div class="input-box">
+                                        <textarea class="input-text required-entry" title="Email" name="email" id="email" style="width:550px; height:70px"></textarea>
+                                        <!-- Gmail contacts import btn -->
+<!--                                        <a href="#" id="add-contact-from-gmail" style="display:inline-block;margin-bottom:10px">Add from Google contacts</a>-->
+                                        <div><?php echo __('Separate with commas (,)');?></div>
+                                    </div>
+                                    <label class="required" style="color:#666666" for="email"><?php echo __('Message');?><em style="color:#EB340A">*</em></label>
+                                    <div class="input-box">
+                                        <textarea class="input-text required-entry" title="Message" name="message" id="message" style="width:550px; height:200px"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+<!--                        </li>-->
+
+<!--                        <li>-->
+                            <div>
+                                <button class="button form-button" title="<?php echo __("Send");?>" type="submit">
+                                    <span><?php echo __("Send");?></span>
+                                </button>
+                            </div>
+<!--                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+</form>
+<!-- end form in this file, start form in referral.phtml -->
+
+<script>
+    require([
+        'jquery'
+    ], function($) {
+        $(document).ready(function() {
+            $('#add-contact-from-gmail').on('click', function() {
+                window.open(
+                    'https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=<?php echo $oRequestToken; ?>',
+                    'gmailwindow',
+                    'toolbar=no,location=no,menubar=no,titlebar=no,status=yes,width=800,height=600,resizable=no,scrollbars=yes,top=0,left=0'
+                );
+
+                return false;
+            });
+        });
+    });
+</script>

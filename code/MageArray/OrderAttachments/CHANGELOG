@@ -1,0 +1,59 @@
+MageArray_OrderAttachments
+
+-------------
+  CHANGELOG
+-------------
+
+===== 1.0.0 =====
+ * Initial stable M2 release
+
+===== 1.0.1 =====
+ * Bug fixes
+ * One Step Checkout compatibility
+
+===== 1.0.2 =====
+ * Add loader while file is uploading
+ * Send email when customer or admin change order attachment
+
+===== 1.0.3 =====
+ * Percent progress bar on file uploading
+ * Multiple attachments in order
+
+===== 1.0.4 =====
+ * Bug fixes
+
+===== 1.0.5 =====
+ * magento 2.0 version observer issue fixes
+
+===== 1.0.6 =====
+ * Bug Fixes
+
+===== 1.0.7 =====
+ * Bug Fixes
+
+===== 1.0.8 =====
+ * Attachment Type (Send All Or Newly Added only) in attachment email from admin.
+ * Configuration for different email template of customer and admin email.
+ * attachment with custom file path
+ * Bug Fixes
+
+===== 1.0.9 =====
+ * Display Allowed file types and max file size
+ * Code Optimization
+ * Bug Fixes
+
+===== 1.0.10 =====
+ * Magento 2.3.4 compatibility
+ * Bug Fixes
+
+===== 1.0.11 =====
+ * Magento 2.3.5 compatibility
+ * Bug Fixes
+
+===== 1.0.12 =====
+ * Magento 2.4.0 compatibility
+ * Bug Fixes
+
+===== 1.0.13 =====
+ * Magento 2.4.1 compatibility
+ * Add new feature of display attachment count in admin
