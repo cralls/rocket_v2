@@ -46,10 +46,15 @@ $black: #000;
 $red: #d73105;
 $default: #888888;
 
+// Rocket Science Sports brand palette
+$rss-silver: #C7C8CA;
+$rss-gold: #D8BB72;
+$rss-bronze: #CE8E45;
+
 $bg-light: #ffffff;
 $bg-dark: #f6f6f6;
 
-$primary: #32d0b1;
+$primary: $rss-gold;
 $accent: $primary;
 $secondary-1: #000;
 $secondary-2: #fd516a;
@@ -83,7 +88,7 @@ $indent-small:  $indent-base / 2;
 
 //Links
 $link-regular:  #000;
-$link-hover:    #32d0b1;
+$link-hover:    $rss-gold;
 $link-active:   #3e3d3d;
 $link-alt:      $default;
 
@@ -108,4 +113,4 @@ $input-bg-color:        #f6f6f6;
 $button-padding-vert:   13px;
 $button-padding-hor:    22px;
 
-$button-bg-color:       $black;
+$button-bg-color:       $rss-gold;
