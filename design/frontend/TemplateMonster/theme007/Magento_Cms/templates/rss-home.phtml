@@ -12,13 +12,9 @@ $sections = [
     ['label' => 'Events', 'id' => 124],
 ];
 
-$categoryHelper = $block->getData('category_helper');
 $categoryNodes = [];
-
-if ($categoryHelper) {
-    foreach ($categoryHelper->getStoreCategories(true, false, true) as $storeCategory) {
-        $categoryNodes[(int)$storeCategory->getId()] = $storeCategory;
-    }
+foreach ($block->getCurrentChildCategories() as $storeCategory) {
+    $categoryNodes[(int)$storeCategory->getId()] = $storeCategory;
 }
 
 $baseUrl = rtrim($block->getUrl(''), '/') . '/';
@@ -70,17 +66,18 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
             <?php
             $categoryId = (int)$section['id'];
             $categoryNode = $categoryNodes[$categoryId] ?? null;
-            $categoryUrl = $categoryNode && $categoryHelper
-                ? $categoryHelper->getCategoryUrl($categoryNode)
+            $categoryUrl = $categoryNode
+                ? $block->getCategoryUrl($categoryNode)
                 : $block->getUrl('catalog/category/view', ['id' => $categoryId]);
             $children = [];
 
             if ($categoryNode) {
-                foreach ($categoryNode->getChildren() as $child) {
-                    $isActive = $child->getData('is_active');
-                    $includeInMenu = $child->getData('include_in_menu');
+                foreach ($categoryNode->getChildrenCategories() as $child) {
+                    if (!$child->getIsActive()) {
+                        continue;
+                    }
 
-                    if (($isActive !== null && !(bool)$isActive) || ($includeInMenu !== null && !(bool)$includeInMenu)) {
+                    if ($child->hasData('include_in_menu') && !$child->getIncludeInMenu()) {
                         continue;
                     }
 
@@ -113,7 +110,7 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                             <?= $block->escapeHtml(__('View All %1', $section['label'])) ?>
                         </a>
                         <?php foreach ($children as $child): ?>
-                            <a class="rss-home-nav__subitem" href="<?= $block->escapeUrl($categoryHelper->getCategoryUrl($child)) ?>">
+                            <a class="rss-home-nav__subitem" href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
                                 <?= $block->escapeHtml($child->getName()) ?>
                             </a>
                         <?php endforeach; ?>
