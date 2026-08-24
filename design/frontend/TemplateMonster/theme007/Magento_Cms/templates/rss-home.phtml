@@ -1,7 +1,7 @@
 <?php
 /**
  * Rocket Science Sports homepage.
- * Rev3: responsive homepage with Magento-driven expandable navigation.
+ * Rev3A: Magento-driven expandable navigation with secondary category tabs for Custom Teamwear.
  */
 
 $sections = [
@@ -17,6 +17,28 @@ foreach ($block->getCurrentChildCategories() as $storeCategory) {
     $categoryNodes[(int)$storeCategory->getId()] = $storeCategory;
 }
 
+$getVisibleChildren = static function ($category) {
+    $children = [];
+
+    if (!$category) {
+        return $children;
+    }
+
+    foreach ($category->getChildrenCategories() as $child) {
+        if (!$child->getIsActive()) {
+            continue;
+        }
+
+        if ($child->hasData('include_in_menu') && !$child->getIncludeInMenu()) {
+            continue;
+        }
+
+        $children[] = $child;
+    }
+
+    return $children;
+};
+
 $baseUrl = rtrim($block->getUrl(''), '/') . '/';
 $rocketManUrl = $block->getViewFileUrl('images/rss/rocket-man.svg');
 $searchIconUrl = $block->getViewFileUrl('images/rss/search.svg');
@@ -28,7 +50,7 @@ $goldPodiumUrl = $block->getViewFileUrl('images/rss/gold-podium.svg');
 $bronzePodiumUrl = $block->getViewFileUrl('images/rss/bronze-podium.svg');
 $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
 ?>
-<div class="rss-home" data-rss-revision="rev3">
+<div class="rss-home" data-rss-revision="rev3a">
     <header class="rss-home-topbar" aria-label="Site controls">
         <a class="rss-home-topbar__brand" href="<?= $block->escapeUrl($baseUrl) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
             <img src="<?= $block->escapeUrl($rocketManUrl) ?>" alt="" width="37" height="33" />
@@ -69,26 +91,13 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
             $categoryUrl = $categoryNode
                 ? $block->getCategoryUrl($categoryNode)
                 : $block->getUrl('catalog/category/view', ['id' => $categoryId]);
-            $children = [];
-
-            if ($categoryNode) {
-                foreach ($categoryNode->getChildrenCategories() as $child) {
-                    if (!$child->getIsActive()) {
-                        continue;
-                    }
-
-                    if ($child->hasData('include_in_menu') && !$child->getIncludeInMenu()) {
-                        continue;
-                    }
-
-                    $children[] = $child;
-                }
-            }
+            $children = $getVisibleChildren($categoryNode);
+            $usesSecondaryGroups = $categoryId === 47 && count($children) >= 2;
 
             $toggleId = 'rss-home-nav-toggle-' . $categoryId;
             $panelId = 'rss-home-nav-panel-' . $categoryId;
             ?>
-            <div class="rss-home-nav__group">
+            <div class="rss-home-nav__group<?= $usesSecondaryGroups ? ' rss-home-nav__group--secondary' : '' ?>">
                 <button class="rss-home-nav__item rss-home-nav__toggle"
                         type="button"
                         id="<?= $block->escapeHtmlAttr($toggleId) ?>"
@@ -105,16 +114,67 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                      role="region"
                      aria-labelledby="<?= $block->escapeHtmlAttr($toggleId) ?>"
                      hidden>
-                    <div class="rss-home-nav__links">
-                        <a class="rss-home-nav__subitem rss-home-nav__subitem--all" href="<?= $block->escapeUrl($categoryUrl) ?>">
-                            <?= $block->escapeHtml(__('View All %1', $section['label'])) ?>
-                        </a>
-                        <?php foreach ($children as $child): ?>
-                            <a class="rss-home-nav__subitem" href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
-                                <?= $block->escapeHtml($child->getName()) ?>
+                    <?php if ($usesSecondaryGroups): ?>
+                        <div class="rss-home-nav__secondary" data-rss-secondary-tabs>
+                            <div class="rss-home-nav__tabs" role="tablist" aria-label="<?= $block->escapeHtmlAttr(__('%1 sections', $section['label'])) ?>">
+                                <?php foreach ($children as $index => $secondaryCategory): ?>
+                                    <?php
+                                    $secondaryId = (int)$secondaryCategory->getId();
+                                    $tabId = 'rss-home-nav-tab-' . $categoryId . '-' . $secondaryId;
+                                    $tabPanelId = 'rss-home-nav-tabpanel-' . $categoryId . '-' . $secondaryId;
+                                    $isSelected = $index === 0;
+                                    ?>
+                                    <button class="rss-home-nav__tab<?= $isSelected ? ' _active' : '' ?>"
+                                            type="button"
+                                            id="<?= $block->escapeHtmlAttr($tabId) ?>"
+                                            role="tab"
+                                            aria-selected="<?= $isSelected ? 'true' : 'false' ?>"
+                                            aria-controls="<?= $block->escapeHtmlAttr($tabPanelId) ?>"
+                                            tabindex="<?= $isSelected ? '0' : '-1' ?>">
+                                        <?= $block->escapeHtml($secondaryCategory->getName()) ?>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <?php foreach ($children as $index => $secondaryCategory): ?>
+                                <?php
+                                $secondaryId = (int)$secondaryCategory->getId();
+                                $tabId = 'rss-home-nav-tab-' . $categoryId . '-' . $secondaryId;
+                                $tabPanelId = 'rss-home-nav-tabpanel-' . $categoryId . '-' . $secondaryId;
+                                $secondaryChildren = $getVisibleChildren($secondaryCategory);
+                                ?>
+                                <div class="rss-home-nav__tabpanel"
+                                     id="<?= $block->escapeHtmlAttr($tabPanelId) ?>"
+                                     role="tabpanel"
+                                     aria-labelledby="<?= $block->escapeHtmlAttr($tabId) ?>"
+                                     <?= $index === 0 ? '' : 'hidden' ?>>
+                                    <div class="rss-home-nav__tablinks">
+                                        <?php foreach ($secondaryChildren as $secondaryChild): ?>
+                                            <?php
+                                            $secondaryChildName = (string)$secondaryChild->getName();
+                                            $isAction = stripos($secondaryChildName, 'start ') === 0;
+                                            ?>
+                                            <a class="rss-home-nav__tablink<?= $isAction ? ' rss-home-nav__tablink--action' : '' ?>"
+                                               href="<?= $block->escapeUrl($block->getCategoryUrl($secondaryChild)) ?>">
+                                                <?= $block->escapeHtml($secondaryChildName) ?>
+                                            </a>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="rss-home-nav__links">
+                            <a class="rss-home-nav__subitem rss-home-nav__subitem--all" href="<?= $block->escapeUrl($categoryUrl) ?>">
+                                <?= $block->escapeHtml(__('View All %1', $section['label'])) ?>
                             </a>
-                        <?php endforeach; ?>
-                    </div>
+                            <?php foreach ($children as $child): ?>
+                                <a class="rss-home-nav__subitem" href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
+                                    <?= $block->escapeHtml($child->getName()) ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>
