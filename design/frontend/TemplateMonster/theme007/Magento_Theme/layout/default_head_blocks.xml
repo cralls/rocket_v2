@@ -13,5 +13,6 @@
         <css src="css/linearicons.css" />
         <css src="css/modules.css" />
         <css src="css/style.css" />
+        <css src="css/rss-brand.css" />
     </head>
 </page>
