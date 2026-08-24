@@ -2,6 +2,7 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="css/rss-home.css" />
+        <css src="css/rss-home-desktop.css" />
     </head>
     <body>
         <referenceBlock name="cms_page" remove="true" />
