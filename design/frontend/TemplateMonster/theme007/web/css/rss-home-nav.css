@@ -1,6 +1,6 @@
 /*
- * Rocket Science Sports homepage - Rev3
- * Expandable, Magento-driven primary navigation.
+ * Rocket Science Sports homepage - Rev3A
+ * Expandable, Magento-driven primary navigation with secondary category tabs.
  */
 
 .rss-home-nav__group {
@@ -44,12 +44,13 @@
   transform: rotate(180deg);
 }
 
-.rss-home-nav__panel[hidden] {
+.rss-home-nav__panel[hidden],
+.rss-home-nav__tabpanel[hidden] {
   display: none !important;
 }
 
 .rss-home-nav__panel {
-  background: #0b0b0b;
+  background: #2c2c2c;
   border-bottom: 1px solid #6f6f6f;
   color: #fff;
   padding: 10px 0 18px;
@@ -86,6 +87,93 @@
   grid-column: 1 / -1;
 }
 
+/* Rev3A: Scott's secondary-category selector for Custom Teamwear. */
+.rss-home-nav__secondary {
+  margin: 0 15px;
+}
+
+.rss-home-nav__tabs {
+  border: 1px solid rgba(255, 255, 255, .75);
+  border-radius: 9px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: 40px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.rss-home-nav__tab {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: clamp(12px, 4.98vw, 20px);
+  font-weight: 300;
+  height: 38px;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  padding: 0 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rss-home-nav__tab:hover,
+.rss-home-nav__tab:focus,
+.rss-home-nav__tab:active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #fff;
+}
+
+.rss-home-nav__tab._active,
+.rss-home-nav__tab._active:hover,
+.rss-home-nav__tab._active:focus,
+.rss-home-nav__tab._active:active {
+  background: var(--rss-gold, #D8BB72);
+  color: #000;
+  font-weight: 600;
+}
+
+.rss-home-nav__tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+.rss-home-nav__tablinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.rss-home-nav__tablink,
+.rss-home-nav a.rss-home-nav__tablink {
+  color: #fff;
+  display: block;
+  font-size: clamp(15px, 5.97vw, 24px);
+  font-weight: 400;
+  line-height: 50px;
+  min-height: 50px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.rss-home-nav__tablink:hover,
+.rss-home-nav__tablink:focus {
+  color: var(--rss-gold, #D8BB72) !important;
+}
+
+.rss-home-nav__tablink--action,
+.rss-home-nav a.rss-home-nav__tablink--action {
+  font-weight: 600;
+}
+
 @media (min-width: 768px) {
   .rss-home-nav__panel {
     padding: 14px 0 22px;
@@ -99,6 +187,34 @@
   .rss-home-nav__subitem,
   .rss-home-nav a.rss-home-nav__subitem {
     font-size: 14px;
+    min-height: 42px;
+  }
+
+  .rss-home-nav__secondary {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 820px;
+  }
+
+  .rss-home-nav__tabs {
+    margin-bottom: 16px;
+    max-width: 520px;
+  }
+
+  .rss-home-nav__tab {
+    font-size: 16px;
+  }
+
+  .rss-home-nav__tablinks {
+    column-gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .rss-home-nav__tablink,
+  .rss-home-nav a.rss-home-nav__tablink {
+    font-size: 15px;
+    line-height: 42px;
     min-height: 42px;
   }
 }
