@@ -1,7 +1,7 @@
 <?php
 /**
  * Rocket Science Sports homepage foundation.
- * Rev2A: mobile-first structure based on the approved Figma P1 MIN frame.
+ * Rev2B: mobile-first structure based on the approved Figma P1 MIN frame.
  */
 
 $sections = [
@@ -11,8 +11,22 @@ $sections = [
     ['label' => 'Private Label', 'id' => 492],
     ['label' => 'Events', 'id' => 124],
 ];
+
+$baseUrl = $block->getBaseUrl();
+$logoUrl = $baseUrl . 'media/theme_options/default/LOGO-for-Web.jpg';
 ?>
-<div class="rss-home" data-rss-revision="rev2a">
+<div class="rss-home" data-rss-revision="rev2b">
+    <header class="rss-home-topbar" aria-label="Site controls">
+        <a class="rss-home-topbar__brand" href="<?= $block->escapeUrl($baseUrl) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
+            <img src="<?= $block->escapeUrl($logoUrl) ?>" alt="<?= $block->escapeHtmlAttr(__('Rocket Science Sports')) ?>" width="36" height="36" />
+        </a>
+        <nav class="rss-home-topbar__actions" aria-label="Account and shopping controls">
+            <a class="rss-home-topbar__action rss-home-topbar__action--search" href="<?= $block->escapeUrl($block->getUrl('catalogsearch/advanced')) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Search')) ?>"><span aria-hidden="true"></span></a>
+            <a class="rss-home-topbar__action rss-home-topbar__action--account" href="<?= $block->escapeUrl($block->getUrl('customer/account')) ?>" aria-label="<?= $block->escapeHtmlAttr(__('My Account')) ?>"><span aria-hidden="true"></span></a>
+            <a class="rss-home-topbar__action rss-home-topbar__action--cart" href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Shopping Cart')) ?>"><span aria-hidden="true"></span></a>
+        </nav>
+    </header>
+
     <section class="rss-home-hero" aria-label="Rocket Science Sports programs">
         <a class="rss-home-hero__panel rss-home-hero__panel--silver" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 47])) ?>">
             <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Custom Teamwear')) ?></span>
@@ -36,16 +50,47 @@ $sections = [
 
     <section class="rss-home-links" aria-label="Company and support links">
         <div class="rss-home-links__column">
-            <span>Company</span>
-            <span>Careers</span>
-            <span>Latest News</span>
-            <span>Contact Us</span>
+            <a href="<?= $block->escapeUrl($baseUrl . 'about-us') ?>"><?= $block->escapeHtml(__('Company')) ?></a>
+            <span><?= $block->escapeHtml(__('Careers')) ?></span>
+            <span><?= $block->escapeHtml(__('Latest News')) ?></span>
+            <a href="<?= $block->escapeUrl($baseUrl . 'contact') ?>"><?= $block->escapeHtml(__('Contact Us')) ?></a>
         </div>
         <div class="rss-home-links__column">
-            <span>Returns</span>
-            <span>FAQ</span>
-            <span>Sizing + Fit</span>
-            <span>Support</span>
+            <a href="<?= $block->escapeUrl($baseUrl . 'shipping-returns') ?>"><?= $block->escapeHtml(__('Returns')) ?></a>
+            <span><?= $block->escapeHtml(__('FAQ')) ?></span>
+            <span><?= $block->escapeHtml(__('Sizing + Fit')) ?></span>
+            <a href="<?= $block->escapeUrl($baseUrl . 'contact') ?>"><?= $block->escapeHtml(__('Support')) ?></a>
         </div>
     </section>
+
+    <?= $block->getChildHtml('rss.newsletter') ?>
+
+    <footer class="rss-home-footer">
+        <div class="rss-home-footer__grid">
+            <nav class="rss-home-footer__policies" aria-label="Policies">
+                <a href="<?= $block->escapeUrl($baseUrl . 'warranty') ?>"><?= $block->escapeHtml(__('Warranty')) ?></a>
+                <a href="<?= $block->escapeUrl($baseUrl . 'tos.html') ?>"><?= $block->escapeHtml(__('Terms')) ?></a>
+                <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy.html') ?>"><?= $block->escapeHtml(__('Privacy')) ?></a>
+                <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy-cookie-restriction-mode/') ?>"><?= $block->escapeHtml(__('Cookies')) ?></a>
+            </nav>
+
+            <address class="rss-home-footer__address">
+                3267 Bee Cave Road<br />
+                Suite 107<br />
+                Austin, Texas 78746<br />
+                USA<br />
+                +1 (512)782-4448
+            </address>
+        </div>
+
+        <div class="rss-home-footer__bottom">
+            <p class="rss-home-footer__copyright">© 2004-2026 Rocket Science Sports<br />All rights reserved.</p>
+            <div class="rss-home-footer__socials" aria-label="Social channels">
+                <span class="fa fa-facebook" aria-hidden="true"></span>
+                <span class="rss-home-footer__social-x" aria-hidden="true">X</span>
+                <span class="fa fa-pinterest-p" aria-hidden="true"></span>
+                <span class="fa fa-instagram" aria-hidden="true"></span>
+            </div>
+        </div>
+    </footer>
 </div>
