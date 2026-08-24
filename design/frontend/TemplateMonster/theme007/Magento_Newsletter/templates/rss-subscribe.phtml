@@ -1,0 +1,29 @@
+<?php
+/**
+ * Rocket Science Sports homepage newsletter.
+ * Rev2B: mobile-first implementation of the Figma Winners Podium block.
+ */
+?>
+<section class="rss-home-newsletter" aria-labelledby="rss-home-newsletter-title">
+    <h2 id="rss-home-newsletter-title" class="rss-home-newsletter__title"><?= $block->escapeHtml(__('Join The Winners Podium')) ?></h2>
+    <p class="rss-home-newsletter__copy"><?= $block->escapeHtml(__('Podium members get 5% off their first order.')) ?></p>
+
+    <form class="rss-home-newsletter__form form subscribe"
+          novalidate
+          action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+          method="post"
+          data-mage-init='{"validation":{"errorClass":"mage-error"}}'
+          id="rss-newsletter-validate-detail">
+        <label class="rss-home-newsletter__label" for="rss-newsletter">
+            <span class="rss-home-newsletter__label-text"><?= $block->escapeHtml(__('Email address')) ?></span>
+            <input name="email"
+                   type="email"
+                   id="rss-newsletter"
+                   placeholder="<?= $block->escapeHtmlAttr(__('you@somewhere.com')) ?>"
+                   data-validate="{required:true, 'validate-email':true}" />
+        </label>
+        <button class="rss-home-newsletter__button action subscribe" title="<?= $block->escapeHtmlAttr(__('Join')) ?>" type="submit">
+            <span><?= $block->escapeHtml(__('Join')) ?></span>
+        </button>
+    </form>
+</section>
