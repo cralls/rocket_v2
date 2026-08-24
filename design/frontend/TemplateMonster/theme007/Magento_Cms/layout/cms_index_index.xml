@@ -13,10 +13,7 @@
         <referenceBlock name="to.top.button" remove="true" />
 
         <referenceContainer name="content">
-            <block class="Magento\Framework\View\Element\Template" name="rss.homepage" template="Magento_Cms::rss-home.phtml">
-                <arguments>
-                    <argument name="category_helper" xsi:type="object">Magento\Catalog\Helper\Category</argument>
-                </arguments>
+            <block class="Magento\Catalog\Block\Navigation" name="rss.homepage" template="Magento_Cms::rss-home.phtml">
                 <block class="Magento\Newsletter\Block\Subscribe" name="rss.home.newsletter" as="rss.newsletter" template="Magento_Newsletter::rss-subscribe.phtml" />
             </block>
         </referenceContainer>
