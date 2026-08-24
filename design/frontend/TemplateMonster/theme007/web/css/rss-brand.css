@@ -226,3 +226,8 @@ h6 a:hover,
   background-color: var(--rss-gold);
   border-color: var(--rss-gold);
 }
+
+/* Rev2B: the legacy mobile RD Navbar reserves 70px above .page-wrapper. */
+.cms-index-index .page-wrapper {
+  padding-top: 0;
+}
