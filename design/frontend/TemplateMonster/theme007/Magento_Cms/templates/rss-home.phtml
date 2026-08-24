@@ -1,0 +1,51 @@
+<?php
+/**
+ * Rocket Science Sports homepage foundation.
+ * Rev2: mobile-first structure based on the approved Figma P1 MIN frame.
+ */
+
+$sections = [
+    ['label' => 'Custom Teamwear', 'id' => 47],
+    ['label' => 'Schools + Orgs', 'id' => 491],
+    ['label' => 'Performance Gear', 'id' => 65],
+    ['label' => 'Private Label', 'id' => 492],
+    ['label' => 'Events', 'id' => 124],
+];
+?>
+<div class="rss-home" data-rss-revision="rev2">
+    <section class="rss-home-hero" aria-label="Rocket Science Sports programs">
+        <a class="rss-home-hero__panel rss-home-hero__panel--silver" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 47])) ?>">
+            <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Custom Teamwear')) ?></span>
+        </a>
+        <a class="rss-home-hero__panel rss-home-hero__panel--gold" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 65])) ?>">
+            <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Performance Gear')) ?></span>
+        </a>
+        <a class="rss-home-hero__panel rss-home-hero__panel--bronze" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 491])) ?>">
+            <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Schools + Orgs')) ?></span>
+        </a>
+    </section>
+
+    <nav class="rss-home-nav" aria-label="Primary programs">
+        <?php foreach ($sections as $section): ?>
+            <a class="rss-home-nav__item" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => (int)$section['id']])) ?>">
+                <span class="rss-home-nav__label"><?= $block->escapeHtml(__($section['label'])) ?></span>
+                <span class="rss-home-nav__chevron" aria-hidden="true"></span>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+
+    <section class="rss-home-links" aria-label="Company and support links">
+        <div class="rss-home-links__column">
+            <span>Company</span>
+            <span>Careers</span>
+            <span>Latest News</span>
+            <span>Contact Us</span>
+        </div>
+        <div class="rss-home-links__column">
+            <span>Returns</span>
+            <span>FAQ</span>
+            <span>Sizing + Fit</span>
+            <span>Support</span>
+        </div>
+    </section>
+</div>

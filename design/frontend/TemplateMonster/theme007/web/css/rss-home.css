@@ -1,0 +1,202 @@
+/*
+ * Rocket Science Sports homepage - Rev2 foundation
+ * Mobile-first implementation of Figma P1 MIN (node 221:780).
+ */
+
+.cms-index-index .page-main {
+  max-width: none;
+  padding: 0;
+}
+
+.cms-index-index .columns,
+.cms-index-index .column.main,
+.cms-index-index .content-flex-column,
+.cms-index-index .content-flex-column > * {
+  margin: 0;
+  max-width: none;
+  padding: 0;
+  width: 100%;
+}
+
+.cms-index-index .page-title-wrapper,
+.cms-index-index .breadcrumbs {
+  display: none;
+}
+
+.rss-home,
+.rss-home * {
+  box-sizing: border-box;
+}
+
+.rss-home {
+  background: #000;
+  color: #fff;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.rss-home a,
+.rss-home a:hover,
+.rss-home a:focus,
+.rss-home a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Figma VideoStage: three 3px-separated podium panels. */
+.rss-home-hero {
+  display: grid;
+  gap: 3px;
+  grid-template-columns: 1.043fr 1fr 1fr;
+  height: 207vw;
+  max-height: 900px;
+  min-height: 660px;
+  width: 100%;
+}
+
+.rss-home-hero__panel {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.rss-home-hero__panel--silver {
+  background: var(--rss-silver, #C7C8CA);
+}
+
+.rss-home-hero__panel--gold {
+  background: var(--rss-gold, #D8BB72);
+}
+
+.rss-home-hero__panel--bronze {
+  background: var(--rss-bronze, #CE8E45);
+}
+
+.rss-home-hero__label {
+  color: #fff;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(46px, 15.9vw, 64px);
+  font-weight: 300;
+  left: 50%;
+  line-height: 0.625;
+  position: absolute;
+  text-transform: uppercase;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center;
+  white-space: nowrap;
+}
+
+/* Figma accordion shell. Sub-navigation content will be added as taxonomy is finalized. */
+.rss-home-nav {
+  background: #000;
+  padding: 0 15px;
+}
+
+.rss-home-nav__item {
+  align-items: center;
+  border-bottom: 1px solid #6f6f6f;
+  display: flex;
+  height: 77px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rss-home-nav__item:first-child {
+  border-top: 1px solid #6f6f6f;
+}
+
+.rss-home-nav__label {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.rss-home-nav__chevron {
+  align-items: center;
+  display: flex;
+  flex: 0 0 40px;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.rss-home-nav__chevron::before {
+  content: "\e93a";
+  font-family: "Linearicons";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Company / help block from Figma. Links remain text-only until final destinations are mapped. */
+.rss-home-links {
+  background: #f5f5f5;
+  color: #000;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+  min-height: 189px;
+  padding: 11px 15px 15px;
+}
+
+.rss-home-links__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.rss-home-links__column span {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 374px) {
+  .rss-home-hero {
+    min-height: 620px;
+  }
+
+  .rss-home-nav__label {
+    font-size: 20px;
+  }
+
+  .rss-home-links {
+    gap: 15px;
+  }
+
+  .rss-home-links__column span {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 768px) {
+  .rss-home-hero {
+    height: 72vh;
+    max-height: 900px;
+    min-height: 620px;
+  }
+
+  .rss-home-hero__label {
+    font-size: clamp(56px, 5vw, 80px);
+  }
+
+  .rss-home-nav {
+    padding-left: max(30px, calc((100% - 1200px) / 2));
+    padding-right: max(30px, calc((100% - 1200px) / 2));
+  }
+
+  .rss-home-links {
+    gap: 80px;
+    padding-left: max(30px, calc((100% - 1200px) / 2));
+    padding-right: max(30px, calc((100% - 1200px) / 2));
+  }
+}
