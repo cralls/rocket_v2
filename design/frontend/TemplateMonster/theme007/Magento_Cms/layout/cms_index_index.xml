@@ -5,6 +5,7 @@
     </head>
     <body>
         <referenceBlock name="cms_page" remove="true" />
+        <referenceContainer name="page.top" remove="true" />
         <referenceContainer name="content">
             <block class="Magento\Framework\View\Element\Template" name="rss.homepage" template="Magento_Cms::rss-home.phtml" />
         </referenceContainer>
