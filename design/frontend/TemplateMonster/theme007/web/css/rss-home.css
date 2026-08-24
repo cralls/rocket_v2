@@ -1,5 +1,5 @@
 /*
- * Rocket Science Sports homepage - Rev2B
+ * Rocket Science Sports homepage - Rev2C
  * Mobile-first implementation of Figma P1 MIN (node 221:780).
  */
 
@@ -60,18 +60,17 @@
 .rss-home-topbar__brand {
   align-items: center;
   display: flex;
-  flex: 0 0 36px;
-  height: 36px;
+  flex: 0 0 37px;
+  height: 33px;
   justify-content: center;
   overflow: hidden;
-  width: 36px;
+  width: 37px;
 }
 
 .rss-home-topbar__brand img {
   display: block;
-  height: 36px;
-  object-fit: cover;
-  width: 36px;
+  height: 33px;
+  width: 37px;
 }
 
 .rss-home-topbar__actions {
@@ -86,92 +85,20 @@
   display: flex;
   height: 32px;
   justify-content: center;
-  position: relative;
   width: 32px;
 }
 
-.rss-home-topbar__action > span {
+.rss-home-topbar__action img {
   display: block;
-  height: 18px;
-  position: relative;
-  width: 18px;
+  height: 20px;
+  width: 20px;
 }
 
-.rss-home-topbar__action--search span::before {
-  border: 1.5px solid #fff;
-  border-radius: 50%;
-  content: "";
-  height: 10px;
-  left: 1px;
-  position: absolute;
-  top: 1px;
-  width: 10px;
-}
-
-.rss-home-topbar__action--search span::after {
-  background: #fff;
-  content: "";
-  height: 1.5px;
-  left: 11px;
-  position: absolute;
-  top: 12px;
-  transform: rotate(45deg);
-  transform-origin: left center;
-  width: 6px;
-}
-
-.rss-home-topbar__action--account span::before {
-  border: 1.5px solid #fff;
-  border-radius: 50%;
-  content: "";
-  height: 7px;
-  left: 5px;
-  position: absolute;
-  top: 0;
-  width: 7px;
-}
-
-.rss-home-topbar__action--account span::after {
-  border: 1.5px solid #fff;
-  border-radius: 9px 9px 0 0;
-  border-bottom: 0;
-  bottom: 0;
-  content: "";
-  height: 8px;
-  left: 1px;
-  position: absolute;
-  width: 15px;
-}
-
-.rss-home-topbar__action--cart span::before {
-  border: 1.5px solid #fff;
-  border-top: 0;
-  content: "";
-  height: 8px;
-  left: 4px;
-  position: absolute;
-  top: 3px;
-  transform: skew(-8deg);
-  width: 11px;
-}
-
-.rss-home-topbar__action--cart span::after {
-  background: #fff;
-  border-radius: 50%;
-  bottom: 1px;
-  box-shadow: 8px 0 0 #fff;
-  content: "";
-  height: 2.5px;
-  left: 5px;
-  position: absolute;
-  width: 2.5px;
-}
-
-/* Figma VideoStage: three 3px-separated podium panels. */
+/* Figma VideoStage: exact exported podium artwork with 3px gaps. */
 .rss-home-hero {
   display: grid;
   gap: 3px;
-  grid-template-columns: 1.043fr 1fr 1fr;
+  grid-template-columns: 135.738fr 130.124fr 130.418fr;
   height: 207vw;
   max-height: 832px;
   width: 100%;
@@ -197,6 +124,15 @@
   background: var(--rss-bronze, #CE8E45);
 }
 
+.rss-home-hero__art {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: fill;
+  position: absolute;
+  width: 100%;
+}
+
 .rss-home-hero__label {
   color: #fff;
   display: block;
@@ -211,6 +147,7 @@
   transform: translate(-50%, -50%) rotate(90deg);
   transform-origin: center;
   white-space: nowrap;
+  z-index: 1;
 }
 
 /* Figma accordion shell. Sub-navigation content comes in a later revision. */
@@ -249,12 +186,10 @@
   width: 40px;
 }
 
-.rss-home-nav__chevron::before {
-  content: "\e93a";
-  font-family: "Linearicons";
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1;
+.rss-home-nav__chevron img {
+  display: block;
+  height: 40px;
+  width: 40px;
 }
 
 /* Company / help block from Figma. */
@@ -432,22 +367,15 @@
 .rss-home-footer__socials {
   align-items: center;
   display: flex;
-  gap: 10px;
   height: 20px;
   justify-content: flex-end;
-  min-width: 72px;
+  width: 72px;
 }
 
-.rss-home-footer__socials span {
-  color: #fff;
-  font-size: 17px;
-  line-height: 20px;
-}
-
-.rss-home-footer__social-x {
-  font-family: Arial, sans-serif;
-  font-size: 14px !important;
-  font-weight: 600;
+.rss-home-footer__socials img {
+  display: block;
+  height: 20px;
+  width: 72px;
 }
 
 @media (max-width: 374px) {
