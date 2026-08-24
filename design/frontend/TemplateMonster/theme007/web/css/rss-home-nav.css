@@ -105,7 +105,8 @@
 
 .rss-home-nav__tab {
   align-items: center;
-  background: transparent;
+  background: transparent !important;
+  background-image: none !important;
   border: 0;
   border-radius: 8px;
   box-shadow: none;
@@ -124,10 +125,17 @@
   text-transform: uppercase;
 }
 
+.rss-home-nav__tab::before,
+.rss-home-nav__tab::after {
+  content: none !important;
+  display: none !important;
+}
+
 .rss-home-nav__tab:hover,
 .rss-home-nav__tab:focus,
 .rss-home-nav__tab:active {
-  background: transparent;
+  background: transparent !important;
+  background-image: none !important;
   border: 0;
   box-shadow: none;
   color: #fff;
@@ -137,7 +145,8 @@
 .rss-home-nav__tab._active:hover,
 .rss-home-nav__tab._active:focus,
 .rss-home-nav__tab._active:active {
-  background: var(--rss-gold, #D8BB72);
+  background: var(--rss-gold, #D8BB72) !important;
+  background-image: none !important;
   color: #000;
   font-weight: 600;
 }
