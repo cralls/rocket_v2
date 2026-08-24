@@ -12,7 +12,7 @@ $sections = [
     ['label' => 'Events', 'id' => 124],
 ];
 
-$baseUrl = $block->getBaseUrl();
+$baseUrl = rtrim($block->getUrl(''), '/') . '/';
 $logoUrl = $baseUrl . 'media/theme_options/default/LOGO-for-Web.jpg';
 ?>
 <div class="rss-home" data-rss-revision="rev2b">
