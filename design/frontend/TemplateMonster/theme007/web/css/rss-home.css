@@ -1,5 +1,5 @@
 /*
- * Rocket Science Sports homepage - Rev2 foundation
+ * Rocket Science Sports homepage - Rev2B
  * Mobile-first implementation of Figma P1 MIN (node 221:780).
  */
 
@@ -19,7 +19,8 @@
 }
 
 .cms-index-index .page-title-wrapper,
-.cms-index-index .breadcrumbs {
+.cms-index-index .breadcrumbs,
+.cms-index-index .page-footer {
   display: none;
 }
 
@@ -45,14 +46,134 @@
   text-decoration: none;
 }
 
+/* Figma top navigation: 402 x 40. */
+.rss-home-topbar {
+  align-items: center;
+  background: #000;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  padding: 0 6px 0 5px;
+  width: 100%;
+}
+
+.rss-home-topbar__brand {
+  align-items: center;
+  display: flex;
+  flex: 0 0 36px;
+  height: 36px;
+  justify-content: center;
+  overflow: hidden;
+  width: 36px;
+}
+
+.rss-home-topbar__brand img {
+  display: block;
+  height: 36px;
+  object-fit: cover;
+  width: 36px;
+}
+
+.rss-home-topbar__actions {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  height: 40px;
+}
+
+.rss-home-topbar__action {
+  align-items: center;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  position: relative;
+  width: 32px;
+}
+
+.rss-home-topbar__action > span {
+  display: block;
+  height: 18px;
+  position: relative;
+  width: 18px;
+}
+
+.rss-home-topbar__action--search span::before {
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  content: "";
+  height: 10px;
+  left: 1px;
+  position: absolute;
+  top: 1px;
+  width: 10px;
+}
+
+.rss-home-topbar__action--search span::after {
+  background: #fff;
+  content: "";
+  height: 1.5px;
+  left: 11px;
+  position: absolute;
+  top: 12px;
+  transform: rotate(45deg);
+  transform-origin: left center;
+  width: 6px;
+}
+
+.rss-home-topbar__action--account span::before {
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  content: "";
+  height: 7px;
+  left: 5px;
+  position: absolute;
+  top: 0;
+  width: 7px;
+}
+
+.rss-home-topbar__action--account span::after {
+  border: 1.5px solid #fff;
+  border-radius: 9px 9px 0 0;
+  border-bottom: 0;
+  bottom: 0;
+  content: "";
+  height: 8px;
+  left: 1px;
+  position: absolute;
+  width: 15px;
+}
+
+.rss-home-topbar__action--cart span::before {
+  border: 1.5px solid #fff;
+  border-top: 0;
+  content: "";
+  height: 8px;
+  left: 4px;
+  position: absolute;
+  top: 3px;
+  transform: skew(-8deg);
+  width: 11px;
+}
+
+.rss-home-topbar__action--cart span::after {
+  background: #fff;
+  border-radius: 50%;
+  bottom: 1px;
+  box-shadow: 8px 0 0 #fff;
+  content: "";
+  height: 2.5px;
+  left: 5px;
+  position: absolute;
+  width: 2.5px;
+}
+
 /* Figma VideoStage: three 3px-separated podium panels. */
 .rss-home-hero {
   display: grid;
   gap: 3px;
   grid-template-columns: 1.043fr 1fr 1fr;
   height: 207vw;
-  max-height: 900px;
-  min-height: 660px;
+  max-height: 832px;
   width: 100%;
 }
 
@@ -80,10 +201,10 @@
   color: #fff;
   display: block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: clamp(46px, 15.9vw, 64px);
+  font-size: clamp(44px, 15.9vw, 64px);
   font-weight: 300;
   left: 50%;
-  line-height: 0.625;
+  line-height: .625;
   position: absolute;
   text-transform: uppercase;
   top: 50%;
@@ -92,7 +213,7 @@
   white-space: nowrap;
 }
 
-/* Figma accordion shell. Sub-navigation content will be added as taxonomy is finalized. */
+/* Figma accordion shell. Sub-navigation content comes in a later revision. */
 .rss-home-nav {
   background: #000;
   padding: 0 15px;
@@ -113,7 +234,7 @@
 
 .rss-home-nav__label {
   color: #fff;
-  font-size: 24px;
+  font-size: clamp(17px, 5.97vw, 24px);
   font-weight: 500;
   line-height: 40px;
   text-transform: uppercase;
@@ -136,7 +257,7 @@
   line-height: 1;
 }
 
-/* Company / help block from Figma. Links remain text-only until final destinations are mapped. */
+/* Company / help block from Figma. */
 .rss-home-links {
   background: #f5f5f5;
   color: #000;
@@ -144,7 +265,7 @@
   gap: 25px;
   grid-template-columns: 1fr 1fr;
   min-height: 189px;
-  padding: 11px 15px 15px;
+  padding: 13px 15px 16px;
 }
 
 .rss-home-links__column {
@@ -152,33 +273,212 @@
   flex-direction: column;
 }
 
+.rss-home-links__column a,
 .rss-home-links__column span {
-  font-size: 20px;
+  color: #000;
+  display: block;
+  font-size: clamp(14px, 4.98vw, 20px);
   font-weight: 500;
   line-height: 40px;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-@media (max-width: 374px) {
-  .rss-home-hero {
-    min-height: 620px;
-  }
+.rss-home-links__column a:hover,
+.rss-home-links__column a:focus {
+  color: #000;
+  text-decoration: underline;
+}
 
-  .rss-home-nav__label {
-    font-size: 20px;
+/* Figma Winners Podium newsletter. */
+.rss-home-newsletter {
+  background: #d9d9d9;
+  color: #000;
+  min-height: 162px;
+  padding: 17px 15px 16px;
+  width: 100%;
+}
+
+.rss-home-newsletter__title {
+  color: #000;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(16px, 4.98vw, 20px);
+  font-weight: 500;
+  line-height: 40px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.rss-home-newsletter__copy {
+  color: #000;
+  font-size: clamp(12px, 3.98vw, 16px);
+  font-weight: 500;
+  line-height: 1.35;
+  margin: 0 0 10px;
+}
+
+.rss-home-newsletter__form {
+  align-items: stretch;
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.rss-home-newsletter__label {
+  display: block;
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.rss-home-newsletter__label-text {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.rss-home-newsletter__form input[type="email"] {
+  background: #fff;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #000;
+  font-size: 12px;
+  height: 32px;
+  line-height: 32px;
+  margin: 0;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.rss-home-newsletter__button,
+.rss-home-newsletter__button.action,
+.rss-home-newsletter__button.action:hover,
+.rss-home-newsletter__button.action:focus {
+  background: #000;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  color: #fff;
+  flex: 0 0 52px;
+  font-size: 12px;
+  font-weight: 500;
+  height: 32px;
+  line-height: 32px;
+  margin: 0;
+  min-width: 52px;
+  padding: 0 8px;
+  text-transform: none;
+}
+
+/* Figma warranty/address footer. */
+.rss-home-footer {
+  background: #000;
+  color: #fff;
+  min-height: 255px;
+  padding: 19px 15px 24px;
+  width: 100%;
+}
+
+.rss-home-footer__grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.rss-home-footer__policies {
+  display: flex;
+  flex-direction: column;
+}
+
+.rss-home-footer__policies a {
+  color: #fff;
+  font-size: clamp(14px, 4.98vw, 20px);
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.rss-home-footer__address {
+  color: #fff;
+  font-size: clamp(10px, 3.48vw, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  margin: 0;
+}
+
+.rss-home-footer__bottom {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.rss-home-footer__copyright {
+  color: #fff;
+  font-size: clamp(9px, 2.98vw, 12px);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.rss-home-footer__socials {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  height: 20px;
+  justify-content: flex-end;
+  min-width: 72px;
+}
+
+.rss-home-footer__socials span {
+  color: #fff;
+  font-size: 17px;
+  line-height: 20px;
+}
+
+.rss-home-footer__social-x {
+  font-family: Arial, sans-serif;
+  font-size: 14px !important;
+  font-weight: 600;
+}
+
+@media (max-width: 374px) {
+  .rss-home-nav {
+    padding-left: 11px;
+    padding-right: 11px;
   }
 
   .rss-home-links {
     gap: 15px;
+    padding-left: 11px;
+    padding-right: 11px;
   }
 
-  .rss-home-links__column span {
-    font-size: 17px;
+  .rss-home-newsletter,
+  .rss-home-footer {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  .rss-home-footer__grid {
+    gap: 16px;
   }
 }
 
 @media (min-width: 768px) {
+  .rss-home-topbar {
+    padding-left: max(20px, calc((100% - 1200px) / 2));
+    padding-right: max(20px, calc((100% - 1200px) / 2));
+  }
+
   .rss-home-hero {
     height: 72vh;
     max-height: 900px;
@@ -189,14 +489,23 @@
     font-size: clamp(56px, 5vw, 80px);
   }
 
-  .rss-home-nav {
+  .rss-home-nav,
+  .rss-home-links,
+  .rss-home-newsletter,
+  .rss-home-footer {
     padding-left: max(30px, calc((100% - 1200px) / 2));
     padding-right: max(30px, calc((100% - 1200px) / 2));
   }
 
   .rss-home-links {
     gap: 80px;
-    padding-left: max(30px, calc((100% - 1200px) / 2));
-    padding-right: max(30px, calc((100% - 1200px) / 2));
+  }
+
+  .rss-home-newsletter__form {
+    max-width: 640px;
+  }
+
+  .rss-home-footer__grid {
+    max-width: 620px;
   }
 }
