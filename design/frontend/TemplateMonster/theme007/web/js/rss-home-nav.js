@@ -5,6 +5,32 @@ define(['jquery'], function ($) {
         var $nav = $(element);
         var $toggles = $nav.find('.rss-home-nav__toggle');
 
+        function styleHelpLauncher() {
+            var attempts = 0;
+            var maxAttempts = 20;
+
+            function applyLauncherStyle() {
+                if (typeof window.zE === 'function') {
+                    window.zE('webWidget', 'updateSettings', {
+                        webWidget: {
+                            color: {
+                                launcher: '#C7C8CA',
+                                launcherText: '#000000'
+                            }
+                        }
+                    });
+                    return;
+                }
+
+                attempts += 1;
+                if (attempts < maxAttempts) {
+                    window.setTimeout(applyLauncherStyle, 250);
+                }
+            }
+
+            applyLauncherStyle();
+        }
+
         function closePanel($toggle, animate) {
             var panelId = $toggle.attr('aria-controls');
             var $panel = $('#' + panelId);
@@ -64,6 +90,8 @@ define(['jquery'], function ($) {
                 $tab.trigger('focus');
             }
         }
+
+        styleHelpLauncher();
 
         $toggles.on('click', function () {
             var $toggle = $(this);
