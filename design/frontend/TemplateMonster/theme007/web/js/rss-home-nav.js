@@ -7,28 +7,40 @@ define(['jquery'], function ($) {
 
         function styleHelpLauncher() {
             var attempts = 0;
-            var maxAttempts = 20;
+            var maxAttempts = 80;
 
-            function applyLauncherStyle() {
-                if (typeof window.zE === 'function') {
-                    window.zE('webWidget', 'updateSettings', {
-                        webWidget: {
-                            color: {
-                                launcher: '#C7C8CA',
-                                launcherText: '#000000'
-                            }
+            function updateLauncherColor() {
+                window.zE('webWidget', 'updateSettings', {
+                    webWidget: {
+                        color: {
+                            launcher: '#C7C8CA',
+                            launcherText: '#000000'
                         }
-                    });
+                    }
+                });
+            }
+
+            function waitForLauncher() {
+                if (typeof window.zE === 'function' && document.getElementById('launcher')) {
+                    updateLauncherColor();
+
+                    /*
+                     * Zendesk can repaint the launcher immediately after it appears.
+                     * Reapply the supported widget setting after those initial paints.
+                     */
+                    window.setTimeout(updateLauncherColor, 250);
+                    window.setTimeout(updateLauncherColor, 750);
+                    window.setTimeout(updateLauncherColor, 1500);
                     return;
                 }
 
                 attempts += 1;
                 if (attempts < maxAttempts) {
-                    window.setTimeout(applyLauncherStyle, 250);
+                    window.setTimeout(waitForLauncher, 250);
                 }
             }
 
-            applyLauncherStyle();
+            waitForLauncher();
         }
 
         function closePanel($toggle, animate) {
