@@ -281,7 +281,7 @@
 .rss-home-newsletter__form input[type="email"] {
   background: #fff;
   border: 0;
-  border-radius: 3px;
+  border-radius: 9px;
   box-shadow: none;
   color: #000;
   font-size: 12px;
@@ -371,7 +371,7 @@
   flex: 0 0 72px;
   height: 20px;
   justify-content: flex-end;
-  margin-right: 80px;
+  margin-right: 68px;
   width: 72px;
 }
 
