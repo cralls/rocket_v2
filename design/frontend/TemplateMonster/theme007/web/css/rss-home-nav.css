@@ -31,6 +31,15 @@
   color: #fff;
 }
 
+.rss-home-nav__group._open .rss-home-nav__toggle,
+.rss-home-nav__group._open .rss-home-nav__toggle:hover,
+.rss-home-nav__group._open .rss-home-nav__toggle:focus,
+.rss-home-nav__group._open .rss-home-nav__toggle:active {
+  background: #2c2c2c;
+  border-bottom-color: transparent;
+  color: #fff;
+}
+
 .rss-home-nav__toggle:focus-visible {
   outline: 2px solid var(--rss-gold, #D8BB72);
   outline-offset: -2px;
@@ -181,6 +190,54 @@
 .rss-home-nav__tablink--action,
 .rss-home-nav a.rss-home-nav__tablink--action {
   font-weight: 600;
+}
+
+/* Mobile: an open accordion section becomes one full-width gray block. */
+@media (max-width: 767px) {
+  .rss-home-nav__group._open .rss-home-nav__toggle {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: calc(100% + 30px);
+  }
+
+  .rss-home-nav__panel {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: calc(100% + 30px);
+  }
+
+  .rss-home-nav__links {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 374px) {
+  .rss-home-nav__group._open .rss-home-nav__toggle {
+    margin-left: -11px;
+    margin-right: -11px;
+    padding-left: 11px;
+    padding-right: 11px;
+    width: calc(100% + 22px);
+  }
+
+  .rss-home-nav__panel {
+    margin-left: -11px;
+    margin-right: -11px;
+    width: calc(100% + 22px);
+  }
+
+  .rss-home-nav__links {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
+
+  .rss-home-nav__secondary {
+    margin-left: 11px;
+    margin-right: 11px;
+  }
 }
 
 @media (min-width: 768px) {
