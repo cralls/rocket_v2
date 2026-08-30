@@ -350,6 +350,15 @@
   margin: 0;
 }
 
+.rss-home-footer__address a,
+.rss-home-footer__address a:hover,
+.rss-home-footer__address a:focus,
+.rss-home-footer__address a:active,
+.rss-home-footer__address a[href^="tel:"] {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
 .rss-home-footer__bottom {
   align-items: flex-start;
   display: flex;
