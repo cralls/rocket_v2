@@ -1,7 +1,7 @@
 <?php
 /**
  * Rocket Science Sports homepage.
- * Rev3A: Magento-driven expandable navigation with secondary category tabs for Custom Teamwear.
+ * M1 navigation: Magento-driven expandable navigation matching Scott's Figma hierarchy.
  */
 
 $sections = [
@@ -11,6 +11,8 @@ $sections = [
     ['label' => 'Private Label', 'id' => 492],
     ['label' => 'Events', 'id' => 124],
 ];
+
+$secondaryGroupIds = [47, 491, 492];
 
 $categoryNodes = [];
 foreach ($block->getCurrentChildCategories() as $storeCategory) {
@@ -50,7 +52,7 @@ $goldPodiumUrl = $block->getViewFileUrl('images/rss/gold-podium.svg');
 $bronzePodiumUrl = $block->getViewFileUrl('images/rss/bronze-podium.svg');
 $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
 ?>
-<div class="rss-home" data-rss-revision="rev3a">
+<div class="rss-home" data-rss-revision="m1-navigation">
     <header class="rss-home-topbar" aria-label="Site controls">
         <a class="rss-home-topbar__brand" href="<?= $block->escapeUrl($baseUrl) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
             <img src="<?= $block->escapeUrl($rocketManUrl) ?>" alt="" width="37" height="33" />
@@ -88,11 +90,8 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
             <?php
             $categoryId = (int)$section['id'];
             $categoryNode = $categoryNodes[$categoryId] ?? null;
-            $categoryUrl = $categoryNode
-                ? $block->getCategoryUrl($categoryNode)
-                : $block->getUrl('catalog/category/view', ['id' => $categoryId]);
             $children = $getVisibleChildren($categoryNode);
-            $usesSecondaryGroups = $categoryId === 47 && count($children) >= 2;
+            $usesSecondaryGroups = in_array($categoryId, $secondaryGroupIds, true) && count($children) >= 2;
 
             $toggleId = 'rss-home-nav-toggle-' . $categoryId;
             $panelId = 'rss-home-nav-panel-' . $categoryId;
@@ -164,15 +163,19 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                             <?php endforeach; ?>
                         </div>
                     <?php else: ?>
-                        <div class="rss-home-nav__links">
-                            <a class="rss-home-nav__subitem rss-home-nav__subitem--all" href="<?= $block->escapeUrl($categoryUrl) ?>">
-                                <?= $block->escapeHtml(__('View All %1', $section['label'])) ?>
-                            </a>
-                            <?php foreach ($children as $child): ?>
-                                <a class="rss-home-nav__subitem" href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
-                                    <?= $block->escapeHtml($child->getName()) ?>
-                                </a>
-                            <?php endforeach; ?>
+                        <div class="rss-home-nav__secondary rss-home-nav__direct">
+                            <div class="rss-home-nav__tablinks">
+                                <?php foreach ($children as $child): ?>
+                                    <?php
+                                    $childName = (string)$child->getName();
+                                    $isAction = stripos($childName, 'start ') === 0;
+                                    ?>
+                                    <a class="rss-home-nav__tablink<?= $isAction ? ' rss-home-nav__tablink--action' : '' ?>"
+                                       href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
+                                        <?= $block->escapeHtml($childName) ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
                     <?php endif; ?>
                 </div>
