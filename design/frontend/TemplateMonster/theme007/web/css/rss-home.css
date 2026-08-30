@@ -94,13 +94,14 @@
   width: 20px;
 }
 
-/* Figma VideoStage: exact exported podium artwork with 3px gaps. */
+/* Mobile VideoStage: fit the initial safe browser viewport below the 40px RSS header. */
 .rss-home-hero {
   display: grid;
   gap: 3px;
   grid-template-columns: 135.738fr 130.124fr 130.418fr;
-  height: 207vw;
-  max-height: 832px;
+  height: calc(100vh - 40px);
+  height: calc(100svh - 40px);
+  max-height: none;
   width: 100%;
 }
 
