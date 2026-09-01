@@ -160,18 +160,21 @@
 .rss-home-nav__item {
   align-items: center;
   border-bottom: 0;
+  border-top: 0;
   display: flex;
   height: 77px;
   justify-content: space-between;
   width: 100%;
 }
 
+/* Closed rows own the divider above them. This leaves an open gray section borderless. */
 .rss-home-nav__group:not(._open) .rss-home-nav__item {
-  border-bottom: 1px solid #6f6f6f;
+  border-top: 1px solid #6f6f6f;
 }
 
-.rss-home-nav__group:first-child:not(._open) .rss-home-nav__item {
-  border-top: 1px solid #6f6f6f;
+/* Do not draw a divider immediately below an expanded gray section. */
+.rss-home-nav__group._open + .rss-home-nav__group:not(._open) .rss-home-nav__item {
+  border-top: 0;
 }
 
 .rss-home-nav__label {
