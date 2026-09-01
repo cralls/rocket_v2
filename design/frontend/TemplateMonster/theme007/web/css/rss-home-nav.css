@@ -36,6 +36,7 @@
 .rss-home-nav__group._open .rss-home-nav__toggle:focus,
 .rss-home-nav__group._open .rss-home-nav__toggle:active {
   background: #2c2c2c;
+  border-top-color: transparent;
   border-bottom-color: transparent;
   color: #fff;
 }
@@ -60,7 +61,7 @@
 
 .rss-home-nav__panel {
   background: #2c2c2c;
-  border-bottom: 1px solid #6f6f6f;
+  border-bottom: 0;
   color: #fff;
   padding: 10px 0 18px;
 }
@@ -103,7 +104,7 @@
 
 .rss-home-nav__tabs {
   border: 1px solid rgba(255, 255, 255, .75);
-  border-radius: 9px;
+  border-radius: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   height: 40px;
@@ -117,7 +118,7 @@
   background: transparent !important;
   background-image: none !important;
   border: 0;
-  border-radius: 8px;
+  border-radius: 0;
   box-shadow: none;
   color: #fff;
   cursor: pointer;
