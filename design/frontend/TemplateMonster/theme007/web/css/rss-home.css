@@ -166,7 +166,7 @@
   width: 100%;
 }
 
-.rss-home-nav__item:first-child {
+.rss-home-nav__group:first-child .rss-home-nav__item {
   border-top: 1px solid #6f6f6f;
 }
 
