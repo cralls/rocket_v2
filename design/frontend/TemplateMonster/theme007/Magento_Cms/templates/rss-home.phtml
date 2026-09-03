@@ -42,6 +42,7 @@ $getVisibleChildren = static function ($category) {
 };
 
 $baseUrl = rtrim($block->getUrl(''), '/') . '/';
+$heroVideoUrl = $baseUrl . 'media/RSSvidRF31.5.mp4';
 $rocketManUrl = $block->getViewFileUrl('images/rss/rocket-man.svg');
 $searchIconUrl = $block->getViewFileUrl('images/rss/search.svg');
 $userIconUrl = $block->getViewFileUrl('images/rss/user.svg');
@@ -70,7 +71,16 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
         </nav>
     </header>
 
-    <section class="rss-home-hero" aria-label="Rocket Science Sports programs">
+    <section class="rss-home-hero rss-home-hero--video"
+             aria-label="Rocket Science Sports programs"
+             data-rss-video="<?= $block->escapeHtmlAttr($heroVideoUrl) ?>"
+             data-mage-init='{"js/rss-home-hero":{}}'>
+        <video class="rss-home-hero__video"
+               autoplay
+               muted
+               playsinline
+               preload="none"
+               aria-hidden="true"></video>
         <a class="rss-home-hero__panel rss-home-hero__panel--silver" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 47])) ?>">
             <img class="rss-home-hero__art" src="<?= $block->escapeUrl($silverPodiumUrl) ?>" alt="" />
             <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Custom Teamwear')) ?></span>
