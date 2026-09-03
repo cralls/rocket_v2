@@ -1,0 +1,57 @@
+/*
+ * Rocket Science Sports homepage hero intro video.
+ * Mobile-only asset: play once, then reveal the existing podium navigation.
+ */
+
+.rss-home-hero {
+  position: relative;
+}
+
+.rss-home-hero__video {
+  background: #000;
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  opacity: 1;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 180ms ease;
+  width: 100%;
+  z-index: 3;
+}
+
+.rss-home-hero--video .rss-home-hero__panel {
+  opacity: 0;
+  transition: opacity 180ms ease;
+  visibility: hidden;
+}
+
+.rss-home-hero--video.rss-home-hero--video-complete .rss-home-hero__video {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.rss-home-hero--video.rss-home-hero--video-complete .rss-home-hero__panel {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Scott's current video is optimized for mobile. Keep the existing podium hero on desktop. */
+@media (min-width: 768px) {
+  .rss-home-hero__video {
+    display: none;
+  }
+
+  .rss-home-hero--video .rss-home-hero__panel {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rss-home-hero__video,
+  .rss-home-hero--video .rss-home-hero__panel {
+    transition: none;
+  }
+}
