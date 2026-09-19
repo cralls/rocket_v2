@@ -36,6 +36,7 @@
 
         <referenceContainer name="footer.grid-container" remove="true" />
         <referenceBlock name="form.subscribe" remove="true" />
+        <referenceBlock name="mageplaza.recaptcha.load" remove="true" />
         <referenceContainer name="footer">
             <block class="Magento\Framework\View\Element\Template"
                    name="rss.category.footer"
