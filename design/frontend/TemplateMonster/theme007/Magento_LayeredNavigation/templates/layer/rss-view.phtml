@@ -12,7 +12,6 @@ foreach ($block->getFilters() as $filter) {
 }
 $filterCount = count($availableFilters);
 $filterIconUrl = $block->getViewFileUrl('images/rss/filter.png');
-$chevronIconUrl = $block->getViewFileUrl('images/rss/chevron-down.svg');
 ?>
 
 <?php if ($block->canShowBlock() && count($availableFilters)): ?>
@@ -26,17 +25,33 @@ $chevronIconUrl = $block->getViewFileUrl('images/rss/chevron-down.svg');
                 <span>(<?= $filterCount ?>)</span>
             </button>
 
-            <?php foreach ($availableFilters as $filter): ?>
+            <?php foreach ($availableFilters as $filterIndex => $filter): ?>
+                <?php $dropdownId = 'rss-category-filter-' . (int)$filterIndex; ?>
                 <button type="button"
                         class="rss-category-filter__chip"
-                        data-trigger="rss-filter">
+                        data-rss-filter-toggle
+                        aria-controls="<?= $block->escapeHtmlAttr($dropdownId) ?>"
+                        aria-expanded="false">
                     <span><?= $block->escapeHtml(__($filter->getName())) ?></span>
-                    <img class="rss-category-filter__chevron"
-                         src="<?= $block->escapeUrl($chevronIconUrl) ?>"
-                         alt=""
-                         width="18"
-                         height="18" />
+                    <span class="rss-category-filter__triangle" aria-hidden="true"></span>
                 </button>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="rss-category-filter__dropdowns">
+            <?php foreach ($availableFilters as $filterIndex => $filter): ?>
+                <?php $dropdownId = 'rss-category-filter-' . (int)$filterIndex; ?>
+                <div class="rss-category-filter__dropdown"
+                     id="<?= $block->escapeHtmlAttr($dropdownId) ?>"
+                     data-rss-filter-dropdown
+                     hidden>
+                    <strong class="rss-category-filter__dropdown-title">
+                        <?= $block->escapeHtml(__($filter->getName())) ?>
+                    </strong>
+                    <div class="rss-category-filter__dropdown-options">
+                        <?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
+                    </div>
+                </div>
             <?php endforeach; ?>
         </div>
 
