@@ -796,3 +796,7 @@
     padding-right: 0;
   }
 }
+
+.rss-category-page .field-recaptcha {
+  display: none !important;
+}
