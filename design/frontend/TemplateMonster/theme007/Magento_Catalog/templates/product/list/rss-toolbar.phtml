@@ -1,0 +1,21 @@
+<?php
+/**
+ * Category-only product toolbar for the Rocket Science Sports redesign.
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+    <div class="toolbar toolbar-products rss-category-toolbar"
+         data-mage-init='<?= /* @noEscape */ $block->getWidgetOptionsJson() ?>'>
+        <?php include $block->getTemplateFile('Magento_Catalog::product/list/toolbar/rss-amount.phtml'); ?>
+
+        <?php if ($block->isExpanded()): ?>
+            <div class="rss-category-toolbar__sort">
+                <?php include $block->getTemplateFile('Magento_Catalog::product/list/toolbar/sorter.phtml'); ?>
+            </div>
+        <?php endif; ?>
+
+        <?= /* @noEscape */ $block->getPagerHtml() ?>
+    </div>
+<?php endif; ?>

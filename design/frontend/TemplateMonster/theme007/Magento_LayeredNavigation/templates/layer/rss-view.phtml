@@ -1,0 +1,76 @@
+<?php
+/**
+ * Rocket Science Sports category filter chips and filter drawer.
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+$availableFilters = [];
+foreach ($block->getFilters() as $filter) {
+    if ($filter->getItemsCount()) {
+        $availableFilters[] = $filter;
+    }
+}
+$filterCount = count($availableFilters);
+$filterIconUrl = $block->getViewFileUrl('images/rss/filter.png');
+$chevronIconUrl = $block->getViewFileUrl('images/rss/chevron-down.svg');
+?>
+
+<?php if ($block->canShowBlock() && count($availableFilters)): ?>
+    <div class="block filter rss-category-filter" id="layered-filter-block">
+        <div class="rss-category-filter__chips" aria-label="<?= $block->escapeHtmlAttr(__('Product filters')) ?>">
+            <button type="button"
+                    class="rss-category-filter__chip rss-category-filter__chip--all"
+                    data-trigger="rss-filter"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Open all filters')) ?>">
+                <img src="<?= $block->escapeUrl($filterIconUrl) ?>" alt="" width="24" height="20" />
+                <span>(<?= $filterCount ?>)</span>
+            </button>
+
+            <?php foreach ($availableFilters as $filter): ?>
+                <button type="button"
+                        class="rss-category-filter__chip"
+                        data-trigger="rss-filter">
+                    <span><?= $block->escapeHtml(__($filter->getName())) ?></span>
+                    <img class="rss-category-filter__chevron"
+                         src="<?= $block->escapeUrl($chevronIconUrl) ?>"
+                         alt=""
+                         width="18"
+                         height="18" />
+                </button>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="block-content filter-content rss-category-filter__drawer"
+             data-mage-init='{"Magento_LayeredNavigation/js/rss-filter-drawer":{}}'>
+            <?php if ($block->getLayer()->getState()->getFilters()): ?>
+                <div class="filter-current--wrapper">
+                    <?= /* @noEscape */ $block->getChildHtml('state') ?>
+                    <div class="block-actions filter-actions">
+                        <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>"
+                           class="action clear filter-clear">
+                            <span><?= $block->escapeHtml(__('Clear All')) ?></span>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <strong role="heading" aria-level="2" class="block-subtitle filter-subtitle">
+                <?= $block->escapeHtml(__('Filter Products')) ?>
+            </strong>
+            <div class="filter-options"
+                 id="narrow-by-list"
+                 data-mage-init='{"accordion":{"openedState":"active","collapsible":true,"animate":200,"active":false,"multipleCollapsible":true}}'>
+                <?php foreach ($availableFilters as $filter): ?>
+                    <div data-role="collapsible" class="filter-options-item">
+                        <div data-role="title" class="filter-options-title">
+                            <?= $block->escapeHtml(__($filter->getName())) ?>
+                        </div>
+                        <div data-role="content" class="filter-options-content">
+                            <?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

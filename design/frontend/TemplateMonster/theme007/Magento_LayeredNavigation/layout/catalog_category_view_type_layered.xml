@@ -9,8 +9,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <attribute name="class" value="page-with-filter"/>
-        <referenceContainer name="sidebar.main">
-            <referenceBlock name="catalog.leftnav" remove="true"/>
-        </referenceContainer>
+        <referenceBlock name="catalog.leftnav" template="Magento_LayeredNavigation::layer/rss-view.phtml" />
+        <move element="catalog.leftnav" destination="category.product.list.additional" after="-" />
     </body>
 </page>

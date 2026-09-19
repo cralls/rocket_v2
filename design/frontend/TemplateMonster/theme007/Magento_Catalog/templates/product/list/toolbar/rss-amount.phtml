@@ -1,0 +1,12 @@
+<?php
+/**
+ * Compact result count used by the Rocket Science Sports category toolbar.
+ *
+ * @var $block \Magento\Catalog\Block\Product\ProductList\Toolbar
+ */
+$total = (int)$block->getTotalNum();
+?>
+<p class="toolbar-amount rss-category-toolbar__amount" id="toolbar-amount">
+    <span class="toolbar-number"><?= $total ?></span>
+    <span class="toolbar-label"><?= $block->escapeHtml($total === 1 ? __('Result') : __('Results')) ?></span>
+</p>

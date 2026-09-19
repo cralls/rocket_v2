@@ -1,0 +1,152 @@
+<?php
+/**
+ * Rocket Science Sports category product list.
+ * Mobile follows Scott's Figma frame 280:436: one featured product, paired cards,
+ * an inline customization panel, then additional paired cards.
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_currentCategory = $block->getLayer()->getCurrentCategory();
+
+$parentCategory = $_currentCategory->getParentCategory();
+if ($parentCategory
+    && ($parentCategory->getName() === 'Team portals' || (int)$parentCategory->getId() === 108)
+) {
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+    $customerSession->setTeamPortal((int)$_currentCategory->getId());
+}
+
+$customizeUrl = $block->getUrl('catalog/category/view', ['id' => 47]);
+$customizeImageUrl = $block->getViewFileUrl('images/rss/category-customize-shirt.png');
+?>
+
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty">
+        <div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div>
+    </div>
+<?php else: ?>
+    <?= /* @noEscape */ $block->getToolbarHtml() ?>
+    <?= /* @noEscape */ $block->getAdditionalHtml() ?>
+
+    <div class="products wrapper grid products-grid rss-category-products">
+        <ol class="products list items product-items rss-category-products__grid">
+            <?php $productPosition = 0; ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php
+                $productPosition++;
+                $productImage = $block->getImage($_product, 'category_page_grid');
+                $productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                $gender = $_product->getAttributeText('gender');
+                if (is_array($gender)) {
+                    $gender = implode(', ', $gender);
+                }
+
+                $sizes = [];
+                $colors = [];
+                if ($_product->getTypeId() === Configurable::TYPE_CODE) {
+                    foreach ($_product->getTypeInstance()->getUsedProducts($_product) as $childProduct) {
+                        $childSize = $childProduct->getAttributeText('size');
+                        $childColor = $childProduct->getAttributeText('color');
+
+                        if ($childSize && !in_array($childSize, $sizes, true)) {
+                            $sizes[] = $childSize;
+                        }
+                        if ($childColor && !in_array($childColor, $colors, true)) {
+                            $colors[] = $childColor;
+                        }
+                    }
+                } else {
+                    $simpleSize = $_product->getAttributeText('size');
+                    $simpleColor = $_product->getAttributeText('color');
+                    if ($simpleSize) {
+                        $sizes[] = $simpleSize;
+                    }
+                    if ($simpleColor) {
+                        $colors[] = $simpleColor;
+                    }
+                }
+
+                $optionLabel = '';
+                if (count($sizes)) {
+                    $optionLabel = count($sizes) === 1
+                        ? __('1 Size')
+                        : __('%1 Sizes', count($sizes));
+                } elseif (count($colors)) {
+                    $optionLabel = count($colors) === 1
+                        ? __('1 Color')
+                        : __('%1 Colors', count($colors));
+                }
+
+                $contextLabel = trim((string)$gender . ' ' . (string)$_currentCategory->getName());
+                $itemClass = $productPosition === 1
+                    ? 'rss-category-product rss-category-product--featured'
+                    : 'rss-category-product';
+                ?>
+                <li class="item product product-item <?= $block->escapeHtmlAttr($itemClass) ?>">
+                    <div class="product-item-info<?= $_product->getIsSalable() ? '' : ' product-item-info-hide' ?>"
+                         data-container="product-grid"
+                         itemscope
+                         itemtype="https://schema.org/Product">
+                        <?php if ($addToBlock = $block->getChildBlock('addto')): ?>
+                            <div class="rss-category-product__wishlist"
+                                 data-role="add-to-links"
+                                 aria-label="<?= $block->escapeHtmlAttr(__('Product actions')) ?>">
+                                <?= /* @noEscape */ $addToBlock->setProduct($_product)->getChildHtml() ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                           class="product photo product-item-photo"
+                           tabindex="-1">
+                            <?= /* @noEscape */ $productImage->toHtml() ?>
+                        </a>
+
+                        <div class="product details product-item-details rss-category-product__details">
+                            <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+                            <strong class="product name product-item-name" itemprop="name">
+                                <a class="product-item-link" href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                    <?= /* @noEscape */ $productName ?>
+                                </a>
+                            </strong>
+                            <?php if ($contextLabel): ?>
+                                <span class="rss-category-product__meta">
+                                    <?= $block->escapeHtml($contextLabel) ?>
+                                </span>
+                            <?php endif; ?>
+                            <?php if ($optionLabel): ?>
+                                <span class="rss-category-product__meta">
+                                    <?= $block->escapeHtml($optionLabel) ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </li>
+
+                <?php if ($productPosition === 3): ?>
+                    <li class="rss-category-customize">
+                        <a class="rss-category-customize__link" href="<?= $block->escapeUrl($customizeUrl) ?>">
+                            <img class="rss-category-customize__image"
+                                 src="<?= $block->escapeUrl($customizeImageUrl) ?>"
+                                 alt="" />
+                            <span class="rss-category-customize__content">
+                                <span class="rss-category-customize__title"><?= $block->escapeHtml(__('Customize')) ?></span>
+                                <span class="rss-category-customize__copy">
+                                    <?= $block->escapeHtml(__('Select your sport, style and color. Upload a logo or graphic and we will transform your vision into reality.')) ?>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+
+    <div class="toolbar-bottom">
+        <?= /* @noEscape */ $block->getToolbarHtml() ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Compact footer used on category product-list pages.
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
+?>
+<div class="rss-category-footer">
+    <p class="rss-category-footer__copyright">
+        <?= $block->escapeHtml(__('© 2004-2026 Rocket Science Sports')) ?><br />
+        <?= $block->escapeHtml(__('All rights reserved.')) ?>
+    </p>
+    <div class="rss-category-footer__socials" aria-label="<?= $block->escapeHtmlAttr(__('Social channels')) ?>">
+        <img src="<?= $block->escapeUrl($socialsUrl) ?>" alt="" width="72" height="20" />
+    </div>
+</div>

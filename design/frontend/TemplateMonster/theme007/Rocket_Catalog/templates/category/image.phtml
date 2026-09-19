@@ -1,0 +1,35 @@
+<?php
+/**
+ * Category hero and introduction for the Rocket Science Sports redesign.
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_category = $block->getCurrentCategory();
+$_imageUrl = $_category->getImageUrl();
+$_description = $_category->getDescription();
+
+if ($_imageUrl) {
+    $_imageUrl = str_replace('/pub', '', $_imageUrl);
+}
+?>
+<section class="rss-category-intro" aria-labelledby="rss-category-title">
+    <?php if ($_imageUrl): ?>
+        <div class="rss-category-hero">
+            <img class="rss-category-hero__image"
+                 src="<?= $block->escapeUrl($_imageUrl) ?>"
+                 alt="<?= $block->escapeHtmlAttr($_category->getName()) ?>" />
+        </div>
+    <?php endif; ?>
+
+    <div class="rss-category-intro__content">
+        <h1 id="rss-category-title" class="rss-category-intro__title">
+            <?= $block->escapeHtml($_category->getName()) ?>
+        </h1>
+        <?php if ($_description): ?>
+            <div class="rss-category-intro__description">
+                <?= /* @noEscape */ $_helper->categoryAttribute($_category, $_description, 'description') ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>

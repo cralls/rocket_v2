@@ -6,9 +6,40 @@
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/rss-category.css" />
+    </head>
     <body>
+        <attribute name="class" value="rss-category-page" />
+
+        <referenceContainer name="rd.navbar-wrap" remove="true" />
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="rss.category.topbar"
+                   template="Magento_Theme::html/rss-category-topbar.phtml" />
+        </referenceContainer>
+
         <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="category.description" remove="true" />
         <referenceBlock name="category.image" template="Rocket_Catalog::category/image.phtml"/>
+        <referenceBlock name="category.products.list">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/rss-category-list.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product_list_toolbar">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/list/rss-toolbar.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="footer.grid-container" remove="true" />
+        <referenceContainer name="footer">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="rss.category.footer"
+                   template="Magento_Theme::html/rss-category-footer.phtml" />
+        </referenceContainer>
+        <referenceBlock name="to.top.button" remove="true" />
     </body>
 </page>
-

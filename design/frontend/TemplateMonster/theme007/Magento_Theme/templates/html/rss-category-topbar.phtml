@@ -1,0 +1,39 @@
+<?php
+/**
+ * Rocket Science Sports compact category header.
+ * Mirrors the approved homepage top bar without loading the legacy RD navbar.
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$baseUrl = rtrim($block->getUrl(''), '/') . '/';
+$rocketManUrl = $block->getViewFileUrl('images/rss/rocket-man.svg');
+$searchIconUrl = $block->getViewFileUrl('images/rss/search.svg');
+$userIconUrl = $block->getViewFileUrl('images/rss/user.svg');
+$cartIconUrl = $block->getViewFileUrl('images/rss/shopping-cart.svg');
+?>
+<div class="rss-category-shell">
+    <header class="rss-category-topbar" aria-label="<?= $block->escapeHtmlAttr(__('Site controls')) ?>">
+        <a class="rss-category-topbar__brand"
+           href="<?= $block->escapeUrl($baseUrl) ?>"
+           aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
+            <img src="<?= $block->escapeUrl($rocketManUrl) ?>" alt="" width="37" height="33" />
+        </a>
+        <nav class="rss-category-topbar__actions" aria-label="<?= $block->escapeHtmlAttr(__('Account and shopping controls')) ?>">
+            <a class="rss-category-topbar__action"
+               href="<?= $block->escapeUrl($block->getUrl('catalogsearch/advanced')) ?>"
+               aria-label="<?= $block->escapeHtmlAttr(__('Search')) ?>">
+                <img src="<?= $block->escapeUrl($searchIconUrl) ?>" alt="" width="20" height="20" />
+            </a>
+            <a class="rss-category-topbar__action"
+               href="<?= $block->escapeUrl($block->getUrl('customer/account')) ?>"
+               aria-label="<?= $block->escapeHtmlAttr(__('My Account')) ?>">
+                <img src="<?= $block->escapeUrl($userIconUrl) ?>" alt="" width="20" height="20" />
+            </a>
+            <a class="rss-category-topbar__action"
+               href="<?= $block->escapeUrl($block->getUrl('checkout/cart')) ?>"
+               aria-label="<?= $block->escapeHtmlAttr(__('Shopping Cart')) ?>">
+                <img src="<?= $block->escapeUrl($cartIconUrl) ?>" alt="" width="20" height="20" />
+            </a>
+        </nav>
+    </header>
+</div>
