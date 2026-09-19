@@ -76,7 +76,6 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
              data-rss-video="<?= $block->escapeHtmlAttr($heroVideoUrl) ?>"
              data-mage-init='{"js/rss-home-hero":{}}'>
         <video class="rss-home-hero__video"
-               autoplay
                muted
                playsinline
                preload="none"
@@ -216,7 +215,7 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                 <a href="<?= $block->escapeUrl($baseUrl . 'warranty') ?>"><?= $block->escapeHtml(__('Warranty')) ?></a>
                 <a href="<?= $block->escapeUrl($baseUrl . 'tos.html') ?>"><?= $block->escapeHtml(__('Terms')) ?></a>
                 <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy.html') ?>"><?= $block->escapeHtml(__('Privacy')) ?></a>
-                <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy-cookie-restriction-mode/') ?>"><?= $block->escapeHtml(__('Cookies')) ?></a>
+                <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy-cookie-restriction-mode/') ?>" data-rss-cookie-settings><?= $block->escapeHtml(__('Cookies')) ?></a>
             </nav>
 
             <address class="rss-home-footer__address">
