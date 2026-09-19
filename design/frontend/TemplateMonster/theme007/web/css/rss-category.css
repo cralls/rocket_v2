@@ -236,9 +236,9 @@
 
 .rss-category-filter__chips {
   display: flex;
-  gap: 5px;
+  gap: 6px;
   overflow-x: auto;
-  padding: 0 8px;
+  padding: 0 14px;
   scrollbar-width: none;
   width: 100%;
 }
@@ -252,21 +252,22 @@
 .rss-category-filter__chip:focus,
 .rss-category-filter__chip:active {
   align-items: center;
-  background: transparent;
-  border: 1px solid #79747e;
-  border-radius: 9px;
+  background: #fff;
+  border: 1px solid #cac4d0;
+  border-radius: 8px;
   box-shadow: none;
   color: #49454f;
   display: inline-flex;
   flex: 0 0 auto;
   font-family: Inter, "Helvetica Neue", Arial, sans-serif;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
-  gap: 5px;
+  gap: 4px;
   height: 32px;
-  line-height: 30px;
+  letter-spacing: .1px;
+  line-height: 1;
   margin: 0;
-  padding: 0 9px;
+  padding: 0 10px;
   text-transform: none;
 }
 
@@ -276,8 +277,8 @@
 }
 
 .rss-category-filter__chip--all {
-  border-color: transparent;
   padding-left: 7px;
+  padding-right: 9px;
 }
 
 .rss-category-filter__chip--all img {
@@ -635,8 +636,8 @@
   }
 
   .rss-category-filter__chips {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .rss-category-product__details {
