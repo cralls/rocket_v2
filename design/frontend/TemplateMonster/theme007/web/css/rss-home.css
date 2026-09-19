@@ -458,7 +458,7 @@
   }
 }
 
-/* Mobile hero intro video: play once, then reveal the podium navigation. */
+/* Mobile hero intro video: wait for consent, play once, then reveal the podium navigation. */
 .rss-home-hero {
   position: relative;
 }
@@ -469,31 +469,43 @@
   height: 100%;
   inset: 0;
   object-fit: cover;
-  opacity: 1;
+  opacity: 0;
   pointer-events: none;
   position: absolute;
   transition: opacity 180ms ease;
+  visibility: hidden;
   width: 100%;
   z-index: 3;
 }
 
+/* Before consent is resolved, keep the podiums visible behind the privacy sheet. */
 .rss-home-hero--video .rss-home-hero__panel {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 180ms ease;
-  visibility: hidden;
+  visibility: visible;
 }
 
-.rss-home-hero--video.rss-home-hero--video-complete .rss-home-hero__video {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.rss-home-hero--video.rss-home-hero--video-complete .rss-home-hero__panel {
+.rss-home-hero--video-playing .rss-home-hero__video {
   opacity: 1;
   visibility: visible;
 }
 
-/* Scott's current video is optimized for mobile. Keep the existing podium hero on desktop. */
+.rss-home-hero--video-playing .rss-home-hero__panel {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.rss-home-hero--video-complete .rss-home-hero__video {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.rss-home-hero--video-complete .rss-home-hero__panel {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Scott's current video is optimized for mobile. Keep the podium hero on desktop. */
 @media (min-width: 768px) {
   .rss-home-hero__video {
     display: none;
