@@ -615,9 +615,10 @@
 .rss-category-footer__socials {
   align-items: center;
   display: flex;
+  flex: 0 0 72px;
   height: 20px;
   justify-content: flex-end;
-  margin-right: 48px;
+  margin-right: 68px;
   width: 72px;
 }
 
@@ -649,7 +650,7 @@
   }
 
   .rss-category-footer__socials {
-    margin-right: 20px;
+    margin-right: 68px;
   }
 }
 
