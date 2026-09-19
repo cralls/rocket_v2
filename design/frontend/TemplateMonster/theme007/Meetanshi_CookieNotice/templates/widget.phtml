@@ -1,0 +1,105 @@
+<?php if ($block->enableDisable()) : ?>
+    <?php
+    $expireDays = (int)$block->getAutoExpire();
+    if ($expireDays < 1) {
+        $expireDays = 1;
+    }
+    ?>
+    <div id="rss-cookie-consent"
+         class="rss-cookie-consent"
+         hidden
+         data-mage-init='{"Meetanshi_CookieNotice/js/cookie-consent":{"expireDays":<?= (int)$expireDays ?>}}'>
+
+        <section class="rss-cookie-consent__sheet"
+                 data-rss-cookie-view="main"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="rss-cookie-consent-title">
+            <div class="rss-cookie-consent__brand"><?= $block->escapeHtml(__('Rocket Science Sports')) ?></div>
+            <h2 id="rss-cookie-consent-title" class="rss-cookie-consent__title">
+                <?= $block->escapeHtml(__('Respects your Privacy')) ?>
+            </h2>
+
+            <div class="rss-cookie-consent__copy">
+                <p><?= $block->escapeHtml(__("With your consent, we'd like to use cookies to:")) ?></p>
+                <ul>
+                    <li><?= $block->escapeHtml(__('Ensure the site functions properly,')) ?></li>
+                    <li><?= $block->escapeHtml(__('Remember your preferences,')) ?></li>
+                    <li><?= $block->escapeHtml(__('Measure site traffic with Google Analytics.')) ?></li>
+                </ul>
+                <p>
+                    <?= $block->escapeHtml(__('You can change your choices anytime via')) ?>
+                    <button type="button"
+                            class="rss-cookie-consent__text-button"
+                            data-rss-cookie-action="preferences">
+                        <?= $block->escapeHtml(__('Cookies')) ?>
+                    </button>.
+                </p>
+            </div>
+
+            <div class="rss-cookie-consent__actions">
+                <button type="button"
+                        class="rss-cookie-consent__button rss-cookie-consent__button--secondary"
+                        data-rss-cookie-action="reject">
+                    <?= $block->escapeHtml(__('Reject All')) ?>
+                </button>
+                <button type="button"
+                        class="rss-cookie-consent__button rss-cookie-consent__button--primary"
+                        data-rss-cookie-action="accept">
+                    <?= $block->escapeHtml(__('Accept All')) ?>
+                </button>
+            </div>
+        </section>
+
+        <section class="rss-cookie-consent__sheet"
+                 data-rss-cookie-view="preferences"
+                 role="dialog"
+                 aria-modal="true"
+                 aria-labelledby="rss-cookie-preferences-title"
+                 hidden>
+            <div class="rss-cookie-consent__brand"><?= $block->escapeHtml(__('Rocket Science Sports')) ?></div>
+            <h2 id="rss-cookie-preferences-title" class="rss-cookie-consent__title">
+                <?= $block->escapeHtml(__('Cookies')) ?>
+            </h2>
+
+            <div class="rss-cookie-consent__preference">
+                <div class="rss-cookie-consent__preference-copy">
+                    <strong><?= $block->escapeHtml(__('Necessary')) ?></strong>
+                    <span><?= $block->escapeHtml(__('Required for the site to function. Always on.')) ?></span>
+                </div>
+                <label class="rss-cookie-consent__switch rss-cookie-consent__switch--disabled">
+                    <span class="rss-cookie-consent__sr-only"><?= $block->escapeHtml(__('Necessary cookies enabled')) ?></span>
+                    <input type="checkbox" checked disabled>
+                    <span class="rss-cookie-consent__switch-track" aria-hidden="true"></span>
+                </label>
+            </div>
+
+            <div class="rss-cookie-consent__preference">
+                <div class="rss-cookie-consent__preference-copy">
+                    <strong><?= $block->escapeHtml(__('Analytics (Google Analytics)')) ?></strong>
+                    <span><?= $block->escapeHtml(__('Helps us understand site traffic and usage.')) ?></span>
+                </div>
+                <label class="rss-cookie-consent__switch">
+                    <span class="rss-cookie-consent__sr-only"><?= $block->escapeHtml(__('Allow Google Analytics')) ?></span>
+                    <input type="checkbox"
+                           role="switch"
+                           data-rss-analytics-toggle>
+                    <span class="rss-cookie-consent__switch-track" aria-hidden="true"></span>
+                </label>
+            </div>
+
+            <div class="rss-cookie-consent__actions">
+                <button type="button"
+                        class="rss-cookie-consent__button rss-cookie-consent__button--secondary"
+                        data-rss-cookie-action="back">
+                    <?= $block->escapeHtml(__('Back')) ?>
+                </button>
+                <button type="button"
+                        class="rss-cookie-consent__button rss-cookie-consent__button--primary"
+                        data-rss-cookie-action="save">
+                    <?= $block->escapeHtml(__('Save')) ?>
+                </button>
+            </div>
+        </section>
+    </div>
+<?php endif; ?>
