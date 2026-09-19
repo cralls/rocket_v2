@@ -1,0 +1,40 @@
+<script>
+(function () {
+    'use strict';
+
+    function getCookie(name) {
+        var prefix = name + '=';
+        var parts = document.cookie ? document.cookie.split(';') : [];
+        var i;
+        var item;
+
+        for (i = 0; i < parts.length; i += 1) {
+            item = parts[i].trim();
+            if (item.indexOf(prefix) === 0) {
+                return decodeURIComponent(item.substring(prefix.length));
+            }
+        }
+
+        return null;
+    }
+
+    var explicitAnalytics = getCookie('rss_analytics_consent');
+    var legacyChoice = getCookie('cookienotice');
+    var analyticsGranted = explicitAnalytics === '1' ||
+        (explicitAnalytics === null && legacyChoice === 'true');
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () {
+        window.dataLayer.push(arguments);
+    };
+
+    window.gtag('consent', 'default', {
+        analytics_storage: analyticsGranted ? 'granted' : 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted'
+    });
+}());
+</script>
