@@ -398,6 +398,12 @@ class Data extends AbstractHelper
         return $mediaUrl;
     }
 
+    public function getTempMediaAbsolutePath()
+    {
+        return $this->filesystem->getDirectoryRead(DirectoryList::MEDIA)
+            ->getAbsolutePath(AttachmentList::TMP_PATH);
+    }
+
     public function saveAttachment($attachmentArea, $post)
     {
         $sendMail = 0;
@@ -444,7 +450,7 @@ class Data extends AbstractHelper
     {
         $sendFile = [];
         $currenttime = $this->dateTime->gmtDate('Y-m-d h:i:s');
-        $mediaUrl =  $this->getMediaPath();
+        $mediaPath = $this->getMediaAbsolutePath();
         $model = $this->attachmentFactory->create();
 
         if (isset($values['new_file']) &&
@@ -476,12 +482,12 @@ class Data extends AbstractHelper
         if ($this->getAttachmentType() == self::SEND_ATTACHMENT_TYPE) {
             if (isset($values['new_file']) && !empty($values['new_file'])) {
                 $attachmentData = $model->load($model->getId());
-                $file = $this->reader->fileGetContents($mediaUrl . $attachmentData->getFilePath());
+                $file = $this->reader->fileGetContents($mediaPath . $attachmentData->getFilePath());
                 $sendFile = ['name'=>$attachmentData->getFileName(), 'contents'=> $file];
             }
         } else {
             $attachmentData = $model->load($model->getId());
-            $file = $this->reader->fileGetContents($mediaUrl . $attachmentData->getFilePath());
+            $file = $this->reader->fileGetContents($mediaPath . $attachmentData->getFilePath());
             $sendFile = ['name'=>$attachmentData->getFileName(), 'contents'=> $file];
         }
         return $sendFile;
