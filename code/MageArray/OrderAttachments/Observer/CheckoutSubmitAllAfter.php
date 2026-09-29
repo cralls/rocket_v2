@@ -55,11 +55,11 @@ class CheckoutSubmitAllAfter implements ObserverInterface
 
                 $emailEnabled = $this->_dataHelper->isEmailEnabled();
                 $fileArray = [];
-                $mediaUrl = $this->_dataHelper->getMediaPath();
+                $mediaPath = $this->_dataHelper->getMediaAbsolutePath();
                 foreach ($attchmentId as $key => $value) {
                     $attachment = $this->getAttachment($value);
                     $fileName = $attachment->getFileName();
-                    $file = $this->reader->fileGetContents($mediaUrl . $attachment->getFilePath());
+                    $file = $this->reader->fileGetContents($mediaPath . $attachment->getFilePath());
                     $fileArray[] = ['name'=>$fileName, 'contents'=> $file];
                 }
                 $emailSeparately = $this->_dataHelper->getEmailSaperately();

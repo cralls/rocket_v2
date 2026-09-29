@@ -56,10 +56,10 @@ class SetFileVariables implements ObserverInterface
             
             if ($this->_state->getAreaCode() == 'adminhtml') {
                 $fileDatas = $this->getOrderFileData($transport->getOrder()->getId());
-                $transport->setData('media_path', $this->_dataHelper->getMediaPath());
+                $transport->setData('media_path', $this->_dataHelper->getMediaAbsolutePath());
             } else {
                 $fileDatas = $this->_dataHelper->fileData($quoteId);
-                $transport->setData('media_path', $this->_dataHelper->getTempMediaPath());
+                $transport->setData('media_path', $this->_dataHelper->getTempMediaAbsolutePath());
             }
             $emailEnabled = $this->_dataHelper->isEmailEnabled();
             $emailSeparately = $this->_dataHelper->getEmailSaperately();
