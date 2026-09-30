@@ -28,15 +28,35 @@ class AssignTeamPortal
         $categoryTable = $this->resourceConnection->getTableName('catalog_category_entity');
         $since = gmdate('Y-m-d H:i:s', time() - self::LOOKBACK_DAYS * 86400);
 
-        // Sales order items include the configurable parent as well as its selected simple.
-        // Count distinct portal categories so an order is never assigned arbitrarily.
+        // Shared retail accessories cannot qualify an order for a portal.
+        // Category 108 itself is an organizational category, not a retail assignment.
+        $outsideCategories = $connection->select()
+            ->from(['outside_cp' => $productCategoryTable], new \Zend_Db_Expr('1'))
+            ->join(
+                ['outside_c' => $categoryTable],
+                'outside_c.entity_id = outside_cp.category_id',
+                []
+            )
+            ->where('outside_cp.product_id = i.product_id')
+            ->where('outside_c.entity_id <> portal_root.entity_id')
+            ->where("outside_c.path NOT LIKE CONCAT(portal_root.path, '/%')");
+
+        // Include configurable parents and selected simples. Only products with
+        // no category assignments outside the portal tree supply portal candidates.
         $select = $connection->select()
             ->from(['o' => $orderTable], ['entity_id'])
             ->join(['i' => $itemTable], 'i.order_id = o.entity_id', [])
+            ->join(
+                ['portal_root' => $categoryTable],
+                'portal_root.entity_id = ' . self::TEAM_PORTALS_CATEGORY_ID,
+                []
+            )
             ->join(['cp' => $productCategoryTable], 'cp.product_id = i.product_id', [])
+            ->join(['assigned_c' => $categoryTable], 'assigned_c.entity_id = cp.category_id', [])
             ->join(
                 ['c' => $categoryTable],
-                'c.entity_id = cp.category_id AND c.parent_id = ' . self::TEAM_PORTALS_CATEGORY_ID,
+                "c.parent_id = portal_root.entity_id AND "
+                . "(assigned_c.entity_id = c.entity_id OR assigned_c.path LIKE CONCAT(c.path, '/%'))",
                 []
             )
             ->columns([
@@ -45,6 +65,7 @@ class AssignTeamPortal
             ])
             ->where('o.created_at >= ?', $since)
             ->where('(o.team_portal IS NULL OR o.team_portal = 0)')
+            ->where('NOT EXISTS (' . $outsideCategories . ')')
             ->group('o.entity_id');
 
         $assigned = 0;
