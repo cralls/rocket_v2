@@ -4,8 +4,10 @@ define([], function () {
     return function (config, element) {
         var hero = element;
         var video = hero.querySelector('.rss-home-hero__video');
-        var videoUrl = hero.getAttribute('data-rss-video');
         var isMobile = window.matchMedia('(max-width: 767px)').matches;
+        var videoUrl = isMobile ?
+            hero.getAttribute('data-rss-video-mobile') :
+            hero.getAttribute('data-rss-video-desktop');
         var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var started = false;
         var completed = false;
@@ -53,7 +55,7 @@ define([], function () {
 
             started = true;
 
-            if (!video || !videoUrl || !isMobile || reduceMotion) {
+            if (!video || !videoUrl || reduceMotion) {
                 showPodiums();
                 return;
             }
@@ -76,7 +78,7 @@ define([], function () {
             }
         }
 
-        if (!video || !videoUrl || !isMobile || reduceMotion) {
+        if (!video || !videoUrl || reduceMotion) {
             showPodiums();
             return;
         }
