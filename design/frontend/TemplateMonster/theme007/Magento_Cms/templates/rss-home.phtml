@@ -42,7 +42,8 @@ $getVisibleChildren = static function ($category) {
 };
 
 $baseUrl = rtrim($block->getUrl(''), '/') . '/';
-$heroVideoUrl = $baseUrl . 'media/RSSvidRF31.5.mp4';
+$heroVideoMobileUrl = $baseUrl . 'media/RSSvidRF31.5.mp4';
+$heroVideoDesktopUrl = $baseUrl . 'media/RSSD1820x1080.mp4';
 $rocketManUrl = $block->getViewFileUrl('images/rss/rocket-man.svg');
 $searchIconUrl = $block->getViewFileUrl('images/rss/search.svg');
 $userIconUrl = $block->getViewFileUrl('images/rss/user.svg');
@@ -73,7 +74,8 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
 
     <section class="rss-home-hero rss-home-hero--video"
              aria-label="Rocket Science Sports programs"
-             data-rss-video="<?= $block->escapeHtmlAttr($heroVideoUrl) ?>"
+             data-rss-video-mobile="<?= $block->escapeHtmlAttr($heroVideoMobileUrl) ?>"
+             data-rss-video-desktop="<?= $block->escapeHtmlAttr($heroVideoDesktopUrl) ?>"
              data-mage-init='{"js/rss-home-hero":{}}'>
         <video class="rss-home-hero__video"
                muted
