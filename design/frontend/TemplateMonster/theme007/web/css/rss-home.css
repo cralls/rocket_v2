@@ -505,17 +505,7 @@
   visibility: visible;
 }
 
-/* Scott's current video is optimized for mobile. Keep the podium hero on desktop. */
-@media (min-width: 768px) {
-  .rss-home-hero__video {
-    display: none;
-  }
-
-  .rss-home-hero--video .rss-home-hero__panel {
-    opacity: 1;
-    visibility: visible;
-  }
-}
+/* The hero JS selects Scott's mobile or desktop video at the 768px breakpoint. */
 
 @media (prefers-reduced-motion: reduce) {
   .rss-home-hero__video,
