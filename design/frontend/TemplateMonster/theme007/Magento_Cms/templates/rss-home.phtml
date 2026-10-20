@@ -82,6 +82,13 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                playsinline
                preload="none"
                aria-hidden="true"></video>
+        <button type="button"
+                class="rss-home-hero__skip"
+                data-rss-video-skip
+                hidden>
+            <?= $block->escapeHtml(__('Skip video')) ?>
+            <span aria-hidden="true">⏭</span>
+        </button>
         <a class="rss-home-hero__panel rss-home-hero__panel--silver" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 47])) ?>">
             <img class="rss-home-hero__art" src="<?= $block->escapeUrl($silverPodiumUrl) ?>" alt="" />
             <span class="rss-home-hero__label"><?= $block->escapeHtml(__('Custom Teamwear')) ?></span>
