@@ -538,8 +538,9 @@
   min-width: 44px;
   padding: 10px;
   position: absolute;
-  right: 16px;
-  top: 16px;
+  bottom: 8px;
+  right: 8px;
+  top: auto;
   width: 44px;
   z-index: 4;
 }
