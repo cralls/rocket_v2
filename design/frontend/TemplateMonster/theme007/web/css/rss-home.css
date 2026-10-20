@@ -513,3 +513,34 @@
     transition: none;
   }
 }
+
+/* Real overlay control shared by the mobile and desktop intro videos. */
+.rss-home-hero__skip[hidden] {
+  display: none !important;
+}
+
+.rss-home-hero__skip,
+.rss-home-hero__skip:hover,
+.rss-home-hero__skip:focus {
+  align-items: center;
+  background: #000;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font: 500 14px/1.2 Inter, "Helvetica Neue", Arial, sans-serif;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 14px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 4;
+}
+
+.rss-home-hero__skip:focus-visible {
+  outline: 2px solid #d8bb72;
+  outline-offset: 3px;
+}
