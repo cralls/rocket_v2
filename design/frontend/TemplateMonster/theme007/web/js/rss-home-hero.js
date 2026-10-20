@@ -4,6 +4,7 @@ define([], function () {
     return function (config, element) {
         var hero = element;
         var video = hero.querySelector('.rss-home-hero__video');
+        var skipButton = hero.querySelector('[data-rss-video-skip]');
         var isMobile = window.matchMedia('(max-width: 767px)').matches;
         var videoUrl = isMobile ?
             hero.getAttribute('data-rss-video-mobile') :
@@ -29,17 +30,30 @@ define([], function () {
         }
 
         function showPodiums() {
+            var firstPanel;
+
             if (completed) {
                 return;
             }
 
             completed = true;
+
+            if (skipButton) {
+                skipButton.hidden = true;
+                if (document.activeElement === skipButton) {
+                    firstPanel = hero.querySelector('.rss-home-hero__panel');
+                }
+            }
             hero.classList.remove('rss-home-hero--video-playing');
             hero.classList.add('rss-home-hero--video-complete');
 
+            if (firstPanel) {
+                firstPanel.focus();
+            }
+
             if (video) {
+                video.pause();
                 window.setTimeout(function () {
-                    video.pause();
                     video.removeAttribute('src');
                     video.load();
                 }, 220);
@@ -63,7 +77,14 @@ define([], function () {
             video.muted = true;
             video.playsInline = true;
             video.addEventListener('playing', function () {
+                if (completed) {
+                    video.pause();
+                    return;
+                }
                 hero.classList.add('rss-home-hero--video-playing');
+                if (skipButton) {
+                    skipButton.hidden = false;
+                }
             }, {once: true});
             video.addEventListener('ended', showPodiums, {once: true});
             video.addEventListener('error', showPodiums, {once: true});
@@ -76,6 +97,10 @@ define([], function () {
             if (playPromise && typeof playPromise.catch === 'function') {
                 playPromise.catch(showPodiums);
             }
+        }
+
+        if (skipButton) {
+            skipButton.addEventListener('click', showPodiums);
         }
 
         if (!video || !videoUrl || reduceMotion) {
