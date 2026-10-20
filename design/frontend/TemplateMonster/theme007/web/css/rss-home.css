@@ -523,21 +523,32 @@
 .rss-home-hero__skip:hover,
 .rss-home-hero__skip:focus {
   align-items: center;
-  background: #000;
-  border: 1px solid #fff;
-  border-radius: 6px;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
   box-shadow: none;
-  color: #fff;
+  color: #000;
   cursor: pointer;
   display: flex;
-  font: 500 14px/1.2 Inter, "Helvetica Neue", Arial, sans-serif;
-  gap: 8px;
+  height: 44px;
+  justify-content: center;
+  margin: 0;
   min-height: 44px;
-  padding: 10px 14px;
+  min-width: 44px;
+  padding: 10px;
   position: absolute;
   right: 16px;
   top: 16px;
+  width: 44px;
   z-index: 4;
+}
+
+.rss-home-hero__skip svg {
+  display: block;
+  flex: 0 0 24px;
+  height: 24px;
+  width: 24px;
 }
 
 .rss-home-hero__skip:focus-visible {

@@ -85,9 +85,11 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
         <button type="button"
                 class="rss-home-hero__skip"
                 data-rss-video-skip
+                aria-label="<?= $block->escapeHtmlAttr(__('Skip video')) ?>"
                 hidden>
-            <?= $block->escapeHtml(__('Skip video')) ?>
-            <span aria-hidden="true">⏭</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter" aria-hidden="true" focusable="false">
+                <path d="M5 4L15 12L5 20Z M20 4V20" />
+            </svg>
         </button>
         <a class="rss-home-hero__panel rss-home-hero__panel--silver" href="<?= $block->escapeUrl($block->getUrl('catalog/category/view', ['id' => 47])) ?>">
             <img class="rss-home-hero__art" src="<?= $block->escapeUrl($silverPodiumUrl) ?>" alt="" />
