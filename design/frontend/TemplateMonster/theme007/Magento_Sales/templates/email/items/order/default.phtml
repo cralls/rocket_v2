@@ -18,22 +18,28 @@ $_baseImageUrl = $_store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_M
 <tr>
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
 <?php
-//cralls
-if($_item->getProduct()->getTypeId() == 'configurable') {
-	$sku = $block->getSku($_item);
-	if(isset($sku) && $sku != '') {
-		$product = \Magento\Framework\App\ObjectManager::getInstance()->create('\Magento\Catalog\Api\ProductRepositoryInterface')->get($sku);
-		$imgSrc = $_imageHelper->init($product, 'thumbnail', ['type'=>'thumbnail'])->keepAspectRatio(true)->resize('200','200')->getUrl();
-	}
-	if(isset($imgSrc) && strpos($imgSrc, 'placeholder')) {
-		?> 
-		<p><img src="<?= $_imageHelper->init($_item->getProduct(), 'thumbnail', ['type'=>'thumbnail'])->keepAspectRatio(true)->resize('200','200')->getUrl();?>" alt="<?= __('Product Image');?>"></p> 
-		<?php
-	} else {
-		?>
-		<p><img src="<?php echo $imgSrc; ?>" alt="<?= __('Product Image');?>"></p>
-		<?php
-	}
+// Product images are optional; historical order items may no longer have a catalog product.
+$_product = $_item->getProduct();
+if ($_product && $_product->getTypeId() === 'configurable') {
+    $product = $_product;
+    $sku = $block->getSku($_item);
+    if (isset($sku) && $sku !== '') {
+        try {
+            $product = \Magento\Framework\App\ObjectManager::getInstance()
+                ->get(\Magento\Catalog\Api\ProductRepositoryInterface::class)->get($sku);
+        } catch (\Magento\Framework\Exception\NoSuchEntityException $exception) {
+            // Use the parent image if the ordered child SKU is no longer available.
+        }
+    }
+    $imgSrc = $_imageHelper->init($product, 'thumbnail', ['type' => 'thumbnail'])
+        ->keepAspectRatio(true)->resize('200', '200')->getUrl();
+    if (strpos($imgSrc, 'placeholder') !== false && $product !== $_product) {
+        $imgSrc = $_imageHelper->init($_product, 'thumbnail', ['type' => 'thumbnail'])
+            ->keepAspectRatio(true)->resize('200', '200')->getUrl();
+    }
+    ?>
+    <p><img src="<?= $block->escapeUrl($imgSrc) ?>" alt="<?= $block->escapeHtmlAttr(__('Product Image')) ?>"></p>
+    <?php
 }
 ?>
         <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
