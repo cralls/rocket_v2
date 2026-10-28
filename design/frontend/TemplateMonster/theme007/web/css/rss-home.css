@@ -556,3 +556,22 @@
   outline: 2px solid #d8bb72;
   outline-offset: 3px;
 }
+
+/* Mobile video includes its own upper-right skip artwork. Place the real
+   control over that icon without drawing a second icon on top of it. */
+@media (max-width: 767px) {
+  .rss-home-hero__skip,
+  .rss-home-hero__skip:hover,
+  .rss-home-hero__skip:focus {
+    bottom: auto;
+    height: 56px;
+    padding: 0;
+    right: 0;
+    top: 0;
+    width: 48px;
+  }
+
+  .rss-home-hero__skip svg {
+    visibility: hidden;
+  }
+}
