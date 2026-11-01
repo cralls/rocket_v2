@@ -1,4 +1,4 @@
-/** RSS PDP Rev1, 2026-11-01: native size selection and existing cart/size guide. */
+/** RSS PDP Rev2, 2026-11-01: native size selection and existing cart/size guide. */
 define(['jquery', 'mage/translate'], function ($, $t) {
     'use strict';
 
@@ -100,9 +100,10 @@ define(['jquery', 'mage/translate'], function ($, $t) {
                 if (actions.find('.rss-pdp-customize').length) {
                     return;
                 }
-                $('<a>', {
+                $('<button>', {
+                    type: 'button',
                     'class': 'action rss-pdp-customize',
-                    href: config.customizeUrl,
+                    disabled: true,
                     text: config.customizeLabel || $t('Customize')
                 }).prependTo(actions);
                 actions.addClass('rss-pdp-cart-actions');
