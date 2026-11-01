@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- RSS Rev1, 2026-11-01: use live original product media on the dev hostname. -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Product\Image\UrlBuilder">
+        <plugin name="vns_custom_dev_product_media" type="VNS\Custom\Plugin\DevProductMediaUrl" sortOrder="10"/>
+    </type>
+</config>
