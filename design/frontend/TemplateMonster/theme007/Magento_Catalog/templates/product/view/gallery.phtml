@@ -1,0 +1,63 @@
+<?php
+/**
+ * RSS Rev2, 2026-11-01: use configured external media instead of local placeholders.
+ * Retains Magento gallery options, video metadata, fullscreen and magnifier setup.
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+$product = $block->getProduct();
+$images = $block->getGalleryImages()->getItems();
+$galleryData = json_decode($block->getGalleryImagesJson(), true);
+$mediaUrl = rtrim($product->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA, true), '/') . '/';
+$mediaHost = strtolower((string)parse_url($mediaUrl, PHP_URL_HOST));
+$requestHost = strtolower((string)parse_url('https://' . $block->getRequest()->getHttpHost(), PHP_URL_HOST));
+$useExternalMedia = $mediaHost !== '' && $mediaHost !== $requestHost;
+$mainImage = null;
+$firstImage = null;
+$index = 0;
+foreach ($images as $image) {
+    $file = ltrim((string)$image->getFile(), '/');
+    if ($useExternalMedia && $file !== '' && $file !== 'no_selection'
+        && strpos($file, '://') === false && strpos($file, "\0") === false
+        && !in_array('..', explode('/', $file), true)
+    ) {
+        $url = $mediaUrl . 'catalog/product/' . implode('/', array_map('rawurlencode', explode('/', $file)));
+        if (isset($galleryData[$index])) {
+            foreach (['thumb', 'img', 'full'] as $key) {
+                $galleryData[$index][$key] = $url;
+            }
+        }
+    } else {
+        $url = $image->getData('medium_image_url');
+    }
+    if ($firstImage === null) {
+        $firstImage = $url;
+    }
+    if ($block->isMainImage($image)) {
+        $mainImage = $url;
+    }
+    $index++;
+}
+$mainImageData = $mainImage ?: $firstImage;
+if (!$mainImageData) {
+    $mainImageData = $block->getData('imageHelper')->getDefaultPlaceholderUrl('image');
+}
+?>
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder" data-rss-gallery-revision="external-media-2">
+    <img alt="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+         class="gallery-placeholder__image"
+         src="<?= $block->escapeUrl($mainImageData) ?>"/>
+</div>
+<script type="text/x-magento-init">
+{
+    "[data-gallery-role=gallery-placeholder]": {
+        "mage/gallery/gallery": {
+            "mixins": ["magnifier/magnify"],
+            "magnifierOpts": <?= /* @noEscape */ $block->getMagnifier() ?>,
+            "data": <?= /* @noEscape */ json_encode($galleryData, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>,
+            "options": <?= /* @noEscape */ $block->getGalleryOptions()->getOptionsJson() ?>,
+            "fullscreen": <?= /* @noEscape */ $block->getGalleryOptions()->getFSOptionsJson() ?>,
+            "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
+        }
+    }
+}
+</script>

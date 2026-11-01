@@ -1,7 +1,13 @@
 <?xml version="1.0"?>
-<!-- RSS Rev1, 2026-11-01: use live original product media on the dev hostname. -->
+<!-- RSS Rev2, 2026-11-01: external media for native and variation galleries. -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <type name="Magento\Catalog\Model\Product\Image\UrlBuilder">
-        <plugin name="vns_custom_dev_product_media" type="VNS\Custom\Plugin\DevProductMediaUrl" sortOrder="10"/>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="vns_custom_external_gallery_media" type="VNS\Custom\Plugin\DevProductMediaUrl" sortOrder="100"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Helper\Data">
+        <plugin name="vns_custom_external_configurable_media" type="VNS\Custom\Plugin\DevProductMediaUrl" sortOrder="100"/>
+    </type>
+    <type name="Magento\Swatches\Helper\Data">
+        <plugin name="vns_custom_external_swatch_media" type="VNS\Custom\Plugin\DevProductMediaUrl" sortOrder="100"/>
     </type>
 </config>
