@@ -1,0 +1,28 @@
+<?php
+/** RSS PDP Rev1, 2026-11-01: open description; retain other product information.
+ * @var $block \Magento\Catalog\Block\Product\View\Details
+ */
+?>
+<div class="product info detailed rss-pdp-details">
+    <?php foreach ($block->getGroupSortedChildNames('detailed_info', 'getChildHtml') as $name): ?>
+        <?php
+        $html = $block->getLayout()->renderElement($name);
+        if (!trim($html)) {
+            continue;
+        }
+        $alias = $block->getLayout()->getElementAlias($name);
+        $title = $block->getChildData($alias, 'title');
+        ?>
+        <?php if ($alias === 'description'): ?>
+            <section class="rss-pdp-description" id="description" aria-labelledby="rss-pdp-details-title">
+                <h2 id="rss-pdp-details-title"><?= $block->escapeHtml($title ?: __('Details')) ?></h2>
+                <?= /* @noEscape */ $html ?>
+            </section>
+        <?php else: ?>
+            <details class="rss-pdp-extra" id="<?= $block->escapeHtmlAttr($alias) ?>">
+                <summary><?= $block->escapeHtml($title) ?></summary>
+                <?= /* @noEscape */ $html ?>
+            </details>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>

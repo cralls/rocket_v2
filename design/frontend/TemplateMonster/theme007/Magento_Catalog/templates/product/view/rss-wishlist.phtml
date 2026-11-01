@@ -1,0 +1,16 @@
+<?php
+/** RSS PDP Rev1, 2026-11-01: Scott's heart icon, native Magento wishlist action.
+ * @var $block \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist
+ */
+?>
+<?php if ($block->isWishListAllowed()): ?>
+    <a href="#" class="action towishlist rss-pdp-wishlist"
+       data-post='<?= /* @noEscape */ $block->getWishlistParams() ?>'
+       data-action="add-to-wishlist"
+       aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>">
+        <img src="<?= $block->escapeUrl($block->getViewFileUrl('images/rss/pdp-heart.svg')) ?>" alt=""/>
+    </a>
+<?php endif; ?>
+<script type="text/x-magento-init">
+{"body": {"addToWishlist": <?= /* @noEscape */ $block->getWishlistOptionsJson() ?>}}
+</script>

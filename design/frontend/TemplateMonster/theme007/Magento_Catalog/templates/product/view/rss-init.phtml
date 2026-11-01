@@ -1,0 +1,16 @@
+<?php
+/** RSS PDP Rev1, 2026-11-01: progressively enhance native product controls.
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+$config = [
+    'customizeUrl' => $block->getUrl('catalog/category/view', ['id' => 47]),
+    'customizeLabel' => (string)__('Customize'),
+    'selectSizeLabel' => (string)__('Select Size'),
+    'sizeGuideLabel' => (string)__('Size Guide')
+];
+?>
+<script type="text/x-magento-init">
+<?= /* @noEscape */ json_encode([
+    '.rss-product-page .column.main' => ['js/rss-product' => $config]
+], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
+</script>

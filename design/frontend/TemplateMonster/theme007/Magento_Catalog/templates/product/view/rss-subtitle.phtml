@@ -1,0 +1,28 @@
+<?php
+/** RSS PDP Rev1, 2026-11-01: derive the subtitle from the current product data.
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+$product = $block->getProduct();
+$gender = $product->getAttributeText('gender');
+if (is_array($gender)) {
+    $gender = implode(', ', $gender);
+}
+$genderLabels = ['male' => (string)__("Men’s"), 'female' => (string)__("Women’s")];
+$gender = $genderLabels[strtolower((string)$gender)] ?? (string)$gender;
+$sport = '';
+$sportNames = ['triathlon', 'swimming', 'cycling', 'running', 'wetsuits', 'water polo', 'trail'];
+$categories = $product->getCategoryCollection()
+    ->setStoreId((int)$product->getStoreId())
+    ->addAttributeToSelect('name')
+    ->addAttributeToSort('level', 'DESC');
+foreach ($categories as $category) {
+    if (in_array(strtolower(trim((string)$category->getName())), $sportNames, true)) {
+        $sport = (string)$category->getName();
+        break;
+    }
+}
+$subtitle = trim($gender . ' ' . $sport);
+?>
+<?php if ($subtitle !== ''): ?>
+    <p class="rss-pdp-subtitle"><?= $block->escapeHtml($subtitle) ?></p>
+<?php endif; ?>

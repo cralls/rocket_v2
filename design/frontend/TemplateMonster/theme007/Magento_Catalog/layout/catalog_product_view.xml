@@ -1,19 +1,53 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
+<!-- RSS PDP Rev1, 2026-11-01: Figma 280:722; retain native gallery/options/cart. -->
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
         <css src="mage/gallery/gallery.css" media="all"/>
+        <css src="css/rss-product.css"/>
     </head>
-    <referenceContainer name="columns" htmlClass="columns container layout_1"/>
-    <referenceBlock name="breadcrumbs" template="Magento_Theme::html/breadcrumbs.phtml" />
-	<block class="Magento\Catalog\Block\Breadcrumbs" />
-    <move element="page.main.title" destination="product.info.price" after="product.info.stock.sku"/>
-    <move element="product.info.review" destination="product.info.main"/>
-    <move element="product.info.overview" destination="product.info.main" after="product.info.price"/>
-
+    <body>
+        <attribute name="class" value="rss-product-page"/>
+        <referenceContainer name="columns" htmlClass="columns container layout_1"/>
+        <referenceContainer name="rd.navbar-wrap" remove="true"/>
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template" name="rss.product.topbar" template="Magento_Theme::html/rss-category-topbar.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceContainer name="product.info.main">
+            <container name="rss.product.heading" htmlTag="div" htmlClass="rss-pdp-heading" before="-">
+                <block class="Magento\Catalog\Block\Product\View" name="rss.product.subtitle" template="Magento_Catalog::product/view/rss-subtitle.phtml"/>
+            </container>
+            <container name="rss.product.purchase" htmlTag="div" htmlClass="rss-pdp-purchase" after="product.info.media"/>
+        </referenceContainer>
+        <move element="page.main.title" destination="rss.product.heading" before="-"/>
+        <move element="product.price.final" destination="rss.product.heading" after="rss.product.subtitle"/>
+        <move element="product.info.media" destination="product.info.main" after="rss.product.heading"/>
+        <move element="product.info.price" destination="rss.product.purchase" before="-"/>
+        <move element="product.price.tier" destination="rss.product.purchase" after="product.info.price"/>
+        <move element="alert.urls" destination="rss.product.purchase" after="product.price.tier"/>
+        <move element="product.info.sizechart" destination="rss.product.purchase" before="product.info"/>
+        <move element="product.info.teamportal" destination="rss.product.purchase" before="product.info"/>
+        <move element="product.info" destination="rss.product.purchase" after="alert.urls"/>
+        <move element="product.info.extrahint" destination="rss.product.purchase" after="product.info"/>
+        <move element="product.info.details" destination="content" after="product.info.main"/>
+        <referenceBlock name="product.info.sku" remove="true"/>
+        <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.info.overview" remove="true"/>
+        <referenceBlock name="view.addto.compare" remove="true"/>
+        <referenceBlock name="product.info.mailto" remove="true"/>
+        <referenceBlock name="view.addto.wishlist" template="Magento_Catalog::product/view/rss-wishlist.phtml"/>
+        <move element="view.addto.wishlist" destination="product.info.media" after="-"/>
+        <referenceBlock name="product.info.details" template="Magento_Catalog::product/view/rss-details.phtml"/>
+        <referenceContainer name="footer.grid-container" remove="true"/>
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="newsletter_popup" remove="true"/>
+        <referenceContainer name="footer">
+            <block class="Magento\Framework\View\Element\Template" name="rss.product.footer" template="Magento_Theme::html/rss-category-footer.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="to.top.button" remove="true"/>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="rss.product.init" template="Magento_Catalog::product/view/rss-init.phtml"/>
+        </referenceContainer>
+    </body>
 </page>
+
