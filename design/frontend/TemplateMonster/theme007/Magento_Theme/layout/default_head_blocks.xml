@@ -14,5 +14,6 @@
         <css src="css/modules.css" />
         <css src="css/style.css" />
         <css src="css/rss-brand.css" />
+        <script src="js/rss-help-launcher.js" />
     </head>
 </page>
