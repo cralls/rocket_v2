@@ -95,7 +95,6 @@
 }
 .rss-product-page .fotorama-item:not(.fotorama--fullscreen) .fotorama__stage {
   background: #f5f5f5;
-  height: min(86.8vw, 500px) !important;
   position: relative !important;
   width: 100% !important;
 }
@@ -404,6 +403,7 @@
 .rss-product-page .rss-category-footer__socials { align-items: center; display: flex; flex: 0 0 72px; height: 20px; justify-content: flex-end; margin-right: 52px; width: 72px; }
 .rss-product-page .rss-category-footer__socials img { display: block; }
 @media (max-width: 767px) {
+  .rss-product-page .fotorama-item:not(.fotorama--fullscreen) .fotorama__stage { height: min(86.8vw, 500px) !important; }
   .rss-product-page .fotorama-item:not(.fotorama--fullscreen) .fotorama__nav-wrap { display: none; }
 }
 @media (max-width: 374px) {
@@ -416,10 +416,14 @@
 @media (min-width: 768px) {
   .rss-product-page .rss-category-topbar,
   .rss-product-page .rss-category-footer { padding-left: max(24px, calc((100% - 1200px) / 2)); padding-right: max(24px, calc((100% - 1200px) / 2)); }
-  .rss-product-page .product-info-main { display: grid; gap: 0 40px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); margin: 40px auto 0; max-width: 1200px; padding: 0 24px; }
+  /* The legacy theme caps both the PDP container and its gallery as separate flex columns. */
+  .catalog-product-view.rss-product-page .layout_1 .product-info-main,
+  .rss-product-page .product-info-main { display: grid; gap: 0 40px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: max-content auto; margin: 40px auto 0; max-width: 1200px; padding: 0 24px; }
   .rss-product-page .rss-pdp-heading { grid-column: 2; grid-row: 1; padding: 0; }
   .rss-product-page .rss-pdp-heading .page-title { font-size: 26px; line-height: 36px; }
-  .rss-product-page .product.media { align-self: start; grid-column: 1; grid-row: 1 / span 2; }
+  .rss-product-page .layout_1 .product-info-main > .product.media,
+  .rss-product-page .product.media { align-self: start; grid-column: 1; grid-row: 1 / span 2; max-width: none; min-width: 0; padding: 0; }
+  .rss-product-page .gallery-placeholder__image { aspect-ratio: 1; height: auto; max-height: none; }
   .rss-product-page .rss-pdp-purchase { grid-column: 2; grid-row: 2; padding: 24px 0 0; }
   .rss-product-page .product.info.detailed.rss-pdp-details { margin: 0 auto; max-width: 1200px; padding: 64px 24px 48px; }
   .rss-product-page .rss-pdp-description { max-width: 800px; }
