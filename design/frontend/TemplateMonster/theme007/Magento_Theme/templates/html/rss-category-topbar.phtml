@@ -1,7 +1,7 @@
 <?php
 /**
  * Rocket Science Sports compact category header.
- * Mirrors the approved homepage top bar without loading the legacy RD navbar.
+ * RSS 2026-11-14: add the shared program menu to redesigned subpages.
  *
  * @var $block \Magento\Framework\View\Element\Template
  */
@@ -13,11 +13,23 @@ $cartIconUrl = $block->getViewFileUrl('images/rss/shopping-cart.svg');
 ?>
 <div class="rss-category-shell">
     <header class="rss-category-topbar" aria-label="<?= $block->escapeHtmlAttr(__('Site controls')) ?>">
-        <a class="rss-category-topbar__brand"
-           href="<?= $block->escapeUrl($baseUrl) ?>"
-           aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
-            <img src="<?= $block->escapeUrl($rocketManUrl) ?>" alt="" width="37" height="33" />
-        </a>
+        <div class="rss-subpage-menu-brand">
+            <details class="rss-subpage-menu">
+                <summary class="rss-subpage-menu__toggle" aria-label="<?= $block->escapeHtmlAttr(__('Main menu')) ?>">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </summary>
+                <div class="rss-subpage-menu__panel">
+                    <?= $block->getChildHtml('rss.program.menu') ?>
+                </div>
+            </details>
+            <a class="rss-category-topbar__brand"
+               href="<?= $block->escapeUrl($baseUrl) ?>"
+               aria-label="<?= $block->escapeHtmlAttr(__('Rocket Science Sports home')) ?>">
+                <img src="<?= $block->escapeUrl($rocketManUrl) ?>" alt="" width="37" height="33" />
+            </a>
+        </div>
         <nav class="rss-category-topbar__actions" aria-label="<?= $block->escapeHtmlAttr(__('Account and shopping controls')) ?>">
             <a class="rss-category-topbar__action"
                href="<?= $block->escapeUrl($block->getUrl('catalogsearch/advanced')) ?>"

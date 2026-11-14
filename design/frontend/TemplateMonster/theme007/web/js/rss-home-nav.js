@@ -4,6 +4,7 @@ define(['jquery'], function ($) {
     return function (config, element) {
         var $nav = $(element);
         var $toggles = $nav.find('.rss-home-nav__toggle');
+        var $drawer = $nav.closest('.rss-subpage-menu');
 
         function styleHelpLauncher() {
             var attempts = 0;
@@ -103,7 +104,29 @@ define(['jquery'], function ($) {
             }
         }
 
-        styleHelpLauncher();
+        if ($drawer.length) {
+            var $menuToggle = $drawer.children('summary');
+
+            $(document).on('click.rssSubpageMenu', function (event) {
+                if ($drawer.prop('open') && !$drawer[0].contains(event.target)) {
+                    $drawer.prop('open', false);
+                }
+            });
+
+            $drawer.on('keydown', function (event) {
+                if (event.key === 'Escape' && $drawer.prop('open')) {
+                    event.preventDefault();
+                    $drawer.prop('open', false);
+                    $menuToggle.trigger('focus');
+                }
+            });
+
+            $nav.on('click', 'a', function () {
+                $drawer.prop('open', false);
+            });
+        } else {
+            styleHelpLauncher();
+        }
 
         $toggles.on('click', function () {
             var $toggle = $(this);

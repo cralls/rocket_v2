@@ -1,0 +1,67 @@
+/* RSS 2026-11-14: program menu in the compact storefront header. */
+.rss-subpage-menu-brand {
+  align-items: center;
+  display: flex;
+}
+
+.rss-subpage-menu {
+  position: relative;
+  z-index: 20;
+}
+
+.rss-subpage-menu__toggle {
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  list-style: none;
+  width: 32px;
+}
+
+.rss-subpage-menu__toggle::-webkit-details-marker { display: none; }
+.rss-subpage-menu__toggle:focus-visible { outline: 2px solid #d8bb72; outline-offset: -2px; }
+.rss-subpage-menu[open] .rss-subpage-menu__toggle { background: #2c2c2c; }
+
+.rss-subpage-menu:not([open]) .rss-subpage-menu__panel { display: none; }
+
+.rss-subpage-menu__panel {
+  background: #000;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .3);
+  left: 0;
+  max-height: calc(100vh - 55px);
+  max-height: calc(100dvh - 55px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  position: absolute;
+  top: 100%;
+  width: min(440px, calc(100vw - 24px));
+}
+
+.rss-subpage-menu .rss-home-nav { padding: 0 12px; }
+
+.rss-subpage-menu .rss-home-nav__item {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 52px;
+  width: 100%;
+}
+
+.rss-subpage-menu .rss-home-nav__group + .rss-home-nav__group:not(._open) .rss-home-nav__item {
+  border-top: 1px solid #6f6f6f;
+}
+
+.rss-subpage-menu .rss-home-nav__label {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.rss-subpage-menu .rss-home-nav__chevron { flex: 0 0 32px; }
+.rss-subpage-menu .rss-home-nav__chevron img { display: block; width: 32px; height: 32px; }
+.rss-subpage-menu .rss-home-nav__secondary { margin: 0 12px; }
+.rss-subpage-menu .rss-home-nav__tab { font-size: clamp(12px, 4vw, 18px); }
+.rss-subpage-menu .rss-home-nav__tablinks { grid-template-columns: 1fr; }

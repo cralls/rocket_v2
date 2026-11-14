@@ -13,7 +13,8 @@
         <referenceBlock name="to.top.button" remove="true" />
 
         <referenceContainer name="content">
-            <block class="Magento\Catalog\Block\Navigation" name="rss.homepage" template="Magento_Cms::rss-home.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="rss.homepage" template="Magento_Cms::rss-home.phtml">
+                <block class="Rocket\Catalog\Block\ProgramNavigation" name="rss.home.program.menu" as="rss.program.menu" template="Magento_Theme::html/rss-program-menu.phtml" />
                 <block class="Magento\Newsletter\Block\Subscribe" name="rss.home.newsletter" as="rss.newsletter" template="Magento_Newsletter::rss-subscribe.phtml" />
             </block>
         </referenceContainer>

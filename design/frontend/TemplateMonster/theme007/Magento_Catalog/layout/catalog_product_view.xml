@@ -4,13 +4,17 @@
     <head>
         <css src="mage/gallery/gallery.css" media="all"/>
         <css src="css/rss-product.css"/>
+        <css src="css/rss-home-nav.css" />
+        <css src="css/rss-subpage-menu.css" />
     </head>
     <body>
         <attribute name="class" value="rss-product-page"/>
         <referenceContainer name="columns" htmlClass="columns container layout_1"/>
         <referenceContainer name="rd.navbar-wrap" remove="true"/>
         <referenceContainer name="header.container">
-            <block class="Magento\Framework\View\Element\Template" name="rss.product.topbar" template="Magento_Theme::html/rss-category-topbar.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="rss.product.topbar" template="Magento_Theme::html/rss-category-topbar.phtml">
+                <block class="Rocket\Catalog\Block\ProgramNavigation" name="rss.product.topbar.menu" as="rss.program.menu" template="Magento_Theme::html/rss-program-menu.phtml" />
+            </block>
         </referenceContainer>
         <referenceBlock name="breadcrumbs" remove="true"/>
         <referenceContainer name="product.info.main">
