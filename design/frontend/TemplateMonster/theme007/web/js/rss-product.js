@@ -1,10 +1,9 @@
-/** RSS PDP Rev2, 2026-11-01: native size selection and existing cart/size guide. */
+/** RSS PDP: configurable option chips and existing cart/size guide. */
 define(['jquery', 'mage/translate'], function ($, $t) {
     'use strict';
 
     return function (config, element) {
         var root = $(element);
-        var selects = [];
 
         if (root.data('rssPdpReady')) {
             return;
@@ -30,61 +29,80 @@ define(['jquery', 'mage/translate'], function ($, $t) {
             }
         }
 
-        function enhanceSizes() {
+        function enhanceRetailOptions() {
             root.find('select.super-attribute-select').each(function () {
                 var select = $(this);
                 var field = select.closest('.field');
                 var label = field.children('.label');
-                var labelText = label.find('span').first().text() || label.text();
+                var labelSpan = label.find('span').first();
+                var labelText = (labelSpan.text() || label.text()).trim();
+                var optionType = /\bsizes?\b/i.test(labelText) ? 'size' :
+                    /\bcolou?rs?\b/i.test(labelText) ? 'color' : '';
+                var form = select.closest('form');
+                var attributeId = (select.attr('name') || '').match(/^super_attribute\[(\d+)\]$/);
                 var grid;
 
-                // Bulk ordering keeps the BSS table and all per-size quantities intact.
-                if (select.data('rssSizeReady') || field.hasClass('bss-hidden') || !/size/i.test(labelText)) {
+                if (select.data('rssOptionReady') || !optionType) {
                     return;
                 }
-                select.data('rssSizeReady', true);
-                grid = $('<div>', {'class': 'rss-pdp-sizes', role: 'group', 'aria-label': labelText.trim()});
+                select.data('rssOptionReady', true);
+                grid = $('<div>', {'class': 'rss-pdp-sizes', role: 'group', 'aria-label': labelText});
                 select.after(grid);
 
                 function sync() {
-                    var options = Array.prototype.filter.call(select[0].options, function (option) {
+                    var configurable = form.data('mage-configurable');
+                    var spConfig = configurable && configurable.options.spConfig;
+                    var attributes = spConfig && spConfig.attributes;
+                    var attribute = attributes && attributeId && attributes[attributeId[1]];
+                    var nativeOptions = Array.prototype.filter.call(select[0].options, function (option) {
                         return option.value !== '';
                     });
+                    // Magento normally doesn't populate a dependent select until its parent is chosen.
+                    var options = nativeOptions.length ? nativeOptions : (attribute && attribute.options) || [];
+                    var active = document.activeElement;
+                    var focusedValue = $.contains(grid[0], active) ? active.value : null;
+                    var selectedValue = select.val();
 
                     grid.empty();
                     if (!options.length) {
-                        select.removeClass('rss-pdp-native-size').removeAttr('aria-hidden tabindex');
+                        select.removeClass('rss-pdp-native-option').removeAttr('aria-hidden tabindex');
                         grid.prop('hidden', true);
                         return;
                     }
                     grid.prop('hidden', false);
-                    field.addClass('rss-pdp-size-field');
-                    label.find('span').first().text(config.selectSizeLabel || $t('Select Size'));
-                    select.addClass('rss-pdp-native-size').attr({'aria-hidden': 'true', tabindex: '-1'});
+                    field.addClass('rss-pdp-option-field');
+                    if (optionType === 'size') {
+                        field.addClass('rss-pdp-size-field');
+                        labelSpan.text(config.selectSizeLabel || $t('Select Size'));
+                    }
+                    select.addClass('rss-pdp-native-option').attr({'aria-hidden': 'true', tabindex: '-1'});
                     options.forEach(function (option) {
-                        $('<button>', {
+                        var value = nativeOptions.length ? option.value : String(option.id);
+                        var selected = value === selectedValue;
+                        var button = $('<button>', {
                             type: 'button',
-                            'class': 'rss-pdp-size' + (option.value === select.val() ? ' is-selected' : ''),
-                            text: option.text,
-                            disabled: select.prop('disabled') || option.disabled,
-                            'aria-pressed': option.value === select.val() ? 'true' : 'false'
+                            value: value,
+                            'class': 'rss-pdp-size' + (selected ? ' is-selected' : ''),
+                            text: nativeOptions.length ? option.text : option.label,
+                            disabled: !nativeOptions.length || select.prop('disabled') || option.disabled,
+                            'aria-pressed': String(selected)
                         }).on('click', function () {
                             // Magento updates simple-product selection, price and gallery here.
-                            select.val(option.value).trigger('change');
-                            selects.forEach(function (item) { item.sync(); });
-                            if (select.closest('form').data('validator')) {
+                            select.val(value).trigger('change');
+                            if (form.data('validator')) {
                                 select.valid();
                             }
-                            grid.find('button').filter(function () {
-                                return $(this).text() === option.text;
-                            }).first().trigger('focus');
                         }).appendTo(grid);
+                        if (value === focusedValue && !button.prop('disabled')) {
+                            button[0].focus({preventScroll: true});
+                        }
                     });
                     placeSizeGuide();
                 }
 
-                selects.push({sync: sync});
-                select.on('change.rssPdp', sync);
+                // Listen at the form so Magento's field handlers update dependent selects first.
+                form.on('change.rssPdp', 'select.super-attribute-select', sync);
+                form.on('configurablecreate.rssPdp', sync);
                 if (window.MutationObserver) {
                     new MutationObserver(sync).observe(select[0], {
                         childList: true,
@@ -245,7 +263,7 @@ define(['jquery', 'mage/translate'], function ($, $t) {
                 enhanceBulkOrder();
                 placeSizeGuide();
             } else {
-                enhanceSizes();
+                enhanceRetailOptions();
             }
         }
 
