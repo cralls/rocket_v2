@@ -123,6 +123,12 @@ define(['jquery', 'mage/translate'], function ($, $t) {
             var headers = table.find('thead th');
             var sizes = [];
             var byId = Object.create(null);
+            var colors = [];
+            var colorsById = Object.create(null);
+            var activeColor = '';
+            var colorAttributeId;
+            var colorSelect;
+            var colorButtons;
             var sizeAttributeId;
             var toolbar;
             var chips;
@@ -136,13 +142,26 @@ define(['jquery', 'mage/translate'], function ($, $t) {
                 return (cell.find('.attr-label').text() || cell.find('[option-label]').first().attr('option-label') || '').trim();
             }
 
+            function attributeCell(variants, code) {
+                return variants.filter(function () {
+                    return code.test($(this).attr('attribute-code') || '');
+                }).first();
+            }
+
+            function nativeAttribute(attributeId) {
+                return order.closest('.product-options-wrapper').find('.bss-hidden .super-attribute-select').filter(function () {
+                    return this.id === 'attribute' + attributeId;
+                });
+            }
+
             rows.each(function () {
                 var row = $(this);
                 var variants = row.children('.bss-swatch');
-                var sizeCell = variants.filter(function () {
-                    return /(^|_)size(_|$)/i.test($(this).attr('attribute-code') || '');
-                }).first();
+                var sizeCell = attributeCell(variants, /(^|_)size(_|$)/i);
+                var colorCell = attributeCell(variants, /(^|_)colou?r(_|$)/i);
                 var input = row.find('input.qty_att_product').first();
+                var colorId = colorCell.attr('attribute-value');
+                var colorLabel = variantLabel(colorCell);
                 var sizeId = sizeCell.attr('attribute-value');
                 var sizeLabel = variantLabel(sizeCell);
                 var variantLabels = variants.map(function () {
@@ -158,6 +177,15 @@ define(['jquery', 'mage/translate'], function ($, $t) {
                     if (!input.attr('aria-label') && variantLabels.length) {
                         input.attr('aria-label', $t('Quantity for %1').replace('%1', variantLabels.join(', ')));
                     }
+                }
+
+                if (colorId && colorLabel) {
+                    colorAttributeId = colorCell.attr('attribute-id');
+                    if (!colorsById[colorId]) {
+                        colorsById[colorId] = true;
+                        colors.push({id: colorId, label: colorLabel});
+                    }
+                    row.data('rssBulkColor', colorId);
                 }
 
                 if (!sizeId || !sizeLabel) {
@@ -181,30 +209,74 @@ define(['jquery', 'mage/translate'], function ($, $t) {
                 text: $t('Reset quantities')
             }));
 
-            if (!sizes.length) {
+            if (!sizes.length && !colors.length) {
                 return;
             }
 
             toolbar = $('<div>', {'class': 'rss-pdp-bulk-toolbar'}).prependTo(order);
-            $('<div>', {'class': 'rss-pdp-bulk-size-heading'}).append(
-                $('<span>', {text: $t('Select Sizes')})
-            ).appendTo(toolbar);
-            chips = $('<div>', {
-                'class': 'rss-pdp-sizes',
-                role: 'group',
-                'aria-label': $t('Jump to a size quantity')
-            }).appendTo(toolbar);
-            $('<p>', {
-                'class': 'rss-pdp-bulk-hint',
-                text: $t('Choose a size to jump to its quantity. You can order more than one size.')
-            }).appendTo(toolbar);
+            if (colors.length) {
+                colorSelect = nativeAttribute(colorAttributeId);
+                colorSelect.closest('.bss-hidden').addClass('rss-pdp-bulk-native-option');
+                $('<div>', {'class': 'rss-pdp-bulk-heading', text: $t('Color')}).appendTo(toolbar);
+                colorButtons = $('<div>', {
+                    'class': 'rss-pdp-sizes rss-pdp-bulk-colors',
+                    role: 'group',
+                    'aria-label': $t('Filter variants by color')
+                }).appendTo(toolbar);
+                if (colors.length > 1) {
+                    colors.unshift({id: '', label: $t('All Colors')});
+                }
+                colors.forEach(function (color) {
+                    $('<button>', {
+                        type: 'button',
+                        'class': 'rss-pdp-size',
+                        value: color.id,
+                        text: color.label
+                    }).on('click', function () {
+                        filterColor(color.id);
+                        if (color.id && colorSelect.find('option').filter(function () {
+                            return this.value === color.id;
+                        }).length) {
+                            colorSelect.val(color.id).trigger('change');
+                        }
+                    }).appendTo(colorButtons);
+                });
+            }
+            if (sizes.length) {
+                $('<div>', {'class': 'rss-pdp-bulk-heading rss-pdp-bulk-size-heading'}).append(
+                    $('<span>', {text: $t('Select Sizes')})
+                ).appendTo(toolbar);
+                chips = $('<div>', {
+                    'class': 'rss-pdp-sizes',
+                    role: 'group',
+                    'aria-label': $t('Jump to a size quantity')
+                }).appendTo(toolbar);
+                $('<p>', {
+                    'class': 'rss-pdp-bulk-hint',
+                    text: $t('Choose a size to jump to its quantity. You can order more than one size.')
+                }).appendTo(toolbar);
+                nativeAttribute(sizeAttributeId).closest('.bss-hidden').addClass('rss-pdp-bulk-native-option');
+            }
 
-            order.closest('.product-options-wrapper').find('.bss-hidden .super-attribute-select').filter(function () {
-                return this.id === 'attribute' + sizeAttributeId;
-            }).closest('.bss-hidden').addClass('rss-pdp-bulk-native-size');
+            function filterColor(colorId) {
+                activeColor = colorId;
+                // Keep every input enabled or disabled as BSS left it, including on filtered rows.
+                rows.each(function () {
+                    var row = $(this);
+                    var rowColor = row.data('rssBulkColor');
+                    row.toggleClass('rss-pdp-bulk-filtered', !!activeColor && !!rowColor && rowColor !== activeColor);
+                });
+                colorButtons.children('button').each(function () {
+                    var selected = this.value === activeColor;
+                    $(this).toggleClass('is-selected', selected).attr('aria-pressed', String(selected));
+                });
+                table.parent().scrollTop(0);
+                syncChips();
+            }
 
             function canOrder(input) {
-                return !input.disabled && !input.readOnly && $(input).is(':visible');
+                return !input.disabled && !input.readOnly &&
+                    !$(input).closest('tr').hasClass('rss-pdp-bulk-filtered');
             }
 
             function syncChips() {
@@ -239,7 +311,18 @@ define(['jquery', 'mage/translate'], function ($, $t) {
             order.on('input.rssBulk change.rssBulk', '.qty_att_product', syncChips);
             order.on('click.rssBulk', '.reset-configurablegridview', syncChips);
             root.on('contentUpdated.rssBulk', syncChips);
-            syncChips();
+            if (window.MutationObserver) {
+                new MutationObserver(syncChips).observe(table[0], {
+                    attributes: true,
+                    attributeFilter: ['disabled', 'readonly'],
+                    subtree: true
+                });
+            }
+            if (colors.length) {
+                filterColor(colors[0].id);
+            } else {
+                syncChips();
+            }
         }
 
         function placeCustomize() {

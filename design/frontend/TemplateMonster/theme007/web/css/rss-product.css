@@ -227,10 +227,13 @@
   white-space: nowrap;
   width: auto !important;
 }
-.rss-product-page .rss-pdp-bulk-native-size { display: none !important; }
+.rss-product-page .rss-pdp-bulk-native-option,
+.rss-product-page .rss-pdp-bulk .configurable-product-table tr.rss-pdp-bulk-filtered { display: none !important; }
 .rss-product-page #bss_configurablegridview.rss-pdp-bulk { border: 0; margin: 0; }
 .rss-pdp-bulk-toolbar { margin: 0 0 16px; }
-.rss-pdp-bulk-size-heading {
+.rss-pdp-bulk-colors:not(:last-child) { margin-bottom: 16px; }
+.rss-product-page .rss-pdp-bulk-colors .rss-pdp-size { overflow-wrap: anywhere; }
+.rss-pdp-bulk-heading {
   align-items: center;
   color: #000;
   display: flex;
