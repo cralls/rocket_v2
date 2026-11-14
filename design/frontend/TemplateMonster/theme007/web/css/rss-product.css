@@ -227,6 +227,130 @@
   white-space: nowrap;
   width: auto !important;
 }
+.rss-product-page .rss-pdp-bulk-native-size { display: none !important; }
+.rss-product-page #bss_configurablegridview.rss-pdp-bulk { border: 0; margin: 0; }
+.rss-pdp-bulk-toolbar { margin: 0 0 16px; }
+.rss-pdp-bulk-size-heading {
+  align-items: center;
+  color: #000;
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  gap: 8px;
+  line-height: 30px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.rss-pdp-bulk-hint { color: #444; font-size: 14px; margin: 8px 0 0; }
+.rss-product-page .rss-pdp-bulk .configu-table {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.rss-product-page .rss-pdp-bulk .content-config {
+  border: 1px solid #e4e4e4;
+  height: auto !important;
+  margin: 0;
+  max-height: 400px;
+  overflow: auto;
+  padding: 0;
+}
+.rss-product-page .rss-pdp-bulk .configurable-product-table { margin: 0; }
+.rss-product-page .rss-pdp-bulk .configurable-product-table th {
+  background: #f5f5f5 !important;
+  color: #222;
+  font-weight: 600;
+}
+.rss-product-page .rss-pdp-bulk .configurable-product-table th,
+.rss-product-page .rss-pdp-bulk .configurable-product-table td { padding: 8px; }
+.rss-product-page .rss-pdp-bulk .qty-final .qty_att_product {
+  background: #fff;
+  border: 1px solid #bdbdbd;
+  border-radius: 0;
+  color: #000;
+  height: 44px;
+  margin: 0;
+  min-width: 3.5em;
+  scroll-margin-block: 52px 8px;
+  text-align: center;
+  width: 64px;
+}
+.rss-product-page .rss-pdp-bulk .qty_att_product:disabled { opacity: .5; }
+.rss-product-page .rss-pdp-bulk .qty_att_product:focus {
+  border-color: #000;
+  box-shadow: none;
+  outline: 2px solid var(--rss-gold, #d8bb72);
+  outline-offset: 1px;
+}
+.rss-product-page .rss-pdp-bulk .reset-configurablegridview {
+  margin: 4px 0 0;
+  position: static;
+  text-align: right;
+}
+.rss-product-page .rss-pdp-bulk-reset {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #333;
+  font: inherit;
+  min-height: 44px;
+  padding: 4px 8px;
+  text-decoration: underline;
+}
+.rss-product-page .rss-pdp-bulk .total-area,
+.rss-product-page .rss-pdp-bulk-options .total-area {
+  background: #f5f5f5;
+  border: 0;
+  padding: 8px 12px;
+  position: static;
+}
+.rss-product-page .rss-pdp-bulk-options .total-area .value,
+.rss-product-page .rss-pdp-bulk .total-area .value { margin-left: 4px; }
+@media (max-width: 767px) {
+  .rss-product-page .rss-pdp-bulk .configurable-product-table thead {
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tbody { display: block; }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info {
+    align-items: center;
+    border: 0;
+    border-bottom: 1px solid #e4e4e4;
+    display: grid;
+    gap: 4px 12px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding: 8px 12px;
+  }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info:last-child { border-bottom: 0; }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info > td {
+    border: 0 !important;
+    grid-column: 1;
+    overflow-wrap: anywhere;
+    padding: 0;
+    text-align: left;
+    width: auto;
+  }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info > td::before { content: none; }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info > .bss-mobile-hide { display: none !important; }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info > td[data-rss-bulk-label]:not([data-rss-bulk-label=""]):not(.qty-final)::before {
+    border: 0;
+    color: #555;
+    content: attr(data-rss-bulk-label) ": ";
+    display: inline;
+    font-size: 12px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+  }
+  .rss-product-page .rss-pdp-bulk .configurable-product-table tr.item-info > .qty-final {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+  .rss-product-page .rss-pdp-bulk .qty-final .qty_att_product { scroll-margin-block: 8px; }
+}
 .rss-product-page .box-tocart { margin: 24px 0 0; padding: 0; width: 100%; }
 .rss-product-page .box-tocart > .fieldset { display: block; margin: 0; padding: 0; }
 .rss-product-page .box-tocart .field.qty { margin: 0 0 16px; }

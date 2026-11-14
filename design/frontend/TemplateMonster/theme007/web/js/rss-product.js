@@ -13,7 +13,11 @@ define(['jquery', 'mage/translate'], function ($, $t) {
 
         function placeSizeGuide() {
             var guide = root.find('.ave-sizechart-show-link').first();
-            var label = root.find('.rss-pdp-size-field > .label, .swatch-attribute.size > .swatch-attribute-label').first();
+            var label = root.find('.rss-pdp-bulk-size-heading').first();
+
+            if (!label.length) {
+                label = root.find('.rss-pdp-size-field > .label, .swatch-attribute.size > .swatch-attribute-label').first();
+            }
 
             if (!guide.length || !label.length) {
                 return;
@@ -94,6 +98,132 @@ define(['jquery', 'mage/translate'], function ($, $t) {
             placeSizeGuide();
         }
 
+        function enhanceBulkOrder() {
+            var order = root.find('#bss_configurablegridview').first();
+            var table = order.find('.configurable-product-table').first();
+            var rows = table.find('tbody > tr.item-info');
+            var headers = table.find('thead th');
+            var sizes = [];
+            var byId = Object.create(null);
+            var sizeAttributeId;
+            var toolbar;
+            var chips;
+
+            if (!rows.find('.qty_att_product').length || order.hasClass('rss-pdp-bulk')) {
+                return;
+            }
+
+            function variantLabel(cell) {
+                // BSS replaces the original label with a swatch on some products.
+                return (cell.find('.attr-label').text() || cell.find('[option-label]').first().attr('option-label') || '').trim();
+            }
+
+            rows.each(function () {
+                var row = $(this);
+                var variants = row.children('.bss-swatch');
+                var sizeCell = variants.filter(function () {
+                    return /(^|_)size(_|$)/i.test($(this).attr('attribute-code') || '');
+                }).first();
+                var input = row.find('input.qty_att_product').first();
+                var sizeId = sizeCell.attr('attribute-value');
+                var sizeLabel = variantLabel(sizeCell);
+                var variantLabels = variants.map(function () {
+                    return variantLabel($(this));
+                }).get().filter(Boolean);
+
+                row.children('td').each(function (index) {
+                    $(this).attr('data-rss-bulk-label', headers.eq(index).text().trim());
+                });
+
+                if (input.length) {
+                    input.attr('inputmode', 'decimal');
+                    if (!input.attr('aria-label') && variantLabels.length) {
+                        input.attr('aria-label', $t('Quantity for %1').replace('%1', variantLabels.join(', ')));
+                    }
+                }
+
+                if (!sizeId || !sizeLabel) {
+                    return;
+                }
+                sizeAttributeId = sizeCell.attr('attribute-id');
+                if (!byId[sizeId]) {
+                    byId[sizeId] = {label: sizeLabel, inputs: []};
+                    sizes.push(byId[sizeId]);
+                }
+                if (input.length) {
+                    byId[sizeId].inputs.push(input[0]);
+                }
+            });
+
+            order.addClass('rss-pdp-bulk');
+            order.closest('.product-options-wrapper').addClass('rss-pdp-bulk-options');
+            order.find('.reset-configurablegridview').empty().append($('<button>', {
+                type: 'button',
+                'class': 'rss-pdp-bulk-reset',
+                text: $t('Reset quantities')
+            }));
+
+            if (!sizes.length) {
+                return;
+            }
+
+            toolbar = $('<div>', {'class': 'rss-pdp-bulk-toolbar'}).prependTo(order);
+            $('<div>', {'class': 'rss-pdp-bulk-size-heading'}).append(
+                $('<span>', {text: $t('Select Sizes')})
+            ).appendTo(toolbar);
+            chips = $('<div>', {
+                'class': 'rss-pdp-sizes',
+                role: 'group',
+                'aria-label': $t('Jump to a size quantity')
+            }).appendTo(toolbar);
+            $('<p>', {
+                'class': 'rss-pdp-bulk-hint',
+                text: $t('Choose a size to jump to its quantity. You can order more than one size.')
+            }).appendTo(toolbar);
+
+            order.closest('.product-options-wrapper').find('.bss-hidden .super-attribute-select').filter(function () {
+                return this.id === 'attribute' + sizeAttributeId;
+            }).closest('.bss-hidden').addClass('rss-pdp-bulk-native-size');
+
+            function canOrder(input) {
+                return !input.disabled && !input.readOnly && $(input).is(':visible');
+            }
+
+            function syncChips() {
+                sizes.forEach(function (size) {
+                    var available = size.inputs.filter(canOrder);
+                    var hasQuantity = available.some(function (input) {
+                        return parseFloat(input.value) > 0;
+                    });
+
+                    size.button.prop('disabled', !available.length)
+                        .toggleClass('is-selected', hasQuantity)
+                        .attr('aria-label', (hasQuantity ? $t('Size %1, quantity entered') : $t('Size %1'))
+                            .replace('%1', size.label));
+                });
+            }
+
+            sizes.forEach(function (size) {
+                size.button = $('<button>', {
+                    type: 'button',
+                    'class': 'rss-pdp-size',
+                    text: size.label
+                }).on('click', function () {
+                    var input = size.inputs.filter(canOrder)[0];
+
+                    if (input) {
+                        input.scrollIntoView({block: 'nearest', inline: 'nearest'});
+                        input.focus({preventScroll: true});
+                    }
+                }).appendTo(chips);
+            });
+            // BSS owns quantity validation, totals and cart data. Reflect its existing inputs and reset.
+            order.on('input.rssBulk change.rssBulk', '.qty_att_product', syncChips);
+            order.on('click.rssBulk', '.reset-configurablegridview', syncChips);
+            root.on('contentUpdated.rssBulk', syncChips);
+            syncChips();
+        }
+
         function placeCustomize() {
             root.find('.box-tocart .actions').each(function () {
                 var actions = $(this);
@@ -110,10 +240,19 @@ define(['jquery', 'mage/translate'], function ($, $t) {
             });
         }
 
-        enhanceSizes();
+        function enhanceOptions() {
+            if (root.find('#bss_configurablegridview').length) {
+                enhanceBulkOrder();
+                placeSizeGuide();
+            } else {
+                enhanceSizes();
+            }
+        }
+
+        enhanceOptions();
         placeCustomize();
         root.on('contentUpdated.rssPdp', function () {
-            enhanceSizes();
+            enhanceOptions();
             placeCustomize();
         });
         root.find('.swatch-opt').on('swatch.initialized.rssPdp', placeSizeGuide);
