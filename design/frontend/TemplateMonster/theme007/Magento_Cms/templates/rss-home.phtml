@@ -2,6 +2,7 @@
 /**
  * Rocket Science Sports homepage.
  * M1 navigation: Magento-driven expandable navigation matching Scott's Figma hierarchy.
+ * 2026-11-14: Private Label and Events links target sections on their parent pages.
  */
 
 $sections = [
@@ -13,6 +14,7 @@ $sections = [
 ];
 
 $secondaryGroupIds = [47, 491, 492];
+$parentAnchorIds = [492, 124];
 
 $categoryNodes = [];
 foreach ($block->getCurrentChildCategories() as $storeCategory) {
@@ -39,6 +41,14 @@ $getVisibleChildren = static function ($category) {
     }
 
     return $children;
+};
+
+$getMenuUrl = static function ($category, $anchorParent) use ($block) {
+    if ($anchorParent) {
+        return $block->getCategoryUrl($anchorParent) . '#category-' . (int)$category->getId();
+    }
+
+    return $block->getCategoryUrl($category);
 };
 
 $baseUrl = rtrim($block->getUrl(''), '/') . '/';
@@ -112,6 +122,7 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
             $categoryNode = $categoryNodes[$categoryId] ?? null;
             $children = $getVisibleChildren($categoryNode);
             $usesSecondaryGroups = in_array($categoryId, $secondaryGroupIds, true) && count($children) >= 2;
+            $anchorParent = in_array($categoryId, $parentAnchorIds, true) ? $categoryNode : null;
 
             $toggleId = 'rss-home-nav-toggle-' . $categoryId;
             $panelId = 'rss-home-nav-panel-' . $categoryId;
@@ -168,13 +179,19 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                                      aria-labelledby="<?= $block->escapeHtmlAttr($tabId) ?>"
                                      <?= $index === 0 ? '' : 'hidden' ?>>
                                     <div class="rss-home-nav__tablinks">
+                                        <?php if ($anchorParent): ?>
+                                            <a class="rss-home-nav__tablink"
+                                               href="<?= $block->escapeUrl($getMenuUrl($secondaryCategory, $anchorParent)) ?>">
+                                                <?= $block->escapeHtml(__('View %1', $secondaryCategory->getName())) ?>
+                                            </a>
+                                        <?php endif; ?>
                                         <?php foreach ($secondaryChildren as $secondaryChild): ?>
                                             <?php
                                             $secondaryChildName = (string)$secondaryChild->getName();
                                             $isAction = stripos($secondaryChildName, 'start ') === 0;
                                             ?>
                                             <a class="rss-home-nav__tablink<?= $isAction ? ' rss-home-nav__tablink--action' : '' ?>"
-                                               href="<?= $block->escapeUrl($block->getCategoryUrl($secondaryChild)) ?>">
+                                               href="<?= $block->escapeUrl($getMenuUrl($secondaryChild, $anchorParent)) ?>">
                                                 <?= $block->escapeHtml($secondaryChildName) ?>
                                             </a>
                                         <?php endforeach; ?>
@@ -191,7 +208,7 @@ $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
                                     $isAction = stripos($childName, 'start ') === 0;
                                     ?>
                                     <a class="rss-home-nav__tablink<?= $isAction ? ' rss-home-nav__tablink--action' : '' ?>"
-                                       href="<?= $block->escapeUrl($block->getCategoryUrl($child)) ?>">
+                                       href="<?= $block->escapeUrl($getMenuUrl($child, $anchorParent)) ?>">
                                         <?= $block->escapeHtml($childName) ?>
                                     </a>
                                 <?php endforeach; ?>
