@@ -327,7 +327,16 @@ class DataProcessor extends \Magento\ConfigurableProduct\Helper\Data
                 );
                 $stockStatus = $stockItem->getIsInStock();
                 $backOrder = $stockItem->getBackorders();
-                if ($this->moduleManager->isEnabled('Magento_Inventory')) {
+                $manageStock = $stockItem->getManageStock();
+                if (!$manageStock) {
+                    // RSS 2026-11-14: zero on-hand quantity is valid for unmanaged variants.
+                    $stockId = $stockItem->getStockId();
+                    $salableQty = $stockItem->getQty();
+                    $stockStatus = $product->isSaleable() ? self::IS_IN_STOCK : self::IS_OUT_STOCK;
+                    if ($stockStatus == self::IS_OUT_STOCK && !$helper->isShowConfig('out_stock')) {
+                        continue;
+                    }
+                } elseif ($this->moduleManager->isEnabled('Magento_Inventory')) {
                     $stockId = $this->stockResolver->execute(SalesChannelInterface::TYPE_WEBSITE, $websiteId)->getStockId();
                     $salableQty = ObjectManager::getInstance()->get(GetProductSalableQtyInterface::class)->execute($product->getSku(), $stockId);
                     if ($salableQty <= 0 && !$helper->isShowConfig('out_stock')) {
@@ -350,7 +359,9 @@ class DataProcessor extends \Magento\ConfigurableProduct\Helper\Data
                 $data['stock'] = $this->getStockData($product, $stockItem);
                 $data['stock']['qty'] = $salableQty;
                 $data['stock']['stock_id'] = (string)$stockId;
-                $data['stock']['is_in_stock'] = $this->getStatusSaleableQty($salableQty, $backOrder, $stockStatus);
+                $data['stock']['is_in_stock'] = $manageStock
+                    ? $this->getStatusSaleableQty($salableQty, $backOrder, $stockStatus)
+                    : $stockStatus;
                 $data['product_id'] = $product->getId();
                 $data['preorder'] = '';
                 $data["disable_add_to_cart"] = false;
