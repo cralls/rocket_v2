@@ -1,12 +1,16 @@
-/* RSS 2026-11-14: program menu in the compact storefront header. */
+/* RSS Rev2, 2026-11-21: align the open menu to the full compact header width. */
+.rss-category-topbar {
+  position: relative;
+  z-index: 20;
+}
+
 .rss-subpage-menu-brand {
   align-items: center;
   display: flex;
 }
 
 .rss-subpage-menu {
-  position: relative;
-  z-index: 20;
+  position: static;
 }
 
 .rss-subpage-menu__toggle {
@@ -36,10 +40,18 @@
   overscroll-behavior: contain;
   position: absolute;
   top: 100%;
-  width: min(440px, calc(100vw - 24px));
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.rss-subpage-menu .rss-home-nav { padding: 0 12px; }
+.rss-subpage-menu .rss-home-nav {
+  box-sizing: border-box;
+  margin: 0;
+  max-width: none;
+  padding: 0 12px;
+  width: 100%;
+}
 
 .rss-subpage-menu .rss-home-nav__item {
   align-items: center;
