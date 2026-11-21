@@ -1,17 +1,51 @@
 <?php
-/**
- * Compact footer used on category product-list pages.
- *
+/** RSS Rev2, 2026-11-21: shared full homepage/category/product footer.
  * @var $block \Magento\Framework\View\Element\Template
  */
+$baseUrl = rtrim($block->getUrl(''), '/') . '/';
 $socialsUrl = $block->getViewFileUrl('images/rss/socials.svg');
 ?>
-<div class="rss-category-footer">
-    <p class="rss-category-footer__copyright">
-        <?= $block->escapeHtml(__('© 2004-2026 Rocket Science Sports')) ?><br />
-        <?= $block->escapeHtml(__('All rights reserved.')) ?>
-    </p>
-    <div class="rss-category-footer__socials" aria-label="<?= $block->escapeHtmlAttr(__('Social channels')) ?>">
-        <img src="<?= $block->escapeUrl($socialsUrl) ?>" alt="" width="72" height="20" />
+<div class="rss-full-footer">
+<section class="rss-home-links" aria-label="Company and support links">
+    <div class="rss-home-links__column">
+        <a href="<?= $block->escapeUrl($baseUrl . 'about-us') ?>"><?= $block->escapeHtml(__('Company')) ?></a>
+        <span><?= $block->escapeHtml(__('Careers')) ?></span>
+        <span><?= $block->escapeHtml(__('Latest News')) ?></span>
+        <a href="<?= $block->escapeUrl($baseUrl . 'contact') ?>"><?= $block->escapeHtml(__('Contact Us')) ?></a>
     </div>
+    <div class="rss-home-links__column">
+        <a href="<?= $block->escapeUrl($baseUrl . 'shipping-returns') ?>"><?= $block->escapeHtml(__('Returns')) ?></a>
+        <span><?= $block->escapeHtml(__('FAQ')) ?></span>
+        <span><?= $block->escapeHtml(__('Sizing + Fit')) ?></span>
+        <a href="<?= $block->escapeUrl($baseUrl . 'contact') ?>"><?= $block->escapeHtml(__('Support')) ?></a>
+    </div>
+</section>
+
+<?= $block->getChildHtml('rss.newsletter') ?>
+
+<footer class="rss-home-footer">
+    <div class="rss-home-footer__grid">
+        <nav class="rss-home-footer__policies" aria-label="Policies">
+            <a href="<?= $block->escapeUrl($baseUrl . 'warranty') ?>"><?= $block->escapeHtml(__('Warranty')) ?></a>
+            <a href="<?= $block->escapeUrl($baseUrl . 'tos.html') ?>"><?= $block->escapeHtml(__('Terms')) ?></a>
+            <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy.html') ?>"><?= $block->escapeHtml(__('Privacy')) ?></a>
+            <a href="<?= $block->escapeUrl($baseUrl . 'privacy-policy-cookie-restriction-mode/') ?>" data-rss-cookie-settings><?= $block->escapeHtml(__('Cookies')) ?></a>
+        </nav>
+
+        <address class="rss-home-footer__address">
+            3267 Bee Cave Road<br />
+            Suite 107<br />
+            Austin, Texas 78746<br />
+            USA<br />
+            +1 (512)782-4448
+        </address>
+    </div>
+
+    <div class="rss-home-footer__bottom">
+        <p class="rss-home-footer__copyright">© 2004-2026 Rocket Science Sports<br />All rights reserved.</p>
+        <div class="rss-home-footer__socials" aria-label="Social channels">
+            <img src="<?= $block->escapeUrl($socialsUrl) ?>" alt="" width="72" height="20" />
+        </div>
+    </div>
+</footer>
 </div>

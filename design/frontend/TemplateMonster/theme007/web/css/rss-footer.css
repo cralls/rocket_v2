@@ -1,0 +1,182 @@
+/* RSS Rev1, 2026-11-21: full footer shared across redesigned pages. */
+.rss-full-footer { width: 100%; text-align: left; }
+.rss-full-footer, .rss-full-footer * { box-sizing: border-box; }
+/* Company / help block from Figma. */
+.rss-home-links {
+  background: #f5f5f5;
+  color: #000;
+  display: grid;
+  gap: 25px;
+  grid-template-columns: 1fr 1fr;
+  min-height: 189px;
+  padding: 13px 15px 16px;
+}
+
+.rss-home-links__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.rss-home-links__column a,
+.rss-home-links__column span {
+  color: #000;
+  display: block;
+  font-size: clamp(14px, 4.98vw, 20px);
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.rss-home-links__column a:hover,
+.rss-home-links__column a:focus {
+  color: #000;
+  text-decoration: underline;
+}
+
+/* Figma warranty/address footer. */
+.rss-home-footer {
+  background: #000;
+  color: #fff;
+  min-height: 255px;
+  padding: 19px 15px 24px;
+  width: 100%;
+}
+
+.rss-home-footer__grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.rss-home-footer__policies {
+  display: flex;
+  flex-direction: column;
+}
+
+.rss-home-footer__policies a {
+  color: #fff;
+  font-size: clamp(14px, 4.98vw, 20px);
+  font-weight: 500;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+.rss-home-footer__address {
+  color: #fff;
+  font-size: clamp(10px, 3.48vw, 14px);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px;
+  margin: 0;
+}
+
+.rss-home-footer__address a,
+.rss-home-footer__address a:hover,
+.rss-home-footer__address a:focus,
+.rss-home-footer__address a:active,
+.rss-home-footer__address a[href^="tel:"] {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.rss-home-footer__bottom {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+}
+
+.rss-home-footer__copyright {
+  color: #fff;
+  font-size: clamp(9px, 2.98vw, 12px);
+  font-weight: 500;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.rss-home-footer__socials {
+  align-items: center;
+  display: flex;
+  flex: 0 0 72px;
+  height: 20px;
+  justify-content: flex-end;
+  margin-right: 68px;
+  width: 72px;
+}
+
+.rss-home-footer__socials img {
+  display: block;
+  height: 20px;
+  width: 72px;
+}
+
+
+@media (max-width: 374px) {
+  .rss-home-links { gap: 15px; padding-left: 11px; padding-right: 11px; }
+  .rss-home-footer { padding-left: 11px; padding-right: 11px; }
+  .rss-home-footer__grid { gap: 16px; }
+}
+@media (min-width: 768px) {
+  .rss-home-links {
+    gap: clamp(80px, 10vw, 160px);
+    grid-template-columns: repeat(2, minmax(220px, 320px));
+    justify-content: center;
+    min-height: 0;
+    padding: 22px 30px 26px;
+  }
+
+  .rss-home-links__column a,
+  .rss-home-links__column span {
+    font-size: 16px;
+    line-height: 34px;
+  }
+
+  .rss-home-footer {
+    column-gap: clamp(40px, 7vw, 110px);
+    display: grid;
+    grid-template-columns: minmax(0, 620px) minmax(180px, 280px);
+    justify-content: center;
+    min-height: 220px;
+    padding: 28px 30px 30px;
+  }
+
+  .rss-home-footer__grid {
+    gap: 36px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+
+  .rss-home-footer__policies a {
+    font-size: 16px;
+    line-height: 34px;
+  }
+
+  .rss-home-footer__address {
+    font-size: 12px;
+    line-height: 25px;
+  }
+
+  .rss-home-footer__bottom {
+    align-items: flex-end;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    margin-top: 0;
+    padding: 5px 0;
+  }
+
+  .rss-home-footer__copyright {
+    font-size: 10px;
+    line-height: 1.35;
+    order: 2;
+    text-align: right;
+  }
+
+  .rss-home-footer__socials {
+    order: 1;
+  }
+}
+@media (min-width: 1200px) {
+  .rss-home-footer { column-gap: 120px; grid-template-columns: 620px 280px; }
+}

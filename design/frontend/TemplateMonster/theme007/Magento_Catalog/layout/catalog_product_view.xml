@@ -6,6 +6,7 @@
         <css src="css/rss-product.css"/>
         <css src="css/rss-home-nav.css" />
         <css src="css/rss-subpage-menu.css" />
+        <css src="css/rss-footer.css" />
     </head>
     <body>
         <attribute name="class" value="rss-product-page"/>
@@ -36,6 +37,9 @@
         <move element="product.info.details" destination="content" after="product.info.main"/>
         <referenceBlock name="product.info.sku" remove="true"/>
         <referenceBlock name="product.info.review" remove="true"/>
+        <referenceBlock name="product.attributes" remove="true"/>
+        <referenceBlock name="reviews.tab" remove="true"/>
+        <referenceBlock name="product.review.form" remove="true"/>
         <referenceBlock name="product.info.overview" remove="true"/>
         <referenceBlock name="view.addto.compare" remove="true"/>
         <referenceBlock name="product.info.mailto" remove="true"/>
@@ -54,4 +58,3 @@
         </referenceContainer>
     </body>
 </page>
-

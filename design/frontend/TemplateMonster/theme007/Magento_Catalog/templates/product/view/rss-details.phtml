@@ -1,16 +1,19 @@
 <?php
-/** RSS PDP Rev1, 2026-11-01: open description; retain other product information.
+/** RSS PDP Rev2, 2026-11-21: retain description; omit More Information and Reviews.
  * @var $block \Magento\Catalog\Block\Product\View\Details
  */
 ?>
 <div class="product info detailed rss-pdp-details">
     <?php foreach ($block->getGroupSortedChildNames('detailed_info', 'getChildHtml') as $name): ?>
         <?php
+        $alias = $block->getLayout()->getElementAlias($name);
+        if (in_array($alias, ['additional', 'reviews'], true)) {
+            continue;
+        }
         $html = $block->getLayout()->renderElement($name);
         if (!trim($html)) {
             continue;
         }
-        $alias = $block->getLayout()->getElementAlias($name);
         $title = $block->getChildData($alias, 'title');
         ?>
         <?php if ($alias === 'description'): ?>

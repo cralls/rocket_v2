@@ -355,7 +355,9 @@
 }
 .rss-product-page .box-tocart { margin: 24px 0 0; padding: 0; width: 100%; }
 .rss-product-page .box-tocart > .fieldset { display: block; margin: 0; padding: 0; }
-.rss-product-page .box-tocart .field.qty { margin: 0 0 16px; }
+/* RSS 2026-11-21: use the cart to change retail quantity.
+   Keep Magento's default qty input in the form and the dealer grid inputs visible. */
+.rss-product-page .box-tocart .field.qty { display: none !important; }
 .rss-product-page .box-tocart .field.qty .label { font-size: 14px; margin-right: 12px; }
 .rss-product-page .box-tocart .input-text.qty { border: 1px solid #d9d9d9; border-radius: 0; height: 40px; width: 64px; }
 .rss-product-page .box-tocart .rss-pdp-cart-actions { display: grid; gap: 4px; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; width: 100%; }

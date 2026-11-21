@@ -10,6 +10,7 @@
         <css src="css/rss-category.css" />
         <css src="css/rss-home-nav.css" />
         <css src="css/rss-subpage-menu.css" />
+        <css src="css/rss-footer.css" />
     </head>
     <body>
         <attribute name="class" value="rss-category-page" />
